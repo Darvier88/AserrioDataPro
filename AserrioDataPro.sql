@@ -155,6 +155,8 @@ create table lote_madera(id int primary key auto_increment,
     fecha_llegada date not null,
     foreign key (id_proveedor) references proveedor(cedula),
     foreign key (id_secretaria) references secretaria(id));
+ALTER TABLE lote_madera
+ADD FOREIGN KEY (id_proveedor) references proveedor(cedula);
 create table evaluacion(id int primary key auto_increment,
 	id_proveedor char(10) not null,
 	calidad varchar(10) not null,
@@ -165,13 +167,13 @@ create table tipo_de_madera (id varchar(6) primary key,
 	nombre varchar(30) not null,
     precio_unitario float not null,
     condic_ambiental varchar(20) not null);
-create table especificacion(id_lote int primary key,
-	id_madera varchar(6) primary key,
+create table especificacion(id_lote int,
+	id_madera varchar(6),
     importe int not null,
     cantidad int not null,
+    primary key(id_lote,id_madera),
     foreign key(id_lote) references lote_madera(id),
     foreign key (id_madera) references tipo_de_madera(id));
-
 insert into proveedor
 values ('0901234567','Paul Herrera',0991234567),
 ('0902345678','Antonio Banderas',0982345678),
@@ -182,7 +184,7 @@ values ('0901234567','Paul Herrera',0991234567),
 ('0907890123','Angelica Solano',0937890123),
 ('0908901234','Juan Muñoz',0928901234),
 ('0909012345','Mario Castañeda',0919012345),
-('0900123456','Sofia Murillo', 0909876543);
+('0900123456','Sofia Murillo',0909876543);
 insert into evaluacion (id_proveedor,calidad,puntualidad,detalle)
 values ('0901234567','Baja','Puntual','Se mantuvo en comunicación con el negocio'),
 ('0902345678','Alta','Puntual',null),
@@ -250,7 +252,7 @@ CREATE TABLE Asistente_operario (
 
 CREATE TABLE Maquinaria (
     codigo INT PRIMARY KEY NOT NULL,
-    nombre VARCHAR(20) NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
     marca VARCHAR(20) NOT NULL,
     fecha_adqui DATE NOT NULL
 );
@@ -267,7 +269,7 @@ CREATE TABLE Mantenimiento (
     FOREIGN KEY (ID_secretaria)
         REFERENCES Secretaria (ID),
     FOREIGN KEY (codigo_maquinaria)
-        REFERENCES Maquinaria (codigo_maquinaria)
+        REFERENCES Maquinaria (codigo)
 );
 
 CREATE TABLE Limpieza (
@@ -288,17 +290,20 @@ CREATE TABLE Registro (
     FOREIGN KEY (ID_secretaria)
         REFERENCES Secretaria (ID)
 );
-
+CREATE TABLE Empleado (
+    ID CHAR(10) PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    horaInicio TIME NOT NULL,
+    horaFin TIME NOT NULL,
+    fechaCapacitacion DATE,
+    tipoCapacitacion VARCHAR(50)
+);
 CREATE TABLE Rol_de_pagos (
-    ID INT PRIMARY KEY,
+    ID INT AUTO_INCREMENT PRIMARY KEY,
     ID_empleado CHAR(10) NOT NULL,
     rol ENUM('A', 'S', 'O') NOT NULL,
     FOREIGN KEY (ID_empleado)
-        REFERENCES Secretaria (ID),
-    FOREIGN KEY (ID_empleado)
-        REFERENCES Operario (ID),
-    FOREIGN KEY (ID_empleado)
-        REFERENCES Asistente_operario (ID),
+        REFERENCES Empleado(ID),
     dias_laborados INT NOT NULL,
     sueldo FLOAT NOT NULL,
     horas_extras FLOAT,
@@ -308,7 +313,7 @@ CREATE TABLE Rol_de_pagos (
     total_egresos FLOAT NOT NULL,
     liquido_a_recibir FLOAT NOT NULL
 );
-
+DROP TABLE Rol_de_pagos;
 INSERT INTO Operario (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion) VALUES
 ('0943671209', 'Juan Pérez', '08:00:00', '17:00:00', '2024-03-15', 'Seguridad'),
 ('0923456789', 'Ana Gómez', '09:00:00', '18:00:00', '2024-04-10', 'Mantenimiento'),
@@ -380,16 +385,54 @@ INSERT INTO Registro (ID_asistente, ID_limpieza, ID_secretaria, fecha) VALUES
 ('0978901245', 8, '0708901234', '2024-08-20'),
 ('0989012356', 9, '0709012345', '2024-09-10'),
 ('0990123467', 10, '0710123456', '2024-10-05');
+INSERT INTO Empleado (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion) VALUES
+-- Secretarias
+('0701234567', 'Ana Pérez', '08:00:00', '17:00:00', '2023-01-15', 'Secretaria'),
+('0702345678', 'María López', '08:30:00', '17:30:00', NULL, NULL),
+('0703456789', 'Luisa Gómez', '09:00:00', '18:00:00', '2023-03-25', 'Secretaria'),
+('0704567890', 'Carmen Rodríguez', '08:15:00', '17:15:00', NULL, NULL),
+('0705678901', 'Sofía Torres', '08:45:00', '17:45:00', '2023-05-10', 'Secretaria'),
+('0706789012', 'Laura Fernández', '09:15:00', '18:15:00', NULL, NULL),
+('0707890123', 'Clara García', '08:30:00', '17:30:00', '2023-07-15', 'Secretaria'),
+('0708901234', 'Elena Martínez', '08:00:00', '17:00:00', NULL, NULL),
+('0709012345', 'Isabel Ramírez', '09:00:00', '18:00:00', '2023-09-05', 'Secretaria'),
+('0710123456', 'Marta Jiménez', '08:15:00', '17:15:00', NULL, NULL),
 
-INSERT INTO Rol_de_pagos (ID, ID_empleado, rol, dias_laborados, sueldo, horas_extras, total_ingresos, egreso_IESS, anticipos, total_egresos, liquido_a_recibir) VALUES
-(1, '0701234567', 'S', 22, 1500.00, 50.00, 1550.00, 100.00, 0.00, 100.00, 1450.00),
-(2, '0943671209', 'O', 20, 1800.00, 75.00, 1875.00, 120.00, 50.00, 170.00, 1705.00),
-(3, '0934567890', 'A', 18, 1600.00, 40.00, 1640.00, 110.00, 20.00, 130.00, 1510.00),
-(4, '0702345678', 'S', 23, 1550.00, 60.00, 1610.00, 105.00, 10.00, 115.00, 1495.00),
-(5, '0945789012', 'O', 21, 1750.00, 80.00, 1830.00, 115.00, 60.00, 175.00, 1655.00),
-(6, '0935678901', 'A', 19, 1650.00, 45.00, 1695.00, 115.00, 25.00, 140.00, 1555.00),
-(7, '0703456789', 'S', 20, 1500.00, 55.00, 1555.00, 100.00, 30.00, 130.00, 1425.00),
-(8, '0946789012', 'O', 22, 1850.00, 90.00, 1940.00, 125.00, 40.00, 185.00, 1755.00),
-(9, '0936789012', 'A', 17, 1580.00, 35.00, 1615.00, 105.00, 15.00, 120.00, 1495.00),
-(10, '0704567890', 'S', 21, 1520.00, 60.00, 1580.00, 110.00, 20.00, 130.00, 1450.00);
+-- Operarios
+('0943671209', 'Juan Pérez', '08:00:00', '17:00:00', '2024-03-15', 'Seguridad'),
+('0923456789', 'Ana Gómez', '09:00:00', '18:00:00', '2024-04-10', 'Mantenimiento'),
+('0934567890', 'Luis Fernández', '07:30:00', '16:30:00', '2024-02-20', 'Seguridad'),
+('0912345678', 'Laura Martínez', '10:00:00', '19:00:00', '2024-05-05', 'Higiene'),
+('0945678901', 'Carlos Rodríguez', '08:30:00', '17:30:00', '2024-06-12', 'Mantenimiento'),
+('0956789012', 'María López', '07:45:00', '16:45:00', '2024-07-22', 'Seguridad'),
+('0967890123', 'José García', '09:15:00', '18:15:00', '2024-08-30', 'Higiene'),
+('0978901234', 'Patricia Romero', '08:00:00', '17:00:00', '2024-09-14', 'Mantenimiento'),
+('0989012345', 'Alejandro Díaz', '09:30:00', '18:30:00', '2024-10-10', 'Seguridad'),
+('0990123456', 'Claudia Jiménez', '07:00:00', '16:00:00', '2024-11-01', 'Higiene'),
+
+-- Asistentes de operarios
+('0943671210', 'Pedro Alvarez', '08:00:00', '17:00:00', '2024-03-10', 'Operativo'),
+('0923456790', 'Sofia Rivas', '09:00:00', '18:00:00', '2024-04-05', 'Administrativo'),
+('0934567801', 'Daniela Soto', '07:30:00', '16:30:00', '2024-02-25', 'Operativo'),
+('0912345689', 'Gabriel Salgado', '10:00:00', '19:00:00', '2024-05-12', 'Técnico'),
+('0945678912', 'Julia Romero', '08:30:00', '17:30:00', '2024-06-15', 'Administrativo'),
+('0956789023', 'Raúl Mendoza', '07:45:00', '16:45:00', '2024-07-20', 'Operativo'),
+('0967890134', 'Valeria Cruz', '09:15:00', '18:15:00', '2024-08-25', 'Técnico'),
+('0978901245', 'Andrés López', '08:00:00', '17:00:00', '2024-09-05', 'Administrativo'),
+('0989012356', 'Mónica Guzmán', '09:30:00', '18:30:00', '2024-10-12', 'Operativo'),
+('0990123467', 'Fernando Cordero', '07:00:00', '16:00:00', '2024-11-10', 'Técnico');
+
+INSERT INTO Rol_de_pagos (ID_empleado, rol, dias_laborados, sueldo, horas_extras, total_ingresos, egreso_IESS, anticipos, total_egresos, liquido_a_recibir) VALUES
+('0702345678', 'S', 22, 1500.00, 50.00, 1550.00, 100.00, 0.00, 100.00, 1450.00),
+('0703456789', 'S', 23, 1550.00, 60.00, 1610.00, 105.00, 10.00, 115.00, 1495.00),
+('0912345678', 'O', 20, 1800.00, 75.00, 1875.00, 120.00, 50.00, 170.00, 1705.00),
+('0923456789', 'O', 21, 1850.00, 80.00, 1930.00, 125.00, 55.00, 180.00, 1750.00),
+('0934567890', 'O', 22, 1900.00, 85.00, 1985.00, 130.00, 60.00, 190.00, 1795.00),
+('0912345689', 'A', 30, 2300.00, 125.00, 2425.00, 170.00, 100.00, 270.00, 2155.00),
+('0923456790', 'A', 31, 2350.00, 130.00, 2480.00, 175.00, 105.00, 280.00, 2200.00),
+('0704567890', 'S', 20, 1500.00, 55.00, 1555.00, 100.00, 30.00, 130.00, 1425.00),
+('0943671209', 'O', 23, 1950.00, 90.00, 2040.00, 135.00, 65.00, 200.00, 1840.00),
+('0934567801', 'A', 32, 2400.00, 135.00, 2535.00, 180.00, 110.00, 290.00, 2245.00);
+
+
 
