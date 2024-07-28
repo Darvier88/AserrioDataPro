@@ -3,7 +3,7 @@ USE AserrioDataPro;
 
 /*Tablas de la seccion de ventas*/
 CREATE TABLE Cliente(
-	cedula varchar(13) PRIMARY KEY NOT NULL ,
+	cedula varchar(13) PRIMARY KEY NOT NUlL ,
     nombre varchar(30) NOT NULL,
     direccion varchar(100) NOT NULL,
     num_contacto int ,
@@ -21,7 +21,7 @@ CREATE TABLE Producto(
     descripcion varchar(100)
 );
 CREATE TABLE Secretaria(
-	ID char(10) PRIMARY KEY NOT NULL,
+	ID char(10) PRIMARY KEY,
     nombre varchar(40) NOT NULL,
     horaInicio Time NOT NULL,
     horaFine Time NOT NULL,
@@ -62,7 +62,6 @@ CREATE TABLE Reclamacion(
     FOREIGN KEY (ID_secretaria) REFERENCES Secretaria(ID),
     FOREIGN KEY (ID_cliente) REFERENCES Cliente(cedula)
 );
-DROP TABLE Reclamacion;
 /*Inserciones*/
 /*Consumidor final*/
 INSERT INTO Cliente (cedula, nombre, direccion,correo_contacto) 
@@ -228,4 +227,169 @@ values(1, 'TSO01', 500, 10),
 (8, 'TSO08', 850, 17),
 (9, 'TSO09', 750, 15),
 (10, 'TSO10', 900, 18);
+
+-- Creacion de tablas, sección empleados
+
+CREATE TABLE Operario (
+    ID CHAR(10) PRIMARY KEY,
+    nombre VARCHAR(40) NOT NULL,
+    horaInicio TIME NOT NULL,
+    horaFin TIME NOT NULL,
+    fechaCapacitacion DATE,
+    tipoCapacitacion VARCHAR(20)
+);
+
+CREATE TABLE Asistente_operario (
+    ID CHAR(10) PRIMARY KEY,
+    nombre VARCHAR(40) NOT NULL,
+    horaInicio TIME NOT NULL,
+    horaFin TIME NOT NULL,
+    fechaCapacitacion DATE,
+    tipoCapacitacion VARCHAR(20)
+);
+
+CREATE TABLE Maquinaria (
+    codigo INT PRIMARY KEY NOT NULL,
+    nombre VARCHAR(20) NOT NULL,
+    marca VARCHAR(20) NOT NULL,
+    fecha_adqui DATE NOT NULL
+);
+
+CREATE TABLE Mantenimiento (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    ID_operario CHAR(10) NOT NULL,
+    codigo_maquinaria INT,
+    ID_secretaria CHAR(10) NOT NULL,
+    detalles VARCHAR(100),
+    fecha DATE NOT NULL,
+    FOREIGN KEY (ID_operario)
+        REFERENCES Operario (ID),
+    FOREIGN KEY (ID_secretaria)
+        REFERENCES Secretaria (ID),
+    FOREIGN KEY (codigo_maquinaria)
+        REFERENCES Maquinaria (codigo_maquinaria)
+);
+
+CREATE TABLE Limpieza (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    lugar VARCHAR(30) NOT NULL
+);
+	
+CREATE TABLE Registro (
+    ID_asistente CHAR(10) ,
+    ID_limpieza INT,
+    ID_secretaria CHAR(10) NOT NULL,
+    fecha DATE NOT NULL,
+	PRIMARY KEY (ID_asistente, ID_limpieza),
+    FOREIGN KEY (ID_asistente)
+        REFERENCES Asistente_operario (ID),
+    FOREIGN KEY (ID_limpieza)
+        REFERENCES Limpieza (ID),
+    FOREIGN KEY (ID_secretaria)
+        REFERENCES Secretaria (ID)
+);
+
+CREATE TABLE Rol_de_pagos (
+    ID INT PRIMARY KEY,
+    ID_empleado CHAR(10) NOT NULL,
+    rol ENUM('A', 'S', 'O') NOT NULL,
+    FOREIGN KEY (ID_empleado)
+        REFERENCES Secretaria (ID),
+    FOREIGN KEY (ID_empleado)
+        REFERENCES Operario (ID),
+    FOREIGN KEY (ID_empleado)
+        REFERENCES Asistente_operario (ID),
+    dias_laborados INT NOT NULL,
+    sueldo FLOAT NOT NULL,
+    horas_extras FLOAT,
+    total_ingresos FLOAT NOT NULL,
+    egreso_IESS FLOAT NOT NULL,
+    anticipos FLOAT,
+    total_egresos FLOAT NOT NULL,
+    liquido_a_recibir FLOAT NOT NULL
+);
+
+INSERT INTO Operario (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion) VALUES
+('0943671209', 'Juan Pérez', '08:00:00', '17:00:00', '2024-03-15', 'Seguridad'),
+('0923456789', 'Ana Gómez', '09:00:00', '18:00:00', '2024-04-10', 'Mantenimiento'),
+('0934567890', 'Luis Fernández', '07:30:00', '16:30:00', '2024-02-20', 'Seguridad'),
+('0912345678', 'Laura Martínez', '10:00:00', '19:00:00', '2024-05-05', 'Higiene'),
+('0945678901', 'Carlos Rodríguez', '08:30:00', '17:30:00', '2024-06-12', 'Mantenimiento'),
+('0956789012', 'María López', '07:45:00', '16:45:00', '2024-07-22', 'Seguridad'),
+('0967890123', 'José García', '09:15:00', '18:15:00', '2024-08-30', 'Higiene'),
+('0978901234', 'Patricia Romero', '08:00:00', '17:00:00', '2024-09-14', 'Mantenimiento'),
+('0989012345', 'Alejandro Díaz', '09:30:00', '18:30:00', '2024-10-10', 'Seguridad'),
+('0990123456', 'Claudia Jiménez', '07:00:00', '16:00:00', '2024-11-01', 'Higiene');
+
+INSERT INTO Asistente_operario (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion) VALUES
+('0943671210', 'Pedro Alvarez', '08:00:00', '17:00:00', '2024-03-10', 'Operativo'),
+('0923456790', 'Sofia Rivas', '09:00:00', '18:00:00', '2024-04-05', 'Administrativo'),
+('0934567801', 'Daniela Soto', '07:30:00', '16:30:00', '2024-02-25', 'Operativo'),
+('0912345689', 'Gabriel Salgado', '10:00:00', '19:00:00', '2024-05-12', 'Técnico'),
+('0945678912', 'Julia Romero', '08:30:00', '17:30:00', '2024-06-15', 'Administrativo'),
+('0956789023', 'Raúl Mendoza', '07:45:00', '16:45:00', '2024-07-20', 'Operativo'),
+('0967890134', 'Valeria Cruz', '09:15:00', '18:15:00', '2024-08-25', 'Técnico'),
+('0978901245', 'Andrés López', '08:00:00', '17:00:00', '2024-09-05', 'Administrativo'),
+('0989012356', 'Mónica Guzmán', '09:30:00', '18:30:00', '2024-10-12', 'Operativo'),
+('0990123467', 'Fernando Cordero', '07:00:00', '16:00:00', '2024-11-10', 'Técnico');
+
+INSERT INTO Maquinaria (codigo, nombre, marca, fecha_adqui) VALUES
+(1001, 'Sierra Circular', 'Bosch', '2022-01-15'),
+(1002, 'Sierra de Banda', 'Makita', '2021-03-22'),
+(1003, 'Cepillo', 'DeWalt', '2020-07-10'),
+(1004, 'Lijadora de Banda', 'Festool', '2023-02-18'),
+(1005, 'Cortadora de Madera', 'Metabo', '2021-09-05'),
+(1006, 'Trituradora de Residuos', 'Hitachi', '2022-11-30'),
+(1007, 'Escuadradora', 'Husqvarna', '2023-06-25'),
+(1008, 'Fresadora', 'Delta', '2021-04-14'),
+(1009, 'Compresora de Aire', 'Ingersoll Rand', '2022-08-19'),
+(1010, 'Sierra de Mesa', 'Black & Decker', '2023-01-12');
+
+INSERT INTO Mantenimiento (ID, ID_operario, codigo_maquinaria, ID_secretaria, detalles, fecha) VALUES
+(0, '0943671209', 1001, '0701234567', 'Cambio de hoja de sierra', '2024-01-15'),
+(0, '0923456789', 1002, '0702345678', 'Ajuste de tensión de banda', '2024-02-20'),
+(0, '0934567890', 1003, '0703456789', 'Mantenimiento preventivo', '2024-03-10'),
+(0, '0912345678', 1004, '0704567890', 'Reemplazo de lijas', '2024-04-22'),
+(0, '0945678901', 1005, '0705678901', 'Revisión de corte', '2024-05-18'),
+(0, '0956789012', 1006, '0706789012', 'Desatasco de trituradora', '2024-06-30'),
+(0, '0967890123', 1007, '0707890123', 'Calibración de escuadradora', '2024-07-15'),
+(0, '0978901234', 1008, '0708901234', 'Reemplazo de broca', '2024-08-20'),
+(0, '0989012345', 1009, '0709012345', 'Cambio de filtro de aire', '2024-09-10'),
+(0, '0990123456', 1010, '0710123456', 'Ajuste de mesa de sierra', '2024-10-05');
+
+INSERT INTO Limpieza (lugar) VALUES
+('Área de Corte'),
+('Zona de Despacho'),
+('Almacén de Madera'),
+('Oficina Administrativa'),
+('Sala de Máquinas'),
+('Pasillos de Almacenamiento'),
+('Área de Mantenimiento'),
+('Zona de Reciclaje'),
+('Área de Recepción'),
+('Baños');
+
+INSERT INTO Registro (ID_asistente, ID_limpieza, ID_secretaria, fecha) VALUES
+('0943671210', 1, '0701234567', '2024-01-15'),
+('0923456790', 2, '0702345678', '2024-02-20'),
+('0934567801', 3, '0703456789', '2024-03-10'),
+('0912345689', 4, '0704567890', '2024-04-22'),
+('0945678912', 5, '0705678901', '2024-05-18'),
+('0956789023', 6, '0706789012', '2024-06-30'),
+('0967890134', 7, '0707890123', '2024-07-15'),
+('0978901245', 8, '0708901234', '2024-08-20'),
+('0989012356', 9, '0709012345', '2024-09-10'),
+('0990123467', 10, '0710123456', '2024-10-05');
+
+INSERT INTO Rol_de_pagos (ID, ID_empleado, rol, dias_laborados, sueldo, horas_extras, total_ingresos, egreso_IESS, anticipos, total_egresos, liquido_a_recibir) VALUES
+(1, '0701234567', 'S', 22, 1500.00, 50.00, 1550.00, 100.00, 0.00, 100.00, 1450.00),
+(2, '0943671209', 'O', 20, 1800.00, 75.00, 1875.00, 120.00, 50.00, 170.00, 1705.00),
+(3, '0934567890', 'A', 18, 1600.00, 40.00, 1640.00, 110.00, 20.00, 130.00, 1510.00),
+(4, '0702345678', 'S', 23, 1550.00, 60.00, 1610.00, 105.00, 10.00, 115.00, 1495.00),
+(5, '0945789012', 'O', 21, 1750.00, 80.00, 1830.00, 115.00, 60.00, 175.00, 1655.00),
+(6, '0935678901', 'A', 19, 1650.00, 45.00, 1695.00, 115.00, 25.00, 140.00, 1555.00),
+(7, '0703456789', 'S', 20, 1500.00, 55.00, 1555.00, 100.00, 30.00, 130.00, 1425.00),
+(8, '0946789012', 'O', 22, 1850.00, 90.00, 1940.00, 125.00, 40.00, 185.00, 1755.00),
+(9, '0936789012', 'A', 17, 1580.00, 35.00, 1615.00, 105.00, 15.00, 120.00, 1495.00),
+(10, '0704567890', 'S', 21, 1520.00, 60.00, 1580.00, 110.00, 20.00, 130.00, 1450.00);
 
