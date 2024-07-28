@@ -173,16 +173,16 @@ create table especificacion(id_lote int primary key,
     foreign key (id_madera) references tipo_de_madera(id));
 
 insert into proveedor
-values ('0901234567','Paul Herrera','0991234567'),
-('0902345678','Antonio Banderas','0982345678'),
-('0903456789','Andrea Viteri','0973456789'),
-('0904567890','Saúl Bonilla','0964567890'),
-('0905678901','Carlos Morales','0955678901'),
-('0906789012','Fabricio Morales','0946789012'),
-('0907890123','Angelica Solano','0937890123'),
-('0908901234','Juan Muñoz','0928901234'),
-('0909012345','Mario Castañeda','0919012345'),
-('0900123456','Sofia Murillo', '0909876543');
+values ('0901234567','Paul Herrera',0991234567),
+('0902345678','Antonio Banderas',0982345678),
+('0903456789','Andrea Viteri',0973456789),
+('0904567890','Saúl Bonilla',0964567890),
+('0905678901','Carlos Morales',0955678901),
+('0906789012','Fabricio Morales',0946789012),
+('0907890123','Angelica Solano',0937890123),
+('0908901234','Juan Muñoz',0928901234),
+('0909012345','Mario Castañeda',0919012345),
+('0900123456','Sofia Murillo', 0909876543);
 insert into evaluacion (id_proveedor,calidad,puntualidad,detalle)
 values ('0901234567','Baja','Puntual','Se mantuvo en comunicación con el negocio'),
 ('0902345678','Alta','Puntual',null),
