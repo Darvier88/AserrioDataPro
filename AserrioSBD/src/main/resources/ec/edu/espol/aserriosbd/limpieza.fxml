@@ -24,10 +24,11 @@
                   <Font size="23.0" />
                </font>
             </Text>
-            <TableView fx:id="tableLimpieza" prefHeight="200.0" prefWidth="200.0">
+            <TableView fx:id="tableLimpieza" maxWidth="-Infinity" prefHeight="185.0" prefWidth="569.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="idAsistenteColumn" prefWidth="168.0" text="ID Asistente Operario" />
+                <TableColumn fx:id="LugarColumn" minWidth="0.0" prefWidth="261.0" text="Lugar" />
+                <TableColumn fx:id="FechaColumn" prefWidth="139.0" text="Fecha" />
               </columns>
             </TableView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
@@ -38,6 +39,11 @@
                      </font>
                   </Button>
                   <Button mnemonicParsing="false" onContextMenuRequested="#irLimpieza" prefHeight="48.0" prefWidth="171.0" style="-fx-background-radius: 25;" text="Eliminar Registro">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button mnemonicParsing="false" onContextMenuRequested="#irLimpieza" prefHeight="48.0" prefWidth="171.0" style="-fx-background-radius: 25;" text="Modificar Registro">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

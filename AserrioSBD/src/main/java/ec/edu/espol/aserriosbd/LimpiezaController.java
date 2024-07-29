@@ -5,11 +5,14 @@
 package ec.edu.espol.aserriosbd;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -20,14 +23,24 @@ import javafx.scene.input.MouseEvent;
 public class LimpiezaController implements Initializable {
 
     @FXML
-    private TableView<?> tableLimpieza;
+    private TableColumn<Limpieza, Integer> idAsistenteColumn;
+    @FXML
+    private TableColumn<Limpieza, String> LugarColumn;
+    @FXML
+    private TableColumn<Limpieza, Date> FechaColumn;
+    @FXML
+    private TableView<Limpieza> tableLimpieza;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        idAsistenteColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        LugarColumn.setCellValueFactory(new PropertyValueFactory<>("lugar"));
+        FechaColumn.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+
+        tableLimpieza.setItems(LimpiezaDAO.getLimpiezaList());
     }    
 
     @FXML
