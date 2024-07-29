@@ -4,11 +4,13 @@
  */
 package ec.edu.espol.aserriosbd;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -25,12 +27,19 @@ public class InicioController implements Initializable {
         // TODO
     }    
 
+
     @FXML
-    private void irLimpieza(ContextMenuEvent event) {
+    private void irLimpieza(MouseEvent event) {
+        try {
+            App.setRoot("maquinaria");
+        } catch (IOException ex) { 
+        }
     }
 
     @FXML
-    private void irMantenimiento(ContextMenuEvent event) {
+    private void irMantenimiento(MouseEvent event) {
     }
+
+  
     
 }

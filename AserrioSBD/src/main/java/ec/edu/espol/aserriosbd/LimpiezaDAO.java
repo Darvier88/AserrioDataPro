@@ -41,5 +41,29 @@ public class LimpiezaDAO {
         }
         return limpiezaList;
     }
+    
+    public static ObservableList<Maquinaria> getMaquinariaList() {
+        ObservableList<Maquinaria> maquinariaList = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getConnection();
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM maquinarias");
+
+            while (resultSet.next()) {
+                Maquinaria maquinaria = new Maquinaria(
+                        resultSet.getInt("codigo"),
+                        resultSet.getString("nombre"),
+                        resultSet.getString("marca"),
+                        resultSet.getDate("fecha")
+                );
+                maquinariaList.add(maquinaria);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return maquinariaList;
+    }
 }
 

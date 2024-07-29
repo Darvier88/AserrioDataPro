@@ -25,12 +25,12 @@
                   <Insets top="-30.0" />
                </VBox.margin>
             </Text>
-            <Button mnemonicParsing="false" onContextMenuRequested="#irLimpieza" prefHeight="48.0" prefWidth="171.0" style="-fx-background-radius: 25;" text="Registro de Limpieza">
+            <Button mnemonicParsing="false" onContextMenuRequested="#irMantenimiento" onMouseClicked="#irLimpieza" prefHeight="48.0" prefWidth="171.0" style="-fx-background-radius: 25;" text="Registro de Limpieza">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onContextMenuRequested="#irMantenimiento" prefHeight="54.0" prefWidth="173.0" style="-fx-background-radius: 25;" text="Registro de Mantenimiento">
+            <Button mnemonicParsing="false" onMouseClicked="#irMantenimiento" prefHeight="54.0" prefWidth="173.0" style="-fx-background-radius: 25;" text="Registro de Mantenimiento">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
