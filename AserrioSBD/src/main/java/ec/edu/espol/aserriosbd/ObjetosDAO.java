@@ -18,7 +18,7 @@ import java.sql.Date;
  */
 
 
-public class LimpiezaDAO {
+public class ObjetosDAO {
     public static ObservableList<Limpieza> getLimpiezaList() {
         ObservableList<Limpieza> limpiezaList = FXCollections.observableArrayList();
         Connection connection = DatabaseConnection.getConnection();
@@ -48,7 +48,7 @@ public class LimpiezaDAO {
 
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM maquinarias");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM maquinaria");
 
             while (resultSet.next()) {
                 Maquinaria maquinaria = new Maquinaria(
@@ -64,6 +64,34 @@ public class LimpiezaDAO {
             e.printStackTrace();
         }
         return maquinariaList;
+    }
+    
+    public static ObservableList<Producto> getProductoList() {
+        ObservableList<Producto> productoList = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getConnection();
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM producto");
+
+            while (resultSet.next()) {
+                Producto producto = new Producto(
+                        resultSet.getString("ID"),
+                        resultSet.getString("nombre"),
+                        resultSet.getFloat("precioUnitario"),
+                        resultSet.getString("calidad"),
+                        resultSet.getString("condic_ambiental"),
+                        resultSet.getInt("tiempo_almacenamiento"),
+                        resultSet.getString("dimension"),
+                        resultSet.getString("descripcion")
+                );
+                productoList.add(producto);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productoList;
     }
 }
 

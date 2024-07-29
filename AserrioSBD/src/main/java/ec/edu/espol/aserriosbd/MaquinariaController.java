@@ -44,7 +44,7 @@ public class MaquinariaController implements Initializable {
         marcaColumn.setCellValueFactory(new PropertyValueFactory<>("marca"));
         fechaColumn.setCellValueFactory(new PropertyValueFactory<>("fecha"));
 
-        tableMaquinarias.setItems(LimpiezaDAO.getMaquinariaList());
+        tableMaquinarias.setItems(ObjetosDAO.getMaquinariaList());
     }    
 
     @FXML

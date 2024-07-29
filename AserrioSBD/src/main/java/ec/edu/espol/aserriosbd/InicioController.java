@@ -27,9 +27,8 @@ public class InicioController implements Initializable {
         // TODO
     }    
 
-
     @FXML
-    private void irLimpieza(MouseEvent event) {
+    private void irMaquinaria(MouseEvent event) {
         try {
             App.setRoot("maquinaria");
         } catch (IOException ex) { 
@@ -37,8 +36,15 @@ public class InicioController implements Initializable {
     }
 
     @FXML
-    private void irMantenimiento(MouseEvent event) {
+    private void irProducto(MouseEvent event) {
+        try {
+            App.setRoot("producto");
+        } catch (IOException ex) { 
+        }
     }
+
+
+    
 
   
     

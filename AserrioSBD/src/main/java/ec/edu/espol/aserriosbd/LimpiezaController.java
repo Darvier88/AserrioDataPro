@@ -40,7 +40,7 @@ public class LimpiezaController implements Initializable {
         LugarColumn.setCellValueFactory(new PropertyValueFactory<>("lugar"));
         FechaColumn.setCellValueFactory(new PropertyValueFactory<>("fecha"));
 
-        tableLimpieza.setItems(LimpiezaDAO.getLimpiezaList());
+        tableLimpieza.setItems(ObjetosDAO.getLimpiezaList());
     }    
 
     @FXML
