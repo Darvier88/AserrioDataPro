@@ -55,7 +55,7 @@ public class ObjetosDAO {
                         resultSet.getInt("codigo"),
                         resultSet.getString("nombre"),
                         resultSet.getString("marca"),
-                        resultSet.getDate("fecha")
+                        resultSet.getDate("fecha_adqui")
                 );
                 maquinariaList.add(maquinaria);
             }
