@@ -64,7 +64,7 @@
             </Text>
             <Button mnemonicParsing="false" onMouseClicked="#regresar" style="-fx-background-color: rgb(7, 97, 253);">
                <graphic>
-                  <ImageView fitHeight="28.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                   <ImageView fitHeight="28.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../imagenes/PngItem_3360659.png" />
                      </image>

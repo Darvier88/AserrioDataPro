@@ -43,15 +43,15 @@ public class AñadirClienteController implements Initializable {
     }    
 
     private boolean insertarClienteEnBD(Cliente cliente) {
-    String sql = "INSERT INTO Cliente (cedula, nombre, direccion, num_contacto, correo_contacto) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Cliente (cedula, nombre, direccion, num_contacto, correo_contacto) VALUES (?, ?, ?, ?, ?)";
 
-    try (Connection conn = DatabaseConnection.getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
         // Configurar los parámetros del PreparedStatement
-        pstmt.setString(1, cliente.getCedula());
-        pstmt.setString(2, cliente.getNombre());
-        pstmt.setString(3, cliente.getDireccion());
+            pstmt.setString(1, cliente.getCedula());
+            pstmt.setString(2, cliente.getNombre());
+            pstmt.setString(3, cliente.getDireccion());
 
         // Manejo de nulos para enteros
         if (cliente.getNumContacto() == null) {
@@ -60,18 +60,17 @@ public class AñadirClienteController implements Initializable {
             pstmt.setInt(4, cliente.getNumContacto());
         }
 
-        pstmt.setString(5, cliente.getCorreoContacto());
+            pstmt.setString(5, cliente.getCorreoContacto());
 
         // Ejecutar la actualización
         int rowsAffected = pstmt.executeUpdate();
         return rowsAffected > 0;  // Verifica si se insertó al menos una fila
 
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
-}
-
 
     private void mostrarError(String mensaje) {
         // Mostrar un mensaje de error (por ejemplo, usando un Alert de JavaFX)
