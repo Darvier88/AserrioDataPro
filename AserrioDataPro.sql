@@ -240,7 +240,6 @@ CREATE TABLE Operario (
     fechaCapacitacion DATE,
     tipoCapacitacion VARCHAR(20)
 );
-
 CREATE TABLE Asistente_operario (
     ID CHAR(10) PRIMARY KEY,
     nombre VARCHAR(40) NOT NULL,

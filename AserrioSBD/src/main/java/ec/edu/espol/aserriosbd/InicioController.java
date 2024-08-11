@@ -43,6 +43,14 @@ public class InicioController implements Initializable {
         }
     }
 
+    @FXML
+    private void irCliente(MouseEvent event) {
+        try {
+            App.setRoot("cliente");
+        } catch (IOException ex) { 
+        }
+    }
+
 
     
 
