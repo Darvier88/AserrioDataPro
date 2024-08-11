@@ -229,6 +229,69 @@ values(1, 'TSO01', 500, 10),
 (8, 'TSO08', 850, 17),
 (9, 'TSO09', 750, 15),
 (10, 'TSO10', 900, 18);
+-- CRUD 
+-- 1) Especificación
+insert into especificacion
+values(11, 'TSO11', 400, 30),
+(10, 'TSO07', 100, 5);
+update especificacion
+set cantidad = 20,importe = 1000
+where id_lote=1;
+delete from especificacion
+where id_lote=8;
+-- Buscar las especificaciones donde se haya comprado más de 15 cantidades
+select id_lote,id_madera,importe
+from especificacion
+where cantidad >15;
+-- 2) Tipo de madera
+insert into tipo_de_madera
+values('TSO11', 'Zebrano', 12.50, 'Tropical');
+update tipo_de_madera
+set precio_unitario=15.00
+where id='TSO03';
+delete from tipo_de_madera
+where id ='TSO08';
+-- Buscar la madera que tiene como condición ambiental un clima tropical
+select id,nombre
+from tipo_de_madera
+where condic_ambiental='Tropical';
+-- 3) Evaluación
+insert into evaluacion (id_proveedor,calidad,puntualidad,detalle)
+values ('0909012345','Media','Puntual',null);
+update evaluacion
+set detalle = 'Su calidad fue mejor de lo esperado'
+where id=10;
+delete from evaluacion
+where id=7;
+-- Buscar las evaluaciones del proveedor con la cedula sea 0901234567
+select id,calidad,puntualidad,detalle
+from evaluacion
+where id_proveedor='0901234567';
+-- 4)Lote madera
+insert into lote_madera (id_proveedor,id_secretaria,precio,fecha_llegada)
+values('0903456789', '0707890123', 2000.50, '2024-11-03');
+update lote_madera
+set precio = 2200.50
+where id =2;
+delete from lote_madera
+where id= 8;
+-- Buscar el lote de madera más caro y cuando llegó
+select id,precio,fecha_llegada
+from lote_madera
+order by precio desc
+limit 1; 
+-- 5) Proveedor
+insert into proveedor
+values ('0922443789','Patricio Macias',0934567890);
+update proveedor
+set telefono=0987236541
+where cedula='0905678901';
+delete from proveedor
+where cedula= '0907890123';
+-- Buscar los proveedores que tengan un apellido que comience con M
+select nombre 
+from proveedor
+where nombre like '% M%';
 
 -- Creacion de tablas, sección empleados
 
