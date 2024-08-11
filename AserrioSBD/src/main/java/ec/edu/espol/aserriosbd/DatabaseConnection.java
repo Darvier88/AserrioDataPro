@@ -1,0 +1,30 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package ec.edu.espol.aserriosbd;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+/**
+ *
+ * @author nicol
+ */
+public class DatabaseConnection {
+    private static final String URL = "jdbc:mysql://project-sbd.mysql.database.azure.com:3306/AserrioDataPro";
+    private static final String USER = "proyectoAserrio";
+    private static final String PASSWORD = "Basedatos1";
+
+
+    public static Connection getConnection() {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return connection;
+    }
+}

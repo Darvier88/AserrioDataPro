@@ -155,6 +155,8 @@ create table lote_madera(id int primary key auto_increment,
     fecha_llegada date not null,
     foreign key (id_proveedor) references proveedor(cedula),
     foreign key (id_secretaria) references secretaria(id));
+ALTER TABLE lote_madera
+ADD FOREIGN KEY (id_proveedor) references proveedor(cedula);
 create table evaluacion(id int primary key auto_increment,
 	id_proveedor char(10) not null,
 	calidad varchar(10) not null,
