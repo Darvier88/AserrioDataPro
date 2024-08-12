@@ -35,8 +35,18 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <!-- Nuevo botón para Cliente -->
             <Button mnemonicParsing="false" onMouseClicked="#irCliente" prefHeight="54.0" prefWidth="173.0" style="-fx-background-radius: 25;" text="Clientes">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onMouseClicked="#irProveedor" prefHeight="54.0" prefWidth="173.0" style="-fx-background-radius: 25;" text="Proveedores">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <!-- Nuevo botón para LoteMadera -->
+            <Button mnemonicParsing="false" onMouseClicked="#irLoteMadera" prefHeight="54.0" prefWidth="173.0" style="-fx-background-radius: 25;" text="Lotes de Madera">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

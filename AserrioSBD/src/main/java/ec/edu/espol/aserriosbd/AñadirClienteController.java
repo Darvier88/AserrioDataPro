@@ -13,9 +13,11 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -64,7 +66,8 @@ public class AñadirClienteController implements Initializable {
 
         // Ejecutar la actualización
         int rowsAffected = pstmt.executeUpdate();
-        return rowsAffected > 0;  // Verifica si se insertó al menos una fila
+        return rowsAffected > 0;
+        //Verifica si se insertó al menos una fila
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,6 +93,7 @@ public class AñadirClienteController implements Initializable {
         } else {
             mostrarError("No se pudo añadir el cliente a la base de datos.");
         }
+        App.setRoot("cliente");
     } catch (IllegalArgumentException e) {
         mostrarError(e.getMessage()); // Mostrar el mensaje de error al usuario
     } catch (Exception e) {
@@ -99,8 +103,8 @@ public class AñadirClienteController implements Initializable {
     }
 
     @FXML
-    private void cancelar(ActionEvent event) {
-        
+    private void cancelar(ActionEvent event) throws IOException {
+        App.setRoot("cliente");
     }
     
 }

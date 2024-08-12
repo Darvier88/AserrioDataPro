@@ -117,5 +117,64 @@ public class ObjetosDAO {
         }
         return clienteList;
     }
+    public static ObservableList<Proveedor> getProveedorList() {
+        ObservableList<Proveedor> proveedorList = FXCollections.observableArrayList();
+
+        String query = "SELECT * FROM proveedor";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Proveedor proveedor = new Proveedor(
+                        resultSet.getString("cedula"),
+                        resultSet.getString("nombre"),
+                        resultSet.getInt("telefono")
+                );
+                proveedorList.add(proveedor);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return proveedorList;
+    }
+    public static ObservableList<LoteMadera> getLoteMaderaList() {
+    ObservableList<LoteMadera> loteMaderaList = FXCollections.observableArrayList();
+
+    String query = "SELECT lm.id, lm.id_proveedor, lm.id_secretaria, lm.precio, lm.fecha_llegada, " +
+                   "p.nombre AS proveedor_nombre, s.nombre AS secretaria_nombre " +
+                   "FROM lote_madera lm " +
+                   "JOIN proveedor p ON lm.id_proveedor = p.cedula " +
+                   "JOIN secretaria s ON lm.id_secretaria = s.ID";
+
+    try (Connection connection = DatabaseConnection.getConnection();
+         Statement statement = connection.createStatement();
+         ResultSet resultSet = statement.executeQuery(query)) {
+
+        while (resultSet.next()) {
+            LoteMadera loteMadera = new LoteMadera(
+                    resultSet.getInt("id"),
+                    resultSet.getString("id_proveedor"),
+                    resultSet.getString("proveedor_nombre"),
+                    resultSet.getString("id_secretaria"),
+                    resultSet.getString("secretaria_nombre"),
+                    resultSet.getFloat("precio"),
+                    resultSet.getDate("fecha_llegada").toLocalDate()
+            );
+            loteMaderaList.add(loteMadera);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return loteMaderaList;
+}
+
+
+
 }
 

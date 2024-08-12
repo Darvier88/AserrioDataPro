@@ -10,7 +10,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -107,7 +109,47 @@ public class ModificarBase<T> {
 
         return instance;
     }
+    public static GridPane getFormGridExcluding(List<String> fieldNames, String... camposExcluidos) {
+        GridPane gridPane = new GridPane();
+        List<String> excluidos = Arrays.asList(camposExcluidos);
 
+        int row = 0;
+
+        for (String fieldName : fieldNames) {
+            if (!excluidos.contains(fieldName)) {
+                Label label = new Label(fieldName);
+                TextField textField = new TextField();
+
+                gridPane.add(label, 0, row);
+                gridPane.add(textField, 1, row);
+                row++;
+            }
+        }
+        return gridPane;
+    }
+   public static GridPane getFormGridWithId(List<String> fieldNames, String... camposExcluidos) {
+        GridPane gridPane = new GridPane();
+        List<String> excluidos = Arrays.asList(camposExcluidos);
+
+        int row = 0;
+
+        for (String fieldName : fieldNames) {
+            if (!excluidos.contains(fieldName)) {
+                Label label = new Label(fieldName);
+                TextField textField = new TextField();
+
+                if (fieldName.equals("id")) {
+                    textField.setText("0"); // Valor predeterminado de 0
+                    textField.setEditable(false); // Hacer el campo no editable
+                }
+
+                gridPane.add(label, 0, row);
+                gridPane.add(textField, 1, row);
+                row++;
+            }
+        }
+        return gridPane;
+    }
     public void clearFields() {
         for (TextField textField : textFieldMap.values()) {
             textField.clear();

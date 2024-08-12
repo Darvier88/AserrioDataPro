@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -21,6 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -51,7 +53,10 @@ public class ClienteController implements Initializable {
 
     @FXML
     private void regresar(MouseEvent event) {
-        // Acción de regresar
+        try {
+            App.setRoot("inicio");
+        } catch (IOException ex) { 
+        }
     }
 
     @FXML
@@ -63,8 +68,8 @@ public class ClienteController implements Initializable {
     private void añadir(MouseEvent event) {
         try {
             App.setRoot("AñadirCliente");
-        } catch (IOException ex) { 
-        }
+    } catch (IOException ex) {
+    }
     }
 
     @FXML
@@ -110,32 +115,18 @@ public class ClienteController implements Initializable {
     @FXML
     private void modificar(MouseEvent event) {
         Cliente clienteSeleccionado = table.getSelectionModel().getSelectedItem();
-        
+
         if (clienteSeleccionado != null) {
             try {
-                // Cargar la vista de modificación
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("ModificarCliente.fxml"));
-                Parent root = loader.load();
-
-                // Obtener el controlador de la nueva vista
-                ModificarClienteController modificarClienteController = loader.getController();
-
-                // Pasar el objeto seleccionado al controlador de la vista de modificación
-                modificarClienteController.setCliente(clienteSeleccionado);
-
-                // Mostrar la nueva vista
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setTitle("Modificar Cliente");
-                stage.show();
-
-            } catch (Exception e) {
-                e.printStackTrace();
+                // Llamar al método que carga la ventana de modificación en un `Stage` modal
+                ModificarClienteController.mostrarVentanaModificacion(clienteSeleccionado);
+            } catch (IOException ex) {
+                ex.printStackTrace();
                 mostrarError("No se pudo cargar la ventana de modificación.");
             }
         } else {
             mostrarError("Por favor, selecciona un cliente para modificar.");
         }
-        
     }
 }
+

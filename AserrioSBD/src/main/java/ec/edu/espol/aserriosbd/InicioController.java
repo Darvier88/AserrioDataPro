@@ -51,6 +51,22 @@ public class InicioController implements Initializable {
         }
     }
 
+    @FXML
+    private void irProveedor(MouseEvent event) {
+        try {
+            App.setRoot("proveedor");
+        } catch (IOException ex) { 
+        }
+    }
+
+    @FXML
+    private void irLoteMadera(MouseEvent event) {
+        try {
+            App.setRoot("loteMadera");
+        } catch (IOException ex) { 
+        }
+    }
+
 
     
 
