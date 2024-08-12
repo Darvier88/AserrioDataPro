@@ -67,6 +67,14 @@ public class InicioController implements Initializable {
         }
     }
 
+    @FXML
+    private void irTipoMadera(MouseEvent event) {
+        try {
+            App.setRoot("tipoMadera");
+        } catch (IOException ex) { 
+        }
+    }
+
 
     
 

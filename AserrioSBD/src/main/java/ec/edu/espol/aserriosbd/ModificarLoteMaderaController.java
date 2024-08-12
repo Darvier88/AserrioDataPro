@@ -19,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
@@ -35,21 +36,29 @@ public class ModificarLoteMaderaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // Inicializar ModificarBase con la clase LoteMadera
         modificarBase = new ModificarBase<>(LoteMadera.class);
-
-        // Lista de nombres de los campos que deseas incluir en el formulario
-    List<String> fieldNames = Arrays.asList("id", "idProveedor", "idSecretaria", "precio", "fechaLlegada");
-
-    // Generar el formulario, manteniendo el campo id pero excluyendo los nombres de proveedor y secretaria
-    GridPane formGrid = modificarBase.getFormGridWithId(fieldNames, "proveedorNombre", "secretariaNombre");
-    formGrid.getChildren().add(formGrid);
     }
 
     // Método que se llamará para cargar los datos del lote de madera seleccionado
     public void setLoteMadera(LoteMadera loteMadera) {
-        if (loteMadera != null) {
-            this.loteMadera = loteMadera; // Guardar el lote de madera para referencia futura
-            modificarBase.loadObject(loteMadera); // Cargar los datos en los campos del formulario
-        }
+         if (loteMadera != null) {
+        this.loteMadera = loteMadera; // Guardar el lote de madera para referencia futura
+
+        // Lista de nombres de los campos que deseas incluir en el formulario
+        List<String> fieldNames = Arrays.asList("id", "idProveedor", "idSecretaria", "precio", "fechaLlegada");
+
+        // Mapa de valores para los campos `id`
+        Map<String, String> idFieldValues = Map.of(
+            "id", String.valueOf(loteMadera.getId()),
+            "idProveedor", loteMadera.getIdProveedor(),
+            "idSecretaria", loteMadera.getIdSecretaria()
+        );
+
+        // Generar el formulario dinámico con los campos `id` no editables y con valores específicos
+        GridPane formGrid = modificarBase.buildDynamicFormWithLockedId(fieldNames, idFieldValues);
+        
+        // Agregar el formulario generado al contenedor principal
+        this.formGrid.getChildren().addAll(formGrid.getChildren());
+    }
     }
 
     public static void mostrarVentanaModificacion(LoteMadera loteMadera) throws IOException {

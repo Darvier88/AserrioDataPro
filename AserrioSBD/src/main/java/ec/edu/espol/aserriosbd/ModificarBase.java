@@ -109,45 +109,29 @@ public class ModificarBase<T> {
 
         return instance;
     }
-    public static GridPane getFormGridExcluding(List<String> fieldNames, String... camposExcluidos) {
+     // Método para crear un GridPane con cualquier campo que comience con `id` no editable
+    // y con la capacidad de establecer valores específicos para esos campos
+    public GridPane buildDynamicFormWithLockedId(List<String> fieldNames, Map<String, String> idFieldValues) {
         GridPane gridPane = new GridPane();
-        List<String> excluidos = Arrays.asList(camposExcluidos);
 
         int row = 0;
 
         for (String fieldName : fieldNames) {
-            if (!excluidos.contains(fieldName)) {
-                Label label = new Label(fieldName);
-                TextField textField = new TextField();
+            Label label = new Label(fieldName);
+            TextField textField = new TextField();
 
-                gridPane.add(label, 0, row);
-                gridPane.add(textField, 1, row);
-                row++;
+            // Si el campo es un "id", configúralo como no editable y establece su valor
+            if (fieldName.startsWith("id")) {
+                textField.setEditable(false); // Hacer el campo no editable
+                String value = idFieldValues.getOrDefault(fieldName, ""); // Obtener el valor desde el mapa
+                textField.setText(value); // Establecer el valor del campo
             }
+
+            gridPane.add(label, 0, row);
+            gridPane.add(textField, 1, row);
+            row++;
         }
-        return gridPane;
-    }
-   public static GridPane getFormGridWithId(List<String> fieldNames, String... camposExcluidos) {
-        GridPane gridPane = new GridPane();
-        List<String> excluidos = Arrays.asList(camposExcluidos);
 
-        int row = 0;
-
-        for (String fieldName : fieldNames) {
-            if (!excluidos.contains(fieldName)) {
-                Label label = new Label(fieldName);
-                TextField textField = new TextField();
-
-                if (fieldName.equals("id")) {
-                    textField.setText("0"); // Valor predeterminado de 0
-                    textField.setEditable(false); // Hacer el campo no editable
-                }
-
-                gridPane.add(label, 0, row);
-                gridPane.add(textField, 1, row);
-                row++;
-            }
-        }
         return gridPane;
     }
     public void clearFields() {
