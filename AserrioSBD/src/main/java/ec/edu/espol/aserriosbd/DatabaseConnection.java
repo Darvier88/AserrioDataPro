@@ -14,9 +14,9 @@ import java.sql.SQLException;
  */
 public class DatabaseConnection {
 
-    private static final String URL = "jdbc:mysql://project-sbd.mysql.database.azure.com:3306/AserrioDataPro";
-    private static final String USER = "proyectoAserrio";
-    private static final String PASSWORD = "Basedatos1";
+    private static final String URL = "jdbc:mysql://localhost:3306/AserrioDataPro";
+    private static final String USER = "root";
+    private static final String PASSWORD = "Admin";
 
 
     public static Connection getConnection() {

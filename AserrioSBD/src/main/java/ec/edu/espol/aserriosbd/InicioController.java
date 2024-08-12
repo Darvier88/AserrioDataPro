@@ -66,7 +66,14 @@ public class InicioController implements Initializable {
         } catch (IOException ex) { 
         }
     }
-
+    
+    @FXML
+    private void irEmpleado(MouseEvent event) {
+        try {
+            App.setRoot("empleado");
+        } catch (IOException ex) { 
+        }
+    }
 
     
 

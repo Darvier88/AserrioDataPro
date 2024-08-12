@@ -18,7 +18,8 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>13</version>
+            <version>23-ea+22</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>ec.edu.espol.my-sql</groupId>
