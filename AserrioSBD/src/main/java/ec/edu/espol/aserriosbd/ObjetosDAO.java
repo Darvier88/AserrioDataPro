@@ -200,5 +200,32 @@ public static ObservableList<Empleado> getEmpleadoList() {
     return empleadoList;
 }
 
+    
+
+     public static ObservableList<TipoMadera> getTipoMaderaList() {
+        ObservableList<TipoMadera> tipoMaderaList = FXCollections.observableArrayList();
+
+        String query = "SELECT * FROM tipo_de_madera";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                TipoMadera tipoMadera = new TipoMadera(
+                        resultSet.getString("id"),
+                        resultSet.getString("nombre"),
+                        resultSet.getFloat("precio_unitario"),
+                        resultSet.getString("condic_ambiental")
+                );
+                tipoMaderaList.add(tipoMadera);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return tipoMaderaList;
+    }
 }
 

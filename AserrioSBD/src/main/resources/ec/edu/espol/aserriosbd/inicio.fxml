@@ -45,13 +45,18 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <!-- Nuevo botón para LoteMadera -->
             <Button mnemonicParsing="false" onMouseClicked="#irLoteMadera" prefHeight="54.0" prefWidth="173.0" style="-fx-background-radius: 25;" text="Lotes de Madera">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
             <Button mnemonicParsing="false" onMouseClicked="#irEmpleado" prefHeight="54.0" prefWidth="173.0" style="-fx-background-radius: 25;" text="Empleados">
+            <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+                <!-- Nuevo botón para TipoMadera -->
+            <Button mnemonicParsing="false" onMouseClicked="#irTipoMadera" prefHeight="54.0" prefWidth="173.0" style="-fx-background-radius: 25;" text="Tipos de Madera">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

@@ -38,17 +38,17 @@
             </TableView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                <children>
-                  <Button mnemonicParsing="false" onContextMenuRequested="#irLimpieza" prefHeight="48.0" prefWidth="171.0" style="-fx-background-radius: 25;" text="Añadir Registro">
+                  <Button mnemonicParsing="false" onContextMenuRequested="#irLimpieza" onMouseClicked="#añadir" prefHeight="48.0" prefWidth="171.0" style="-fx-background-radius: 25;" text="Añadir Registro">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onContextMenuRequested="#irLimpieza" prefHeight="48.0" prefWidth="171.0" style="-fx-background-radius: 25;" text="Eliminar Registro">
+                  <Button mnemonicParsing="false" onContextMenuRequested="#irLimpieza" onMouseClicked="#eliminar" prefHeight="48.0" prefWidth="171.0" style="-fx-background-radius: 25;" text="Eliminar Registro">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onContextMenuRequested="#irLimpieza" prefHeight="48.0" prefWidth="171.0" style="-fx-background-radius: 25;" text="Modificar Registro">
+                  <Button mnemonicParsing="false" onContextMenuRequested="#irLimpieza" onMouseClicked="#modificar" prefHeight="48.0" prefWidth="171.0" style="-fx-background-radius: 25;" text="Modificar Registro">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -67,10 +67,14 @@
                </font>
             </Text>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <Button mnemonicParsing="false" onMouseClicked="#regresar" style="-fx-background-color: rgb(7, 97, 253);">
 =======
              <Button mnemonicParsing="false" onMouseClicked="#regresar" style="-fx-background-color: rgb(7, 97, 253);">
 >>>>>>> b9f4d77bc13a051b6e8cb8cdb408d18ada9de882
+=======
+            <Button mnemonicParsing="false" onMouseClicked="#regresar" style="-fx-background-color: rgb(7, 97, 253);">
+>>>>>>> 23bdc7ea7d5fcf83522da8d363c6abf511868da6
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
                      <image>
