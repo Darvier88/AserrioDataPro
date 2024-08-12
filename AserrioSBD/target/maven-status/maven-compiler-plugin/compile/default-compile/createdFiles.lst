@@ -3,18 +3,12 @@ ec\edu\espol\aserriosbd\TipoMadera.class
 ec\edu\espol\aserriosbd\Producto.class
 ec\edu\espol\aserriosbd\TipoMaderaController.class
 ec\edu\espol\aserriosbd\ObjetosDAO.class
-<<<<<<< HEAD
 ec\edu\espol\aserriosbd\EmpleadoController.class
-ec\edu\espol\aserriosbd\LoteMaderaController.class
-ec\edu\espol\aserriosbd\DatabaseConnection.class
-ec\edu\espol\aserriosbd\Limpieza.class
-=======
 ec\edu\espol\aserriosbd\LoteMaderaController.class
 ec\edu\espol\aserriosbd\DatabaseConnection.class
 ec\edu\espol\aserriosbd\Limpieza.class
 ec\edu\espol\aserriosbd\AñadirTipoMaderaController.class
 ec\edu\espol\aserriosbd\ModificarTipoMaderaController.class
->>>>>>> 23bdc7ea7d5fcf83522da8d363c6abf511868da6
 ec\edu\espol\aserriosbd\ProveedorController.class
 ec\edu\espol\aserriosbd\LimpiezaController.class
 ec\edu\espol\aserriosbd\InicioController.class
@@ -22,18 +16,12 @@ ec\edu\espol\aserriosbd\SecondaryController.class
 ec\edu\espol\aserriosbd\ModificarProveedorController.class
 ec\edu\espol\aserriosbd\InterfazBase.class
 ec\edu\espol\aserriosbd\AñadirProveedorController.class
-<<<<<<< HEAD
 ec\edu\espol\aserriosbd\Empleado.class
-ec\edu\espol\aserriosbd\ProductoController.class
-ec\edu\espol\aserriosbd\ClienteController.class
-ec\edu\espol\aserriosbd\MaquinariaController.class
-ec\edu\espol\aserriosbd\ModificarEmpleadoController.class
-=======
 ec\edu\espol\aserriosbd\ModificarProductoController.class
 ec\edu\espol\aserriosbd\ProductoController.class
 ec\edu\espol\aserriosbd\ClienteController.class
 ec\edu\espol\aserriosbd\MaquinariaController.class
->>>>>>> 23bdc7ea7d5fcf83522da8d363c6abf511868da6
+ec\edu\espol\aserriosbd\ModificarEmpleadoController.class
 ec\edu\espol\aserriosbd\AñadirClienteController.class
 ec\edu\espol\aserriosbd\ModificarBase.class
 module-info.class
