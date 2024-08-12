@@ -144,6 +144,79 @@ INSERT INTO Reclamacion (ID_secretaria, ID_cliente, descripcion) VALUES
 ('0708901234', '0708901234', 'Problemas con el pago'),
 ('0709012345', '0709012345001', 'Producto dañado durante el envío'),
 ('0710123456', '0708901234', 'Calidad del producto no es la esperada');
+-- CRUD
+-- 1) Detalle
+insert into Detalle (ID_factura, ID_producto, unidades, totalProdu, detalle_adic)
+values(3, 'VR01', 3, 32,NULL);
+update Detalle
+set ID_producto='TR01'
+where ID_factura=1 and ID_producto= 'CC01';
+delete from Detalle
+where ID_factura=8 and ID_producto='CC01';
+-- Buscar los detalles que sí tengan detalles adicionales
+select *
+from Detalle
+where detalle_adic is not null;
+-- 2) Producto
+insert into Producto
+values('LT01', 'Listón de Teca', 22.00, 'De segunda', 'Seco', 15, '3x3x10', 'Listón de teca para construcción');
+update Producto
+set precioUnitario=17.00
+where id='CN01';
+delete from Producto
+where id ='CC01';
+-- Buscar los productos que tengan un precio unitario mayor a 10.00
+select id,nombre,precioUnitario
+from Producto
+where precioUnitario>10.00;
+-- 3) Factura
+insert into Factura (ID_secretaria, ID_cliente, fecha, hora, direccion_local, metodo_pago, subtotal_sin_impuestos, subtotal_0Porcent, ValorTotal) values
+('0703456789', '0701234333', '2023-02-02', '12:30:00', 'Calle Bolívar 123, Machala, El Oro', 'Efectivo', 35.00, 0.00, 35.00);
+update Factura
+set hora = '11:45:00'
+where id=9;
+delete from Factura
+where id_secretaria='0708901234';
+-- Buscar las facturas realizadas en la tarde
+select *
+from Factura
+where hora > '12:00:00';
+-- 4)Reclamación
+insert into reclamacion (ID_secretaria, ID_cliente, descripcion) values
+('0704567890', '0709012345001', 'Falta de limpieza en el local');
+update reclamacion
+set ID_cliente = '0705678900'
+where id =8;
+delete from reclamacion
+where id_secretaria='0708901234' and id_cliente='0705678900';
+-- Buscar la descripción de las reclamaciones que ha hecho el cliente con ID = 0709012345001
+select descripcion
+from reclamacion
+where id_cliente='0709012345001'; 
+-- 5) Cliente
+insert into Cliente (cedula, nombre, direccion, num_contacto, correo_contacto) VALUES
+('0777798989', 'Saúl Villegas', 'Avenida Principal 144, Machala, El Oro', 0987655320, 'saul_ville@gmail.com');
+update Cliente
+set correo_contacto=  'maria_lopez55@hotmail.com'
+where cedula='0702345678';
+delete from Cliente
+where cedula= '0705678900';
+-- Buscar los clientes que ocupen un correo de contacto hotmail
+select cedula,nombre 
+from Cliente
+where correo_contacto like '%@hotmail%';
+-- 6) Secretaria
+insert into Secretaria (ID, nombre, horaInicio, horaFine, fechaCapacitacion, tipoCapacitacion) values
+('0701238888', 'Andrea Guzmán', '07:30:00', '16:00:00', '2022-09-25', 'Secretaria');
+update Secretaria
+set horaInicio=  '06:00:00'
+where ID='0705678901';
+delete from Secretaria
+where ID= '0708901234';
+-- Buscar las secretarias que tienen de hora de inicio antes de las 9 AM
+select ID,nombre,horaInicio
+from Secretaria
+where horaInicio < '09:00:00';
 
 create table proveedor(cedula char(10) primary key,
 	nombre varchar(30) not null,
@@ -229,6 +302,70 @@ values(1, 'TSO01', 500, 10),
 (8, 'TSO08', 850, 17),
 (9, 'TSO09', 750, 15),
 (10, 'TSO10', 900, 18);
+
+-- CRUD 
+-- 1) Especificación
+insert into especificacion
+values(11, 'TSO11', 400, 30),
+(10, 'TSO07', 100, 5);
+update especificacion
+set cantidad = 20,importe = 1000
+where id_lote=1;
+delete from especificacion
+where id_lote=8;
+-- Buscar las especificaciones donde se haya comprado más de 15 cantidades
+select id_lote,id_madera,importe
+from especificacion
+where cantidad >15;
+-- 2) Tipo de madera
+insert into tipo_de_madera
+values('TSO11', 'Zebrano', 12.50, 'Tropical');
+update tipo_de_madera
+set precio_unitario=15.00
+where id='TSO03';
+delete from tipo_de_madera
+where id ='TSO08';
+-- Buscar la madera que tiene como condición ambiental un clima tropical
+select id,nombre
+from tipo_de_madera
+where condic_ambiental='Tropical';
+-- 3) Evaluación
+insert into evaluacion (id_proveedor,calidad,puntualidad,detalle)
+values ('0909012345','Media','Puntual',null);
+update evaluacion
+set detalle = 'Su calidad fue mejor de lo esperado'
+where id=10;
+delete from evaluacion
+where id=7;
+-- Buscar las evaluaciones del proveedor con la cedula sea 0901234567
+select id,calidad,puntualidad,detalle
+from evaluacion
+where id_proveedor='0901234567';
+-- 4)Lote madera
+insert into lote_madera (id_proveedor,id_secretaria,precio,fecha_llegada)
+values('0903456789', '0707890123', 2000.50, '2024-11-03');
+update lote_madera
+set precio = 2200.50
+where id =2;
+delete from lote_madera
+where id= 8;
+-- Buscar el lote de madera más caro y cuando llegó
+select id,precio,fecha_llegada
+from lote_madera
+order by precio desc
+limit 1; 
+-- 5) Proveedor
+insert into proveedor
+values ('0922443789','Patricio Macias',0934567890);
+update proveedor
+set telefono=0987236541
+where cedula='0905678901';
+delete from proveedor
+where cedula= '0907890123';
+-- Buscar los proveedores que tengan un apellido que comience con M
+select nombre 
+from proveedor
+where nombre like '% M%';
 
 -- Creacion de tablas, sección empleados
 
