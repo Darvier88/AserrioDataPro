@@ -93,5 +93,29 @@ public class ObjetosDAO {
         }
         return productoList;
     }
+    public static ObservableList<Cliente> getClienteList() {
+        ObservableList<Cliente> clienteList = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getConnection();
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Cliente");
+
+            while (resultSet.next()) {
+                Cliente cliente = new Cliente(
+                        resultSet.getString("cedula"),
+                        resultSet.getString("nombre"),
+                        resultSet.getString("direccion"),
+                        resultSet.getInt("num_contacto"),
+                        resultSet.getString("correo_contacto")
+                );
+                clienteList.add(cliente);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return clienteList;
+    }
 }
 

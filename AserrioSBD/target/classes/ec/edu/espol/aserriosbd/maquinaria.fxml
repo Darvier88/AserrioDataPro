@@ -64,11 +64,7 @@
             </Text>
             <Button mnemonicParsing="false" onMouseClicked="#regresar" style="-fx-background-color: rgb(7, 97, 253);">
                <graphic>
-<<<<<<< HEAD
-                  <ImageView fitHeight="28.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
-=======
                    <ImageView fitHeight="28.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
->>>>>>> b9f4d77bc13a051b6e8cb8cdb408d18ada9de882
                      <image>
                         <Image url="@../../../../imagenes/PngItem_3360659.png" />
                      </image>

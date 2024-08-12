@@ -12,11 +12,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.aserriosbd.MaquinariaController">
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.aserriosbd.MantenimientoController">
    <center>
       <VBox alignment="CENTER" prefHeight="406.0" prefWidth="321.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Maquinarias">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Registro de Mantenimientos">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
@@ -24,12 +24,10 @@
                   <Font size="23.0" />
                </font>
             </Text>
-            <TableView fx:id="tableMaquinarias" maxWidth="-Infinity" prefHeight="185.0" prefWidth="569.0">
+            <TableView fx:id="tableMantenimiento" prefHeight="200.0" prefWidth="200.0">
                <columns>
-                  <TableColumn fx:id="codigoColumn" prefWidth="98.0" text="Código" />
-                  <TableColumn fx:id="nombreColumn" minWidth="0.0" prefWidth="152.0" text="Nombre" />
-                  <TableColumn fx:id="marcaColumn" minWidth="0.0" prefWidth="174.0" text="Marca" />
-                  <TableColumn fx:id="fechaColumn" minWidth="0.0" prefWidth="144.0" text="Fecha Adqui" />
+                  <TableColumn prefWidth="75.0" text="C1" />
+                  <TableColumn prefWidth="75.0" text="C2" />
                </columns>
             </TableView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
@@ -40,11 +38,6 @@
                      </font>
                   </Button>
                   <Button mnemonicParsing="false" onContextMenuRequested="#irLimpieza" prefHeight="48.0" prefWidth="171.0" style="-fx-background-radius: 25;" text="Eliminar Registro">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button mnemonicParsing="false" onContextMenuRequested="#irLimpieza" prefHeight="48.0" prefWidth="171.0" style="-fx-background-radius: 25;" text="Modificar Registro">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -62,13 +55,9 @@
                   <Font name="System Bold" size="28.0" />
                </font>
             </Text>
-            <Button mnemonicParsing="false" onMouseClicked="#regresar" style="-fx-background-color: rgb(7, 97, 253);">
+            <Button mnemonicParsing="false" style="-fx-background-color: rgb(7, 97, 253);">
                <graphic>
-<<<<<<< HEAD
-                  <ImageView fitHeight="28.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
-=======
-                   <ImageView fitHeight="28.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
->>>>>>> b9f4d77bc13a051b6e8cb8cdb408d18ada9de882
+                  <ImageView fitHeight="28.0" fitWidth="76.0" onMouseClicked="#regresar" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../imagenes/PngItem_3360659.png" />
                      </image>
