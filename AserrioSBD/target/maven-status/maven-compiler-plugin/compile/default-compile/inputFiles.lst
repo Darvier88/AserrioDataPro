@@ -4,6 +4,7 @@ C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\InterfazBase.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\Producto.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\MaquinariaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarBase.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\module-info.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\InicioController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\Maquinaria.java
@@ -14,6 +15,7 @@ C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\SecondaryController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\LimpiezaController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\PrimaryController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarClienteController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirClienteController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\DatabaseConnection.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ObjetosDAO.java
