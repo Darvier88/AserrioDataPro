@@ -571,4 +571,105 @@ INSERT INTO Rol_de_pagos (ID_empleado, rol, dias_laborados, sueldo, horas_extras
 ('0934567801', 'A', 32, 2400.00, 135.00, 2535.00, 180.00, 110.00, 290.00, 2245.00);
 
 
+-- CRUD
+-- operario
+-- CREAR
+INSERT INTO Operario (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion) 
+VALUES ('0998765432', 'Elena Nito', '08:00:00', '17:00:00', '2024-12-12', 'Operativo');
+-- LEER
+SELECT nombre, horaInicio, horaFin FROM Operario WHERE ID = '0998765432';
+-- UPDATE
+UPDATE Operario SET nombre = 'Elena Modificado', tipoCapacitacion = 'Administrativo' 
+WHERE ID = '0956789012';
+-- DELETE 
+DELETE FROM Mantenimiento WHERE ID_operario = '0998765432';
+DELETE FROM Empleado WHERE ID = '0998765432';
+DELETE FROM Rol_de_pagos WHERE ID_empleado = '0998765432';
+DELETE FROM Operario WHERE ID = '0998765432';
 
+-- Asistente_operario
+-- CREATE
+INSERT INTO Asistente_operario (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion) 
+VALUES ('0999876543', 'Marco Polo', '09:00:00', '18:00:00', '2024-12-25', 'Técnico');
+-- LEER
+SELECT nombre, horaInicio, horaFin FROM Asistente_operario WHERE ID = '0999876543';
+-- UPDATE
+UPDATE Asistente_operario SET nombre = 'Marco Modificado', tipoCapacitacion = 'Operativo' 
+WHERE ID = '0999876543';
+-- DELATE
+DELETE FROM registro WHERE ID_asistente = '0912345689';
+DELETE FROM Rol_de_pagos WHERE ID_empleado = '0912345689';
+DELETE FROM Empleado WHERE ID = '0912345689';
+DELETE FROM Asistente_operario WHERE ID = '0912345689';
+
+-- maquinaria
+-- CREATE
+INSERT INTO Maquinaria (codigo, nombre, marca, fecha_adqui) 
+VALUES (1011, 'Torno CNC', 'Haas', '2023-12-01');
+-- LEER
+SELECT NOMBRE, marca FROM Maquinaria WHERE codigo = 1011;
+-- UPDATE
+UPDATE Maquinaria SET nombre = 'Torno CNC Modificado', marca = 'Mazak' 
+WHERE codigo = 1011;
+-- DELETE
+DELETE FROM Mantenimiento WHERE codigo_maquinaria = 1002;
+DELETE FROM Maquinaria WHERE codigo = 1002;
+
+
+-- mantenimiento
+-- CREAR
+INSERT INTO Mantenimiento (ID_operario, codigo_maquinaria, ID_secretaria, detalles, fecha) 
+VALUES ('0943671209', 1001, '0701234567', 'Revisión general', '2024-12-15');
+-- LEER
+SELECT * FROM Mantenimiento WHERE ID = 1; 
+-- UPDATE
+UPDATE Mantenimiento SET detalles = 'Revisión completa', fecha = '2025-01-01' 
+WHERE ID = 1;
+-- DELETE
+DELETE FROM Mantenimiento WHERE ID = 3;
+
+-- limpieza
+-- CREAR
+INSERT INTO Limpieza (lugar) VALUES ('Oficina Principal');
+-- LEER
+SELECT lugar FROM Limpieza WHERE ID = 3;  -- Asumiendo que el ID es 11.
+-- UPDATE
+UPDATE Limpieza SET lugar = 'Oficina Secundaria' WHERE ID = 11;
+-- DELETE
+DELETE FROM Registro WHERE ID_limpieza = 3;
+DELETE FROM Limpieza WHERE ID = 3;
+
+-- registro
+-- CREAR
+INSERT INTO Registro (ID_asistente, ID_limpieza, ID_secretaria, fecha) 
+VALUES ('0943671210', 11, '0701234567', '2025-01-15');
+-- LEER
+SELECT * FROM Registro WHERE ID_asistente = '0943671210' AND ID_limpieza = 1;
+-- UPDATE
+UPDATE Registro SET fecha = '2025-02-01' 
+WHERE ID_asistente = '0943671210' AND ID_limpieza = 1;
+-- DELETE 
+DELETE FROM Registro WHERE ID_asistente = '0943671210' AND ID_limpieza = 5;
+
+-- empleado
+-- CREAR
+INSERT INTO Empleado (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion) VALUES
+('0702342278', 'María López', '08:30:00', '17:30:00', NULL, NULL);
+-- LEER
+SELECT ID, nombre FROM Empleado;
+-- UPDATE
+UPDATE Empleado SET nombre = 'Ana Pérez Modificada', tipoCapacitacion = 'Administrativa' WHERE ID = '0701234567';
+-- DELETE
+DELETE FROM rol_de_pagos WHERE ID_empleado = '0912345678';
+DELETE FROM Empleado WHERE ID = '0912345678';
+
+-- Rol de pagos
+-- CREAR
+INSERT INTO Rol_de_pagos (ID_empleado, rol, dias_laborados, sueldo, horas_extras, total_ingresos, egreso_IESS, anticipos, total_egresos, liquido_a_recibir) VALUES
+('0702345678', 'S', 22, 1500.00, 50.00, 1550.00, 100.00, 0.00, 100.00, 1450.00);
+-- LEER
+SELECT ID_empleado, rol, dias_laborados, liquido_a_recibir FROM Rol_de_pagos;
+-- UPDATE
+UPDATE Rol_de_pagos SET sueldo = 1600.00, total_ingresos = 1650.00, liquido_a_recibir = 1550.00 WHERE ID_empleado = '0702345678';
+-- DELETE
+DELETE FROM Rol_de_pagos WHERE ID_empleado = '0703456789';
