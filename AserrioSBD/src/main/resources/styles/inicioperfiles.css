@@ -1,0 +1,20 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+
+/* Efecto hover (cuando el mouse pasa sobre el botón) */
+.button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 12, 0.2, 0, 6); /* Sombra más pronunciada */
+}
+
+/* Efecto al hacer clic */
+.button:pressed {
+    -fx-background-color: #efeff0;
+    -fx-border-color: #7c69ef; /* Borde con el color especificado */
+    -fx-effect: none; /* Elimina la sombra al hacer clic */
+}

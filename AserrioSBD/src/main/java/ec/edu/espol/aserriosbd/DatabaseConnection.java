@@ -14,10 +14,17 @@ import java.sql.SQLException;
  */
 public class DatabaseConnection {
 
+<<<<<<< HEAD
     private static final String URL = "jdbc:mysql://localhost:3306/AserrioDataPro";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
     
+=======
+    private static final String URL = "jdbc:mysql://project-sbd.mysql.database.azure.com:3306/AserrioDataPro";
+    private static final String USER = "proyectoAserrio";
+    private static final String PASSWORD = "Basedatos1";
+
+>>>>>>> cb8895836649252f2a804cd3da5962cef3970f2a
     public static Connection getConnection() {
         Connection connection = null;
         try {

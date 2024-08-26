@@ -9,7 +9,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -17,7 +16,7 @@ import javafx.scene.input.MouseEvent;
  *
  * @author nicol
  */
-public class InicioController implements Initializable {
+public class OpcionesSecretariaController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -83,10 +82,5 @@ public class InicioController implements Initializable {
         } catch (IOException ex) { 
         }
     }
-
-
-    
-
-  
     
 }

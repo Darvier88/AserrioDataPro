@@ -172,8 +172,36 @@ public class ObjetosDAO {
     }
 
     return loteMaderaList;
-    
 }
+
+public static ObservableList<Empleado> getEmpleadoList() {
+    ObservableList<Empleado> empleadoList = FXCollections.observableArrayList();
+    Connection connection = DatabaseConnection.getConnection();
+
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Empleado");
+
+        while (resultSet.next()) {
+            Empleado empleado = new Empleado(
+                    resultSet.getString("ID"),
+                    resultSet.getString("nombre"),
+                    resultSet.getTime("horaInicio").toLocalTime(),
+                    resultSet.getTime("horaFin").toLocalTime(),
+                    resultSet.getDate("fechaCapacitacion") != null ? resultSet.getDate("fechaCapacitacion").toLocalDate() : null,
+                    resultSet.getString("tipoCapacitacion")
+            );
+            empleadoList.add(empleado);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return empleadoList;
+}
+
+    
+
      public static ObservableList<TipoMadera> getTipoMaderaList() {
         ObservableList<TipoMadera> tipoMaderaList = FXCollections.observableArrayList();
 
