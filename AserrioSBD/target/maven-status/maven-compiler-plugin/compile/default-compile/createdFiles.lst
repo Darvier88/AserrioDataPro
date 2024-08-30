@@ -1,4 +1,4 @@
-ec\edu\espol\aserriosbd\AñadirProductoController.class
+ec\edu\espol\aserriosbd\AÃ±adirProductoController.class
 ec\edu\espol\aserriosbd\TipoMadera.class
 ec\edu\espol\aserriosbd\Producto.class
 ec\edu\espol\aserriosbd\TipoMaderaController.class
@@ -8,7 +8,7 @@ ec\edu\espol\aserriosbd\LoteMaderaController.class
 ec\edu\espol\aserriosbd\OpcionesSecretariaController.class
 ec\edu\espol\aserriosbd\DatabaseConnection.class
 ec\edu\espol\aserriosbd\Limpieza.class
-ec\edu\espol\aserriosbd\AñadirTipoMaderaController.class
+ec\edu\espol\aserriosbd\AÃ±adirTipoMaderaController.class
 ec\edu\espol\aserriosbd\ModificarTipoMaderaController.class
 ec\edu\espol\aserriosbd\ProveedorController.class
 ec\edu\espol\aserriosbd\LimpiezaController.class
@@ -16,14 +16,14 @@ ec\edu\espol\aserriosbd\InicioController.class
 ec\edu\espol\aserriosbd\SecondaryController.class
 ec\edu\espol\aserriosbd\ModificarProveedorController.class
 ec\edu\espol\aserriosbd\InterfazBase.class
-ec\edu\espol\aserriosbd\AñadirProveedorController.class
+ec\edu\espol\aserriosbd\AÃ±adirProveedorController.class
 ec\edu\espol\aserriosbd\Empleado.class
 ec\edu\espol\aserriosbd\ModificarProductoController.class
 ec\edu\espol\aserriosbd\ProductoController.class
 ec\edu\espol\aserriosbd\ClienteController.class
 ec\edu\espol\aserriosbd\MaquinariaController.class
 ec\edu\espol\aserriosbd\ModificarEmpleadoController.class
-ec\edu\espol\aserriosbd\AñadirClienteController.class
+ec\edu\espol\aserriosbd\AÃ±adirClienteController.class
 ec\edu\espol\aserriosbd\ModificarBase.class
 module-info.class
 ec\edu\espol\aserriosbd\Maquinaria.class
@@ -33,8 +33,8 @@ ec\edu\espol\aserriosbd\ModificarLoteMaderaController.class
 ec\edu\espol\aserriosbd\ModificarClienteController.class
 ec\edu\espol\aserriosbd\Proveedor.class
 ec\edu\espol\aserriosbd\PrimaryController.class
-ec\edu\espol\aserriosbd\AñadirLoteMaderaController.class
+ec\edu\espol\aserriosbd\AÃ±adirLoteMaderaController.class
 ec\edu\espol\aserriosbd\Cliente.class
 ec\edu\espol\aserriosbd\InicioPerfilesController.class
-ec\edu\espol\aserriosbd\AñadirBase.class
+ec\edu\espol\aserriosbd\AÃ±adirBase.class
 ec\edu\espol\aserriosbd\LoteMadera.class
