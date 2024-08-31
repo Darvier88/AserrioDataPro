@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
 package ec.edu.espol.aserriosbd;
+import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
+import ec.edu.espol.aserriosbd.modelo.Proveedor;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

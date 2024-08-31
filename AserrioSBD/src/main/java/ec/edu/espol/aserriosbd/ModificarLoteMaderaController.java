@@ -4,6 +4,8 @@
  */
 package ec.edu.espol.aserriosbd;
 
+import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
+import ec.edu.espol.aserriosbd.modelo.LoteMadera;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

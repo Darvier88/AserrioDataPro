@@ -4,6 +4,8 @@
  */
 package ec.edu.espol.aserriosbd;
 
+import ec.edu.espol.aserriosbd.modelo.ObjetosDAO;
+import ec.edu.espol.aserriosbd.modelo.Limpieza;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;

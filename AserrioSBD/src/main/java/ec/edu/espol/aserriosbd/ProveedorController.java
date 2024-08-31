@@ -4,6 +4,9 @@
  */
 package ec.edu.espol.aserriosbd;
 
+import ec.edu.espol.aserriosbd.modelo.ObjetosDAO;
+import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
+import ec.edu.espol.aserriosbd.modelo.Proveedor;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
