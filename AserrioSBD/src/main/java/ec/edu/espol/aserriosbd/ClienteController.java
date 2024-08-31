@@ -54,8 +54,9 @@ public class ClienteController implements Initializable {
     @FXML
     private void regresar(MouseEvent event) {
         try {
-            App.setRoot("inicio");
+            App.setRoot("opcionesSecretaria");
         } catch (IOException ex) { 
+            ex.printStackTrace();
         }
     }
 

@@ -4,16 +4,23 @@
  */
 package ec.edu.espol.aserriosbd;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -23,32 +30,101 @@ import javafx.scene.input.MouseEvent;
 public class LimpiezaController implements Initializable {
 
     @FXML
-    private TableColumn<Limpieza, Integer> idAsistenteColumn;
+    private Text text;
     @FXML
-    private TableColumn<Limpieza, String> LugarColumn;
-    @FXML
-    private TableColumn<Limpieza, Date> FechaColumn;
-    @FXML
-    private TableView<Limpieza> tableLimpieza;
+    private TableView<Cliente> table;
 
-    /**
-     * Initializes the controller class.
-     */
+    private InterfazBase interfazBase;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        idAsistenteColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        LugarColumn.setCellValueFactory(new PropertyValueFactory<>("lugar"));
-        FechaColumn.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+        // Inicializar la instancia de InterfazBase
+        interfazBase = new InterfazBase();
 
-        tableLimpieza.setItems(ObjetosDAO.getLimpiezaList());
-    }    
+        // Configurar la tabla con los datos de la clase Cliente
+        interfazBase.configureTableFromClass(table, text, "Limpiezas", Limpieza.class);
+        table.setItems(ObjetosDAO.getLimpiezaList());
+        table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+    }
 
     @FXML
     private void regresar(MouseEvent event) {
+        try {
+            App.setRoot("opcionesSecretaria");
+        } catch (IOException ex) { 
+            ex.printStackTrace();
+        }
     }
 
     @FXML
     private void irLimpieza(ContextMenuEvent event) {
+        // Acción de ir a limpieza
+    }
+
+    @FXML
+    private void añadir(MouseEvent event) {
+        try {
+            App.setRoot("AñadirCliente");
+    } catch (IOException ex) {
+    }
+    }
+
+    @FXML
+    private void eliminar(MouseEvent event) {
+        Cliente clienteSeleccionado = table.getSelectionModel().getSelectedItem();
+    
+        if (clienteSeleccionado != null) {
+            // Lógica para eliminar el cliente de la base de datos
+            if (eliminarClienteDeBD(clienteSeleccionado)) {
+                // Eliminar el cliente del TableView
+                table.getItems().remove(clienteSeleccionado);
+            } else {
+                mostrarError("No se pudo eliminar el cliente de la base de datos.");
+            }
+        } else {
+            mostrarError("Por favor, selecciona un cliente para eliminar.");
+        }
+    }
+    private boolean eliminarClienteDeBD(Cliente cliente) {
+    String sql = "DELETE FROM Cliente WHERE cedula = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, cliente.getCedula());
+
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private void mostrarError(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+    @FXML
+    private void modificar(MouseEvent event) {
+        Cliente clienteSeleccionado = table.getSelectionModel().getSelectedItem();
+
+        if (clienteSeleccionado != null) {
+            try {
+                // Llamar al método que carga la ventana de modificación en un `Stage` modal
+                ModificarClienteController.mostrarVentanaModificacion(clienteSeleccionado);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                mostrarError("No se pudo cargar la ventana de modificación.");
+            }
+        } else {
+            mostrarError("Por favor, selecciona un cliente para modificar.");
+        }
     }
     
 }

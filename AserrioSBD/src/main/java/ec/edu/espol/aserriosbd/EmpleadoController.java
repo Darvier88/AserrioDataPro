@@ -49,7 +49,7 @@ public class EmpleadoController implements Initializable {
     @FXML
     private void regresar(MouseEvent event) {
         try {
-            App.setRoot("inicio");
+            App.setRoot("opcionesSecretaria");
         } catch (IOException ex) { 
             ex.printStackTrace();
         }
@@ -111,7 +111,6 @@ public class EmpleadoController implements Initializable {
         alert.showAndWait();
     }
 
-    @FXML
     private void modificar(MouseEvent event) {
         Empleado empleadoSeleccionado = table.getSelectionModel().getSelectedItem();
 

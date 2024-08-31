@@ -11,9 +11,14 @@ import java.util.Date;
  * @author nicol
  */
 public class Limpieza {
-    private int id;
+    private Integer id;
     private String lugar;
     private Date fecha;
+
+    public Limpieza() {
+    }
+    
+    
 
     public Limpieza(int id, String lugar, Date fecha) {
         this.id = id;

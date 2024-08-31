@@ -27,7 +27,6 @@ ec\edu\espol\aserriosbd\AñadirClienteController.class
 ec\edu\espol\aserriosbd\ModificarBase.class
 module-info.class
 ec\edu\espol\aserriosbd\Maquinaria.class
-ec\edu\espol\aserriosbd\App.class
 ec\edu\espol\aserriosbd\MantenimientoController.class
 ec\edu\espol\aserriosbd\ModificarLoteMaderaController.class
 ec\edu\espol\aserriosbd\ModificarClienteController.class

@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -20,7 +21,9 @@ import javafx.scene.input.MouseEvent;
 public class MantenimientoController implements Initializable {
 
     @FXML
-    private TableView<?> tableMantenimiento;
+    private Text text;
+    @FXML
+    private TableView<?> table;
 
     /**
      * Initializes the controller class.
@@ -36,6 +39,14 @@ public class MantenimientoController implements Initializable {
 
     @FXML
     private void irLimpieza(ContextMenuEvent event) {
+    }
+
+    @FXML
+    private void añadir(MouseEvent event) {
+    }
+
+    @FXML
+    private void eliminar(MouseEvent event) {
     }
     
 }
