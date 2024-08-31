@@ -673,3 +673,271 @@ SELECT ID_empleado, rol, dias_laborados, liquido_a_recibir FROM Rol_de_pagos;
 UPDATE Rol_de_pagos SET sueldo = 1600.00, total_ingresos = 1650.00, liquido_a_recibir = 1550.00 WHERE ID_empleado = '0702345678';
 -- DELETE
 DELETE FROM Rol_de_pagos WHERE ID_empleado = '0703456789';
+
+-- procedures de actualizar 
+-- actualizar precio de total del producto al cambiar las unidades (detalle)
+delimiter /
+create procedure ActualizarPrecioTotal(in idProducto varchar(5),in unidades_nuevas int)
+BEGIN
+	declare precio_unitario float;
+	set precio_unitario= (select precioUnitario from producto where id=idProducto);
+	if idProducto <> all(select id from Producto) then
+		signal sqlstate '04001' set message_text = 'ID producto no existente';
+	elseif unidades_nuevas <0 then
+		signal sqlstate '04002' set message_text ='Unidades negativas no validas';
+	else
+		update detalle set totalProdu = unidades_nuevas *(precio_unitario) where id_producto=idProducto;
+	end if;
+END /
+-- actualizar la calidad de un producto (producto)
+create procedure ActualizarCalidad(in idProducto varchar(5),in nueva_calidad varchar(10))
+begin
+	if idProducto <> all(select id from Producto) then
+		signal sqlstate '04001' set message_text = 'ID producto no existente';
+	else
+		update producto set calidad = nueva_calidad where id=idProducto;
+	end if; 
+end /
+-- actualizar metodo de pago de la factura (Factura)
+create procedure ActualizarMetodoDePago(in idFactura int,in metodoPago enum('Efectivo','Transferencia'))
+begin
+	if metodoPago != 'Efectivo' or metodoPago != 'Transferencia' then 
+		signal sqlstate '04100' set message_text ='Metodo de pago invalido';
+	elseif idFactura <> all(select id from Factura) then
+		signal sqlstate '04200' set message_text='ID de factura inexistente';
+	else
+		update Factura set metodo_pago=metodoPago where id=idFactura;
+	end if;
+end /
+-- Actualizar la dirección del cliente (cliente)
+create procedure ActualizarDireccion(in cedulaCliente varchar(13),in direccionNueva varchar(50))
+begin
+	if cedulaCliente <> all(select cedula from Cliente)then
+		signal sqlstate '04002' set message_text ='Cédula no se encuentra en la base de datos';
+	else
+		update Cliente set direccion = direccionNueva where cedula =cedulaCliente;
+    end if;
+end /
+-- Actualizar la descripción de la reclamación de un cliente en específico (reclamación)
+create procedure ActualizarReclamacion (in cedulaCliente varchar(13),in descripcion_nueva varchar(100))
+begin
+	if cedulaCliente <> all(select id_cliente from reclamacion)then
+		signal sqlstate '04003' set message_text ='Cédula no se encuentra con una tupla para reclamaciones';
+	else 
+		update Reclamacion set descripcion=descripcion_nueva where id_cliente=cedulaCliente;
+   end if;     
+end /
+-- actualizar la información del mantenimiento
+-- actualizar la información del operario
+create procedure actualizarOperario(in id char(10), in nomb varchar(40),in horaI time,in horaF time,in fechaCapa date,in tipoCapa varchar(20))
+begin
+	UPDATE operario
+    SET nombre=nomb,horaInicio=horaI,horaFine=horaF,fechaCapacitacion=fechaCapa,tipoCapacitacion=tipoCapa,ID=id
+    WHERE ID=id;
+end/
+create trigger actualizarOperario
+before update on operario
+for each row
+begin
+	UPDATE mantenimiento
+	SET ID_operario= new.ID
+	WHERE ID_operario= old.ID;
+	UPDATE rol_de_pagos
+	SET ID_operario= new.ID
+	WHERE ID_operario= old.ID;
+end/
+-- actualizar la información de la maquinaria
+create procedure actualizarMaquinaria(in codig int,in nomb varchar(20),in mar varchar(20),in fechaAdqui date)
+begin
+	UPDATE maquinaria
+    SET codigo=codig, nombre=nomb, marca=mar, fecha_adqui=fechaAdqui 
+    WHERE codigo=codi;
+end/
+create trigger actualizarMaquinaria
+before update on maquinaria
+for each row
+begin
+	UPDATE matenimiento
+	SET codigo_maquinaria= new.codigo
+	WHERE codigo_maquinaria= old.codigo;
+end/
+-- actualizar la información del registro
+create procedure actualizarRegistro(in idAsist char(10),in fech date)
+begin
+	UPDATE registro
+    SET fecha=fech
+    WHERE ID_asistente=idAsist;
+end/
+-- actualizar la información del asistente de operario
+create procedure actualizarAsistente(in id char(10), in nomb varchar(40),in horaI time,in horaF time,in fechaCapa date,in tipoCapa varchar(20))
+begin
+	UPDATE asistente_operario
+    SET nombre=nomb,horaInicio=horaI,horaFine=horaF,fechaCapacitacion=fechaCapa,tipoCapacitacion=tipoCapa,ID=id
+    WHERE ID=id;
+end/
+create trigger actualizarAsistente
+before update on asistente_operario
+for each row
+begin
+	UPDATE registro
+	SET ID_asistente= new.ID
+	WHERE ID_asistente= old.ID;
+	UPDATE rol_de_pagos
+	SET ID_empleado= new.ID
+	WHERE ID_empleado= old.ID;
+end/
+-- actualizar la información de la limpieza
+create procedure actualizarLimpieza(in id int, in place varchar(30))
+begin
+	UPDATE limpieza
+    SET lugar=place
+    WHERE ID=id;
+end/ 
+-- actualizar la información de la secretaria
+create procedure actualizarSecretaria(in id char(10), in nomb varchar(40),in horaI time,in horaF time,in fechaCapa date,in tipoCapa varchar(20))
+begin
+	UPDATE secretaria
+    SET nombre=nomb,horaInicio=horaI,horaFine=horaF,fechaCapacitacion=fechaCapa,tipoCapacitacion=tipoCapa,ID=id
+    WHERE ID=id;
+end/
+create trigger actualizarSecretaria
+before update on secretaria
+for each row
+begin
+	if old.ID <> new.ID then
+		UPDATE factura
+        SET ID_secretaria= new.ID
+        WHERE ID_secretaria= old.ID;
+		UPDATE lote_madera
+        SET id_secretaria= new.id
+        WHERE id_secretaria= old.id;
+        UPDATE mantenimiento
+        SET ID_secretaria= new.ID
+        WHERE ID_secretaria= old.ID;
+        UPDATE reclamacion
+        SET ID_secretaria= new.ID
+        WHERE ID_secretaria= old.ID;
+        UPDATE registro
+        SET ID_secretaria= new.ID
+        WHERE ID_secretaria= old.ID;
+        UPDATE rol_de_pagos
+        SET ID_empleado= new.ID
+        WHERE ID_empleado= old.ID;
+	end if;
+end/
+-- actualizar la información de la evaluación
+create procedure actualizarEvaluacion(in evalu int,in proveedor int, in p_calidad varchar(10), in p_puntualidad varchar(15), in p_detalle varchar(100))
+begin
+	UPDATE evaluacion
+    SET id_proveedor=proveedor, calidad=p_calidad, puntualidad= p_puntualidad, detalle=p_detalle
+    WHERE id=evalu;
+end/
+-- actualizar la información del proveedor
+create procedure actualizarProveedor(in p_cedu char(10), in p_nomb varchar(30), in p_telef int)
+begin
+	UPDATE proveedor
+    SET nombre=p_nomb, telefono=p_telef, cedula=p_cedu
+    WHERE cedula=p_cedu;
+end/
+create trigger actualizarProveedor
+before update on proveedor
+for each row
+begin
+	if old.cedula <> new.cedula then
+        SELECT DISTINCT id
+        FROM lote_madera
+        WHERE id_proveedor=old.cedula;
+        SELECT DISTINCT id
+        FROM evaluacion
+        WHERE id_proveedor=old.cedula;
+        UPDATE lote_madera
+        SET id_proveedor = new.cedula
+        WHERE id_proveedor = old.cedula;
+        UPDATE evaluacion
+        SET id_proveedor= new.cedula
+        WHERE id_proveedor = old.cedula;
+	end if;
+end/
+-- actualizar la informacion de un lote de madera
+create procedure ActualizarFechaLlegada(in idLote int,in idsecret int,in fecha date)
+begin
+	UPDATE lote_madera
+    SET fecha_llegada=fecha, id_secretaria = idsecret
+    WHERE id=idLote;
+end/
+-- actualizar la cantidad de una especificación de un lote en específico
+create procedure ActualizarCantidadEsp(in idMadera int, in cantidadNueva int)
+begin
+	DECLARE precUnit float;
+    SELECT precio_unitario
+    INTO precUnit
+    FROM especificacion
+    WHERE id_madera=idMadera;
+    UPDATE especificacion
+    SET cantidad=cantidadNueva, importe= cantidadNueva*precUnit
+    WHERE id_madera = idMadera;
+end/
+CREATE TRIGGER ActualizarPrecioLote
+AFTER UPDATE ON especificacion
+FOR EACH ROW
+BEGIN
+    DECLARE oldPrecio INT;
+    DECLARE newPrecio INT;
+    DECLARE idLote INT;
+
+    -- Obtener el ID del lote correspondiente
+    SELECT id_lote INTO idLote
+    FROM especificacion
+    WHERE id_madera = NEW.id_madera;
+
+    -- Calcular el precio total del lote antes de la actualización
+    SET oldPrecio = (SELECT SUM(importe) FROM especificacion WHERE id_lote = idLote);
+
+    -- Calcular el nuevo importe para la fila actualizada
+    SET newPrecio = NEW.importe;
+
+    -- Actualizar el precio total del lote en la tabla especificacion
+    UPDATE especificacion
+    SET precio = (precio - OLD.importe) + newPrecio
+    WHERE id_lote = idLote;
+END/ 
+CREATE PROCEDURE ActualizarTipoMadera(IN idMadera INT, IN name VARCHAR(30), IN precUnit FLOAT, IN condicAmb VARCHAR(20))
+BEGIN
+    -- Actualiza los datos en la tabla tipo_de_madera
+    UPDATE tipo_de_madera
+    SET nombre = name, precio_unitario = precUnit, condic_ambiental = condicAmb
+    WHERE id = idMadera;
+END /
+CREATE TRIGGER ActualizarEspecificacionYPrecio
+AFTER UPDATE ON tipo_de_madera
+FOR EACH ROW
+BEGIN
+    DECLARE cant INT;
+    DECLARE oldImp INT;
+    DECLARE newImp INT;
+    DECLARE idLote INT;
+
+    -- Verifica si el precio_unitario ha cambiado
+    IF OLD.precio_unitario <> NEW.precio_unitario THEN
+
+        -- Actualiza el importe en la tabla especificacion
+        SELECT cantidad, importe INTO cant, oldImp
+        FROM especificacion
+        WHERE id_madera = NEW.id;
+
+        SET newImp = cant * NEW.precio_unitario;
+
+        UPDATE especificacion
+        SET importe = newImp
+        WHERE id_madera = NEW.id;
+
+        -- Actualiza el precio del lote en la tabla especificacion
+        SELECT id_lote INTO idLote
+        FROM especificacion
+        WHERE id_madera = NEW.id;
+
+        UPDATE especificacion
+        SET precio = (precio - oldImp) + newImp
+        WHERE id_lote = idLote;
+    END IF;
+END/

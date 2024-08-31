@@ -19,7 +19,9 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
 
 
+
         scene = new Scene(loadFXML("inicioPerfiles"), 1366, 768);
+
 
         stage.setScene(scene);
         stage.show();
