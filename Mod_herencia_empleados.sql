@@ -20,7 +20,7 @@ SELECT * FROM Secretaria;
 
 -- Migrar registros desde Secretaria a Empleado, incluso si no existen en Empleado
 INSERT INTO Empleado (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion)
-SELECT s.ID, s.nombre, s.horaInicio, s.horaFin, s.fechaCapacitacion, s.tipoCapacitacion
+SELECT s.ID, s.nombre, s.horaInicio, s.horaFine, s.fechaCapacitacion, s.tipoCapacitacion
 FROM Secretaria s
 ON DUPLICATE KEY UPDATE
     nombre = VALUES(nombre),
@@ -34,22 +34,23 @@ INSERT INTO Empleado (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCa
 SELECT o.ID, o.nombre, o.horaInicio, o.horaFin, o.fechaCapacitacion, o.tipoCapacitacion
 FROM Operario o
 ON DUPLICATE KEY UPDATE
-    nombre = VALUES(nombre),
-    horaInicio = VALUES(horaInicio),
-    horaFin = VALUES(horaFin),
-    fechaCapacitacion = VALUES(fechaCapacitacion),
-    tipoCapacitacion = VALUES(tipoCapacitacion);
+    nombre = o.nombre,
+    horaInicio = o.horaInicio,
+    horaFin = o.horaFin,
+    fechaCapacitacion = o.fechaCapacitacion,
+    tipoCapacitacion = o.tipoCapacitacion;
 
 -- Migrar registros desde Asistente_operario a Empleado, incluso si no existen en Empleado
 INSERT INTO Empleado (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion)
 SELECT ao.ID, ao.nombre, ao.horaInicio, ao.horaFin, ao.fechaCapacitacion, ao.tipoCapacitacion
 FROM Asistente_operario ao
 ON DUPLICATE KEY UPDATE
-    nombre = VALUES(nombre),
-    horaInicio = VALUES(horaInicio),
-    horaFin = VALUES(horaFin),
-    fechaCapacitacion = VALUES(fechaCapacitacion),
-    tipoCapacitacion = VALUES(tipoCapacitacion);
+    nombre = ao.nombre,
+    horaInicio = ao.horaInicio,
+    horaFin = ao.horaFin,
+    fechaCapacitacion = ao.fechaCapacitacion,
+    tipoCapacitacion = ao.tipoCapacitacion;
+
 
 
 -- 1. Eliminar las columnas comunes en las tablas hijas
@@ -73,7 +74,7 @@ DROP COLUMN tipoCapacitacion;
 ALTER TABLE Secretaria
 DROP COLUMN nombre,
 DROP COLUMN horaInicio,
-DROP COLUMN horaFin,
+DROP COLUMN horaFine,
 DROP COLUMN fechaCapacitacion,
 DROP COLUMN tipoCapacitacion;
 
@@ -81,16 +82,31 @@ DROP COLUMN tipoCapacitacion;
 
 -- Tabla Operario
 ALTER TABLE Operario
-ADD CONSTRAINT fk_operario_empleado
+ADD CONSTRAINT ID_empleado_operario
 FOREIGN KEY (ID) REFERENCES Empleado(ID);
 
 -- Tabla Asistente_operario
 ALTER TABLE Asistente_operario
-ADD CONSTRAINT fk_asistente_operario_empleado
+ADD CONSTRAINT ID_empleado_asistente
 FOREIGN KEY (ID) REFERENCES Empleado(ID);
 
 -- Tabla Secretaria
 ALTER TABLE Secretaria
-ADD CONSTRAINT fk_secretaria_empleado
+ADD CONSTRAINT ID_empleado_secretaria
 FOREIGN KEY (ID) REFERENCES Empleado(ID);
 
+-- Subqueries para obtener las tablas completas
+-- secretaria
+CREATE VIEW TablaSecretaria as
+SELECT * 
+FROM empleado JOIN secretaria using (ID);
+
+-- secretaria
+CREATE VIEW TablaOperario as
+SELECT * 
+FROM empleado JOIN operario using (ID);
+
+-- secretaria
+CREATE VIEW TablaAsistente as
+SELECT * 
+FROM empleado JOIN asistente_operario using (ID);
