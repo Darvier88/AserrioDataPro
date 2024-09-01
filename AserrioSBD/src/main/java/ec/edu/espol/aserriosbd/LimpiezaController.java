@@ -39,12 +39,12 @@ public class LimpiezaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Inicializar la instancia de InterfazBase
-        interfazBase = new InterfazBase();
+        /**interfazBase = new InterfazBase();
 
         // Configurar la tabla con los datos de la clase Cliente
         interfazBase.configureTableFromClass(table, text, "Limpiezas", Limpieza.class);
         table.setItems(ObjetosDAO.getLimpiezaList());
-        table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);**/
 
     }
 
