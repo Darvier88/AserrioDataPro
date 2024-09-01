@@ -15,8 +15,10 @@ ec\edu\espol\aserriosbd\SecondaryController.class
 ec\edu\espol\aserriosbd\modelo\LoteMadera.class
 ec\edu\espol\aserriosbd\ModificarProveedorController.class
 ec\edu\espol\aserriosbd\InterfazBase.class
+ec\edu\espol\aserriosbd\LoginDueñoController.class
 ec\edu\espol\aserriosbd\AñadirProveedorController.class
 ec\edu\espol\aserriosbd\modelo\Limpieza.class
+ec\edu\espol\aserriosbd\LoginController.class
 ec\edu\espol\aserriosbd\modelo\DatabaseConnection.class
 ec\edu\espol\aserriosbd\ModificarProductoController.class
 ec\edu\espol\aserriosbd\ProductoController.class
@@ -33,6 +35,7 @@ ec\edu\espol\aserriosbd\modelo\Empleado.class
 ec\edu\espol\aserriosbd\MantenimientoController.class
 ec\edu\espol\aserriosbd\ModificarLoteMaderaController.class
 ec\edu\espol\aserriosbd\ModificarClienteController.class
+ec\edu\espol\aserriosbd\modelo\UsuariosDAO.class
 ec\edu\espol\aserriosbd\PrimaryController.class
 ec\edu\espol\aserriosbd\AñadirLoteMaderaController.class
 ec\edu\espol\aserriosbd\InicioPerfilesController.class

@@ -1,5 +1,7 @@
 C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Maquinaria.java
 C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\EmpleadoController.java
+C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\UsuariosDAO.java
+C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\LoginController.java
 C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarClienteController.java
 C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Cliente.java
 C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ProductoController.java
@@ -28,6 +30,7 @@ C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol
 C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ProveedorController.java
 C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\TipoMadera.java
 C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\MantenimientoController.java
+C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\LoginDueñoController.java
 C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Proveedor.java
 C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarBase.java
 C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirProveedorController.java

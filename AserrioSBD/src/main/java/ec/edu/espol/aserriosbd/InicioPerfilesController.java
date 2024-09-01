@@ -26,14 +26,30 @@ public class InicioPerfilesController implements Initializable {
         // TODO
     }    
 
-    @FXML
+    /**@FXML
     private void mostrarDatos(MouseEvent event) {
         try {
             App.setRoot("opcionesSecretaria");
         } catch (IOException ex) { 
         }
-    }
+    }**/
 
+    @FXML
+    private void irALoginDueño(MouseEvent event) {
+        try {
+            App.setRoot("loginDueño");
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
     
+    @FXML
+    private void irALogin(MouseEvent event) {
+        try {
+            App.setRoot("login");
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
     
 }
