@@ -1789,8 +1789,8 @@ DELIMITER ;
 -- vistas
 -- Vista para ver los asistentes encargados de la limpieza de algun lugar
 create view AsistenteEncargadoDeLugar as 
-select a.nombre,r.fecha,l.lugar FROM empleado e JOIN
-Asistente_operario a ON e.ID=a.ID join Registro r on a.id=r.id_asistente join limpieza l on l.id=r.id_limpieza
+select e.nombre,r.fecha,l.lugar FROM empleado e JOIN
+asistente_operario a ON e.ID=a.ID join Registro r on a.id=r.id_asistente join limpieza l on l.id=r.id_limpieza
 order by r.fecha;
 select * from AsistenteEncargadoDeLugar;
 drop view AsistenteEncargadoDeLugar;
@@ -1808,7 +1808,7 @@ select * from EspecificacionLote;
 drop view EspecificacionLote;
 -- Vista para ver los operarios encargados del mantenimiento de alguna maquinaria
 create view OperarioEncargadoDeMantenimiento as 
-select o.nombre as operario,m.fecha,m.detalles,mq.nombre as maquina,mq.marca,mq.fecha_adqui as fecha_adquisicion FROM empleado e JOIN
+select e.nombre as operario,m.fecha,m.detalles,mq.nombre as maquina,mq.marca,mq.fecha_adqui as fecha_adquisicion FROM empleado e JOIN
 operario o ON e.ID=o.ID join mantenimiento m on o.id=m.ID_operario join maquinaria mq on mq.codigo=m.codigo_maquinaria
 order by m.fecha;
 select * from OperarioEncargadoDeMantenimiento;

@@ -110,3 +110,7 @@ FROM empleado JOIN operario using (ID);
 CREATE VIEW TablaAsistente as
 SELECT * 
 FROM empleado JOIN asistente_operario using (ID);
+DROP TABLE asistente_operario_backup;
+DROP TABLE operario_backup;
+DROP TABLE empleado_backup;
+DROP TABLE secretaria_backup;
