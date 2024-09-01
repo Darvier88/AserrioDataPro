@@ -1785,3 +1785,31 @@ else
     commit;
 end if;
 END //
+DELIMITER ;
+-- vistas
+-- Vista para ver los asistentes encargados de la limpieza de algun lugar
+create view AsistenteEncargadoDeLugar as 
+select a.nombre,r.fecha,l.lugar FROM empleado e JOIN
+Asistente_operario a ON e.ID=a.ID join Registro r on a.id=r.id_asistente join limpieza l on l.id=r.id_limpieza
+order by r.fecha;
+select * from AsistenteEncargadoDeLugar;
+drop view AsistenteEncargadoDeLugar;
+-- vista para ver los productos pertenecientes a cada factura 
+create view ProductosPorFactura as 
+select p.nombre as producto,d.unidades,f.id as factura_id,f.fecha,f.hora,c.nombre as cliente,c.direccion,c.num_contacto as telefono,c.correo_contacto as correo from
+Producto p join Detalle d on p.id=d.id_producto join Factura f on f.id=d.id_factura join Cliente c on f.id_cliente=c.cedula;
+select * from ProductosPorFactura;
+drop view ProductosPorFactura;
+-- vista para identificar los lotes con su fecha y los tipos de madera que contiene cada uno
+create view EspecificacionLote as 
+select t.nombre as producto,e.cantidad,l.id as lote_id,l.fecha_llegada,p.nombre as proveedor,p.cedula,p.telefono from
+Tipo_de_madera t join especificacion e on e.id_madera=t.id join Lote_madera l on l.id=e.id_lote join proveedor p on l.ID_proveedor=p.cedula;
+select * from EspecificacionLote;
+drop view EspecificacionLote;
+-- Vista para ver los operarios encargados del mantenimiento de alguna maquinaria
+create view OperarioEncargadoDeMantenimiento as 
+select o.nombre as operario,m.fecha,m.detalles,mq.nombre as maquina,mq.marca,mq.fecha_adqui as fecha_adquisicion FROM empleado e JOIN
+operario o ON e.ID=o.ID join mantenimiento m on o.id=m.ID_operario join maquinaria mq on mq.codigo=m.codigo_maquinaria
+order by m.fecha;
+select * from OperarioEncargadoDeMantenimiento;
+drop view OperarioEncargadoDeMantenimiento;
