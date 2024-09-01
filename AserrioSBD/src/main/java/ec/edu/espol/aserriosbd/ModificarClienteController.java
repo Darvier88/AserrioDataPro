@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -97,33 +98,36 @@ public class ModificarClienteController implements Initializable {
     }
 
     private boolean actualizarClienteEnBD(Cliente clienteModificado) {
-        String sql = "UPDATE Cliente SET nombre = ?, direccion = ?, num_contacto = ?, correo_contacto = ? WHERE cedula = ?";
+    String sql = "{CALL ActualizarCliente(?, ?, ?, ?, ?)}";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         CallableStatement cstmt = conn.prepareCall(sql)) {
 
-            pstmt.setString(1, clienteModificado.getNombre());
-            pstmt.setString(2, clienteModificado.getDireccion());
-
-            // Manejar el caso en que numContacto sea null
-            if (clienteModificado.getNumContacto() != null) {
-                pstmt.setInt(3, clienteModificado.getNumContacto());
-            } else {
-                pstmt.setNull(3, java.sql.Types.INTEGER);
-            }
-
-            pstmt.setString(4, clienteModificado.getCorreoContacto());
-            pstmt.setString(5, clienteModificado.getCedula());
-
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            mostrarError("Ocurrió un error al modificar el cliente en la base de datos.");
-            return false;
+        // Establecer los parámetros del procedimiento almacenado
+        cstmt.setString(1, clienteModificado.getCedula());
+        cstmt.setString(2, clienteModificado.getNombre());
+        cstmt.setString(3, clienteModificado.getDireccion());
+        
+        // Manejar el caso en que numContacto sea null
+        if (clienteModificado.getNumContacto() != null) {
+            cstmt.setInt(4, clienteModificado.getNumContacto());
+        } else {
+            cstmt.setNull(4, java.sql.Types.INTEGER);
         }
+
+        cstmt.setString(5, clienteModificado.getCorreoContacto());
+
+        // Ejecutar el procedimiento almacenado
+        cstmt.executeUpdate();
+        return true;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        mostrarError("Ocurrió un error al modificar el cliente en la base de datos.");
+        return false;
     }
+}
+
 
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(AlertType.ERROR);

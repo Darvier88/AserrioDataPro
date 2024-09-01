@@ -9,6 +9,7 @@ import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
 import ec.edu.espol.aserriosbd.modelo.Cliente;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -93,21 +94,24 @@ public class ClienteController implements Initializable {
         }
     }
     private boolean eliminarClienteDeBD(Cliente cliente) {
-    String sql = "DELETE FROM Cliente WHERE cedula = ?";
+    String sql = "{call EliminarCliente(?)}"; // Llamada al procedimiento almacenado
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         CallableStatement cstmt = conn.prepareCall(sql)) {
 
-            pstmt.setString(1, cliente.getCedula());
+        // Configurar el parámetro del CallableStatement
+        cstmt.setString(1, cliente.getCedula());
 
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0;
+        // Ejecutar el procedimiento almacenado
+        int rowsAffected = cstmt.executeUpdate();
+        return rowsAffected > 0; // Verifica si se afectaron filas
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
+    }
+
 
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

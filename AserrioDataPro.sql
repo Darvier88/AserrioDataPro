@@ -674,57 +674,7 @@ DELETE FROM Rol_de_pagos WHERE ID_empleado = '0703456789';
 
 -- procedures de actualizar 
 -- actualizar precio de total del producto al cambiar las unidades (detalle)
-delimiter /
-create procedure ActualizarPrecioTotal(in idProducto varchar(5),in unidades_nuevas int)
-BEGIN
-	declare precio_unitario float;
-	set precio_unitario= (select precioUnitario from producto where id=idProducto);
-	if idProducto <> all(select id from Producto) then
-		signal sqlstate '04001' set message_text = 'ID producto no existente';
-	elseif unidades_nuevas <0 then
-		signal sqlstate '04002' set message_text ='Unidades negativas no validas';
-	else
-		update detalle set totalProdu = unidades_nuevas *(precio_unitario) where id_producto=idProducto;
-	end if;
-END /
--- actualizar la calidad de un producto (producto)
-create procedure ActualizarCalidad(in idProducto varchar(5),in nueva_calidad varchar(10))
-begin
-	if idProducto <> all(select id from Producto) then
-		signal sqlstate '04001' set message_text = 'ID producto no existente';
-	else
-		update producto set calidad = nueva_calidad where id=idProducto;
-	end if; 
-end /
--- actualizar metodo de pago de la factura (Factura)
-create procedure ActualizarMetodoDePago(in idFactura int,in metodoPago enum('Efectivo','Transferencia'))
-begin
-	if metodoPago != 'Efectivo' or metodoPago != 'Transferencia' then 
-		signal sqlstate '04100' set message_text ='Metodo de pago invalido';
-	elseif idFactura <> all(select id from Factura) then
-		signal sqlstate '04200' set message_text='ID de factura inexistente';
-	else
-		update Factura set metodo_pago=metodoPago where id=idFactura;
-	end if;
-end /
--- Actualizar la dirección del cliente (cliente)
-create procedure ActualizarDireccion(in cedulaCliente varchar(13),in direccionNueva varchar(50))
-begin
-	if cedulaCliente <> all(select cedula from Cliente)then
-		signal sqlstate '04002' set message_text ='Cédula no se encuentra en la base de datos';
-	else
-		update Cliente set direccion = direccionNueva where cedula =cedulaCliente;
-    end if;
-end /
--- Actualizar la descripción de la reclamación de un cliente en específico (reclamación)
-create procedure ActualizarReclamacion (in cedulaCliente varchar(13),in descripcion_nueva varchar(100))
-begin
-	if cedulaCliente <> all(select id_cliente from reclamacion)then
-		signal sqlstate '04003' set message_text ='Cédula no se encuentra con una tupla para reclamaciones';
-	else 
-		update Reclamacion set descripcion=descripcion_nueva where id_cliente=cedulaCliente;
-   end if;     
-end /
+
 delimiter /
 -- procedure de eliminación 
 -- eliminar rol de pago
@@ -900,8 +850,9 @@ create trigger trgBorrarCliente before delete on Cliente
 for each row
 begin
 	update factura set id_cliente='0000000000000' where ID_cliente=old.cedula;
-    update reclamacion set id_cliente = 'Esta vacio' where id_cliente=old.cedula;
+    update reclamacion set id_cliente = '0000000000000' where id_cliente=old.cedula;
 end / 
+
 -- Eliminar factura 
 create procedure EliminarFactura (in idFactura int,in eliminar boolean)
 begin if idFactura <> all(select id from Factura) then
