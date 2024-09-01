@@ -5,6 +5,8 @@
 package ec.edu.espol.aserriosbd;
 
 import java.io.IOException;
+import ec.edu.espol.aserriosbd.modelo.ObjetosDAO;
+import ec.edu.espol.aserriosbd.modelo.Limpieza;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

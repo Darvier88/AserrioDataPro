@@ -1,5 +1,8 @@
 package ec.edu.espol.aserriosbd;
 
+import ec.edu.espol.aserriosbd.modelo.ObjetosDAO;
+import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
+import ec.edu.espol.aserriosbd.modelo.Empleado;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
