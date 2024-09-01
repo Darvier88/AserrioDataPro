@@ -31,6 +31,7 @@ public class OpcionesSecretariaController implements Initializable {
         try {
             App.setRoot("maquinaria");
         } catch (IOException ex) { 
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -47,6 +48,7 @@ public class OpcionesSecretariaController implements Initializable {
         try {
             App.setRoot("cliente");
         } catch (IOException ex) { 
+            ex.printStackTrace(); 
         }
     }
 

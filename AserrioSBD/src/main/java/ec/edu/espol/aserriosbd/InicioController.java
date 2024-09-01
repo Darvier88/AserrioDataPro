@@ -48,6 +48,7 @@ public class InicioController implements Initializable {
         try {
             App.setRoot("cliente");
         } catch (IOException ex) { 
+            System.out.println(ex.getMessage());
         }
     }
 

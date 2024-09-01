@@ -111,12 +111,12 @@ public class EmpleadoController implements Initializable {
         alert.showAndWait();
     }
 
+    @FXML
     private void modificar(MouseEvent event) {
         Empleado empleadoSeleccionado = table.getSelectionModel().getSelectedItem();
 
         if (empleadoSeleccionado != null) {
             try {
-                // Llamar al método que carga la ventana de modificación en un `Stage` modal
                 ModificarEmpleadoController.mostrarVentanaModificacion(empleadoSeleccionado);
             } catch (IOException ex) {
                 ex.printStackTrace();
