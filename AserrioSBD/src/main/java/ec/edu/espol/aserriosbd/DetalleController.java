@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import java.sql.CallableStatement;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,8 +37,8 @@ public class DetalleController implements Initializable {
     @FXML
     private Text text;
     @FXML
-    private TableView<?> table;
-private InterfazBase interfazBase;
+    private TableView<Detalle> table;
+    private InterfazBase interfazBase;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

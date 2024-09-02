@@ -58,7 +58,7 @@ public class AñadirFacturaController implements Initializable {
         cstmt.setString(1, factura.getIdSecretaria());
         cstmt.setString(2, factura.getIdCliente());
         // Convertir LocalDate a java.sql.Date
-        LocalDate localDate = factura.getFecha();
+        Date localDate = factura.getFecha();
         if (localDate != null) {
             cstmt.setDate(3, Date.valueOf(localDate)); // Convertir LocalDate a java.sql.Date
         } else {

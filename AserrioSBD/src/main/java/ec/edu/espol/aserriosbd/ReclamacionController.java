@@ -31,7 +31,7 @@ public class ReclamacionController implements Initializable {
     @FXML
     private Text text;
     @FXML
-    private TableView<?> table;
+    private TableView<Reclamacion> table;
     private InterfazBase interfazBase;
 
     @Override
