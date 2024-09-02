@@ -9,6 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 import java.lang.reflect.Field;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -57,6 +60,8 @@ public class AñadirBase<T> {
 
    public T getObject() throws InstantiationException, IllegalAccessException {
     T instance = clazz.newInstance();
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Ajusta el formato según sea necesario
+    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm"); // Ajusta el formato según sea necesario
 
     for (Map.Entry<String, TextField> entry : textFieldMap.entrySet()) {
         String fieldName = entry.getKey();
@@ -74,6 +79,12 @@ public class AñadirBase<T> {
                 field.set(instance, textValue.isEmpty() ? null : Integer.valueOf(textValue));
             } else if (field.getType() == double.class || field.getType() == Double.class) {
                 field.set(instance, textValue.isEmpty() ? null : Double.valueOf(textValue));
+            } else if (field.getType() == float.class || field.getType() == Float.class) {
+                field.set(instance, textValue.isEmpty() ? null : Float.valueOf(textValue));
+            } else if (field.getType() == LocalDate.class) {
+                field.set(instance, textValue.isEmpty() ? null : LocalDate.parse(textValue, dateFormatter));
+            } else if (field.getType() == LocalTime.class) {
+                field.set(instance, textValue.isEmpty() ? null : LocalTime.parse(textValue, timeFormatter));
             }
             // Agrega más tipos de datos según sea necesario
         } catch (NoSuchFieldException e) {
@@ -84,6 +95,7 @@ public class AñadirBase<T> {
 
     return instance;
 }
+
    public static GridPane getFormGridExcluding(List<String> fieldNames, String... camposExcluidos) {
         GridPane gridPane = new GridPane();
         List<String> excluidos = Arrays.asList(camposExcluidos);

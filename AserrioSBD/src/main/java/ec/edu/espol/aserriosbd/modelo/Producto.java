@@ -18,6 +18,9 @@ public class Producto {
     private String dimension;
     private String descripcion;
 
+    public Producto() {
+        // Inicializar atributos si es necesario
+    }
     public Producto(String id, String nombre, float precioUnitario, String calidad, String condicAmbiental, int tiempoAlmacenamiento, String dimension, String descripcion) {
         this.id = id;
         this.nombre = nombre;

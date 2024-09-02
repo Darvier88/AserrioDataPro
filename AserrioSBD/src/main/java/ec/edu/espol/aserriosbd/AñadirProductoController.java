@@ -8,6 +8,7 @@ import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
 import ec.edu.espol.aserriosbd.modelo.Producto;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -38,28 +39,31 @@ public class AñadirProductoController implements Initializable {
     }
 
     private boolean insertarProductoEnBD(Producto producto) {
-        String sql = "INSERT INTO producto (id, nombre, precioUnitario, calidad, condicAmbiental, tiempoAlmacenamiento, dimension, descripcion) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    String sql = "{CALL InsertProducto(?, ?, ?, ?, ?, ?, ?, ?)}";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         CallableStatement cstmt = conn.prepareCall(sql)) {
 
-            pstmt.setString(1, producto.getId());
-            pstmt.setString(2, producto.getNombre());
-            pstmt.setInt(3, (int) producto.getPrecioUnitario());
-            pstmt.setString(4, producto.getCalidad());
-            pstmt.setString(5, producto.getCondicAmbiental());
-            pstmt.setInt(6, producto.getTiempoAlmacenamiento());
-            pstmt.setString(7, producto.getDimension());
-            pstmt.setString(8, producto.getDescripcion());
+        // Establecer los parámetros del procedimiento almacenado
+        cstmt.setString(1, producto.getId());
+        cstmt.setString(2, producto.getNombre());
+        cstmt.setFloat(3, producto.getPrecioUnitario());
+        cstmt.setString(4, producto.getCalidad());
+        cstmt.setString(5, producto.getCondicAmbiental());
+        cstmt.setInt(6, producto.getTiempoAlmacenamiento());
+        cstmt.setString(7, producto.getDimension());
+        cstmt.setString(8, producto.getDescripcion());
 
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0; // Verifica si se insertó al menos una fila
+        // Ejecutar el procedimiento almacenado
+        cstmt.execute();
+        return true;
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
+}
+
 
     @FXML
     private void añadir(ActionEvent event) {

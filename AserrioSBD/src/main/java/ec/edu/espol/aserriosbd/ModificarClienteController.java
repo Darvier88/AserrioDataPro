@@ -102,7 +102,7 @@ public class ModificarClienteController implements Initializable {
 
     try (Connection conn = DatabaseConnection.getConnection();
          CallableStatement cstmt = conn.prepareCall(sql)) {
-
+        System.out.println(clienteModificado.getCedula());
         // Establecer los parámetros del procedimiento almacenado
         cstmt.setString(1, clienteModificado.getCedula());
         cstmt.setString(2, clienteModificado.getNombre());

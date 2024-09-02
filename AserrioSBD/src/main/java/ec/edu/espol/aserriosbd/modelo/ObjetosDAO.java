@@ -236,5 +236,139 @@ public static ObservableList<Empleado> getEmpleadoList() {
 
         return tipoMaderaList;
     }
+     public static ObservableList<Factura> getFacturaList(){
+         ObservableList<Factura> facturaList =FXCollections.observableArrayList();
+         String query = "SELECT * FROM factura";
+         try (Connection connection = DatabaseConnection.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Factura factura = new Factura(
+                    resultSet.getInt("ID"),
+                    resultSet.getString("ID_secretaria"),
+                    resultSet.getString("ID_cliente"),
+                    resultSet.getDate("fecha"),
+                    resultSet.getTime("hora").toLocalTime(),
+                    resultSet.getString("direccion_local"),
+                    resultSet.getString("metodo_pago"),
+                    resultSet.getFloat("subtotal_sin_impuestos"),
+                        resultSet.getFloat("subtotal_0Porcent"),
+                        resultSet.getFloat("ValorTotal")
+                );
+                facturaList.add(factura);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return facturaList;
+    }
+     
+    public static ObservableList<Reclamacion> getReclamacionList() {
+        ObservableList<Reclamacion> multaList = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getConnection();
+
+        String query = "SELECT * FROM reclamacion"; // Asegúrate que este sea el nombre correcto de la tabla en tu base de datos
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Reclamacion multa = new Reclamacion(
+                        resultSet.getInt("ID"),
+                        resultSet.getInt("ID_secretaria"),
+                        resultSet.getInt("ID_cliente"),
+                        resultSet.getString("descripcion")
+                );
+                multaList.add(multa);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return multaList;
+    }
+    
+    public static ObservableList<Detalle> getDetalleList() {
+        ObservableList<Detalle> detalleList = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getConnection();
+
+        String query = "SELECT * FROM detalle";  // Asegúrate de que este es el nombre correcto de la tabla
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Detalle detalle = new Detalle(
+                        resultSet.getInt("idFactura"),
+                        resultSet.getString("idProducto"),
+                        resultSet.getInt("cantidad"),
+                        resultSet.getFloat("totalProducto"),
+                        resultSet.getString("detalleAdic")
+                );
+                detalleList.add(detalle);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return detalleList;
+    }
+    
+    public static ObservableList<Especificación> getEspecificacionList() {
+        ObservableList<Especificación> especificacionList = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getConnection();
+
+        String query = "SELECT * FROM especificacion"; // Ajusta el nombre de la tabla según tu base de datos
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Especificación especificacion = new Especificación(
+                        resultSet.getInt("id_lote"),
+                        resultSet.getString("id_madera"),
+                        resultSet.getInt("importe"),
+                        resultSet.getInt("cantidad")
+                );
+                especificacionList.add(especificacion);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return especificacionList;
+    }
+    
+    public static ObservableList<Evaluacion> getEvaluacionList() {
+        ObservableList<Evaluacion> evaluacionList = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getConnection();
+
+        String query = "SELECT * FROM evaluacion"; // Ajusta el nombre de la tabla según tu base de datos
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Evaluacion evaluacion = new Evaluacion(
+                        resultSet.getInt("id"),
+                        resultSet.getString("id_proveedor"),
+                        resultSet.getInt("calidad"),
+                        resultSet.getInt("puntualidad"),
+                        resultSet.getString("detalle")
+                );
+                evaluacionList.add(evaluacion);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return evaluacionList;
+    }
 }
 

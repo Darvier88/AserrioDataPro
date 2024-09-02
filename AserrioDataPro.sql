@@ -89,6 +89,8 @@ INSERT INTO Producto (ID, nombre, precioUnitario, calidad, condic_ambiental, tie
 ('VR01', 'Viga de Roble', 50.00, NULL, 'Seco', 24, '8x8x20', 'Viga de roble de alta resistencia'),
 ('TP03', 'Tablón de Pino', 28.00, 'De segunda', 'Seco', 12, '6x6x8', 'Tablón de pino para vigas'),
 ('CN01', 'Cuartón de Nogal', 22.50, 'De primera', 'Húmedo', 10, '4x4x8', 'Cuartón de nogal para estructuras');
+INSERT INTO Producto (id, nombre, precioUnitario, calidad, condic_ambiental, tiempo_almacenamiento, dimension, descripcion)
+VALUES ('Vacio', 'Producto Vacio', 0, 'De Segunda', 'N/A', 0, 'N/A', 'Producto Placeholder');
 /*Insercion de 10 secretarias distintas*/
 INSERT INTO Secretaria (ID, nombre, horaInicio, horaFine, fechaCapacitacion, tipoCapacitacion) VALUES
 ('0701234567', 'Ana Pérez', '08:00:00', '17:00:00', '2023-01-15', 'Secretaria'),
@@ -569,108 +571,6 @@ INSERT INTO Rol_de_pagos (ID_empleado, rol, dias_laborados, sueldo, horas_extras
 ('0934567801', 'A', 32, 2400.00, 135.00, 2535.00, 180.00, 110.00, 290.00, 2245.00);
 
 
--- CRUD
--- operario
--- CREAR
-INSERT INTO Operario (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion) 
-VALUES ('0998765432', 'Elena Nito', '08:00:00', '17:00:00', '2024-12-12', 'Operativo');
--- LEER
-SELECT nombre, horaInicio, horaFin FROM Operario WHERE ID = '0998765432';
--- UPDATE
-UPDATE Operario SET nombre = 'Elena Modificado', tipoCapacitacion = 'Administrativo' 
-WHERE ID = '0956789012';
--- DELETE 
-DELETE FROM Mantenimiento WHERE ID_operario = '0998765432';
-DELETE FROM Empleado WHERE ID = '0998765432';
-DELETE FROM Rol_de_pagos WHERE ID_empleado = '0998765432';
-DELETE FROM Operario WHERE ID = '0998765432';
-
--- Asistente_operario
--- CREATE
-INSERT INTO Asistente_operario (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion) 
-VALUES ('0999876543', 'Marco Polo', '09:00:00', '18:00:00', '2024-12-25', 'Técnico');
--- LEER
-SELECT nombre, horaInicio, horaFin FROM Asistente_operario WHERE ID = '0999876543';
--- UPDATE
-UPDATE Asistente_operario SET nombre = 'Marco Modificado', tipoCapacitacion = 'Operativo' 
-WHERE ID = '0999876543';
--- DELATE
-DELETE FROM registro WHERE ID_asistente = '0912345689';
-DELETE FROM Rol_de_pagos WHERE ID_empleado = '0912345689';
-DELETE FROM Empleado WHERE ID = '0912345689';
-DELETE FROM Asistente_operario WHERE ID = '0912345689';
-
--- maquinaria
--- CREATE
-INSERT INTO Maquinaria (codigo, nombre, marca, fecha_adqui) 
-VALUES (1011, 'Torno CNC', 'Haas', '2023-12-01');
--- LEER
-SELECT NOMBRE, marca FROM Maquinaria WHERE codigo = 1011;
--- UPDATE
-UPDATE Maquinaria SET nombre = 'Torno CNC Modificado', marca = 'Mazak' 
-WHERE codigo = 1011;
--- DELETE
-DELETE FROM Mantenimiento WHERE codigo_maquinaria = 1002;
-DELETE FROM Maquinaria WHERE codigo = 1002;
-
-
--- mantenimiento
--- CREAR
-INSERT INTO Mantenimiento (ID_operario, codigo_maquinaria, ID_secretaria, detalles, fecha) 
-VALUES ('0943671209', 1001, '0701234567', 'Revisión general', '2024-12-15');
--- LEER
-SELECT * FROM Mantenimiento WHERE ID = 1; 
--- UPDATE
-UPDATE Mantenimiento SET detalles = 'Revisión completa', fecha = '2025-01-01' 
-WHERE ID = 1;
--- DELETE
-DELETE FROM Mantenimiento WHERE ID = 3;
-
--- limpieza
--- CREAR
-INSERT INTO Limpieza (lugar) VALUES ('Oficina Principal');
--- LEER
-SELECT lugar FROM Limpieza WHERE ID = 3;  -- Asumiendo que el ID es 11.
--- UPDATE
-UPDATE Limpieza SET lugar = 'Oficina Secundaria' WHERE ID = 11;
--- DELETE
-DELETE FROM Registro WHERE ID_limpieza = 3;
-DELETE FROM Limpieza WHERE ID = 3;
-
--- registro
--- CREAR
-INSERT INTO Registro (ID_asistente, ID_limpieza, ID_secretaria, fecha) 
-VALUES ('0943671210', 11, '0701234567', '2025-01-15');
--- LEER
-SELECT * FROM Registro WHERE ID_asistente = '0943671210' AND ID_limpieza = 1;
--- UPDATE
-UPDATE Registro SET fecha = '2025-02-01' 
-WHERE ID_asistente = '0943671210' AND ID_limpieza = 1;
--- DELETE 
-DELETE FROM Registro WHERE ID_asistente = '0943671210' AND ID_limpieza = 5;
-
--- empleado
--- CREAR
-INSERT INTO Empleado (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion) VALUES
-('0702342278', 'María López', '08:30:00', '17:30:00', NULL, NULL);
--- LEER
-SELECT ID, nombre FROM Empleado;
--- UPDATE
-UPDATE Empleado SET nombre = 'Ana Pérez Modificada', tipoCapacitacion = 'Administrativa' WHERE ID = '0701234567';
--- DELETE
-DELETE FROM rol_de_pagos WHERE ID_empleado = '0912345678';
-DELETE FROM Empleado WHERE ID = '0912345678';
-
--- Rol de pagos
--- CREAR
-INSERT INTO Rol_de_pagos (ID_empleado, rol, dias_laborados, sueldo, horas_extras, total_ingresos, egreso_IESS, anticipos, total_egresos, liquido_a_recibir) VALUES
-('0702345678', 'S', 22, 1500.00, 50.00, 1550.00, 100.00, 0.00, 100.00, 1450.00);
--- LEER
-SELECT ID_empleado, rol, dias_laborados, liquido_a_recibir FROM Rol_de_pagos;
--- UPDATE
-UPDATE Rol_de_pagos SET sueldo = 1600.00, total_ingresos = 1650.00, liquido_a_recibir = 1550.00 WHERE ID_empleado = '0702345678';
--- DELETE
-DELETE FROM Rol_de_pagos WHERE ID_empleado = '0703456789';
 
 -- procedures de actualizar 
 -- actualizar precio de total del producto al cambiar las unidades (detalle)
@@ -693,77 +593,43 @@ begin if idOperario <> all(select id from Operario) then
 		signal sqlstate '04020' set message_text ='ID inexistente';
         rollback;
 	elseif eliminar = true then
+		delete from Rol_de_pagos where id_empleado=idOperario;
+        delete from Mantenimiento where id_operario=idOperario;
         delete from Operario where id=idOperario;
-        delete from empleado where id=idOperario;
-		delete from Rol_de_pagos where id_empleado='Esta vacio';
-        delete from Mantenimiento where id_operario='Esta vacio';
-        commit;
-    else
-		delete from Operario where id=idOperario;
         delete from empleado where id=idOperario;
         commit;
 	end if; 
 end /
-create trigger trgBorrarOperario before delete on Operario
-for each row
-begin
-	update Rol_de_Pagos set id_empleado='Esta vacio' where id_empleado=old.id;
-    update Mantenimiento set id_operario ='Esta vacio' where id_operario=old.id;
-end / 
 -- eliminar asistente
 create procedure EliminarAsistente (in idAsistente char(10),in eliminar boolean)
 begin if idAsistente <> all(select id from Asistente_operario) then
 		signal sqlstate '04020' set message_text ='ID inexistente';
         rollback;
 	elseif eliminar=true then
-		delete from Asistente_operario where id=idAsistente;
-        delete from empleado where id=idAsistente;
-		delete from Registro where id_asistente='Esta vacio';
-		delete from Rol_de_pagos where id_empleado='Esta vacio';
-        commit;
-	else
+		delete from Registro where id_asistente=idAsistente;
+		delete from Rol_de_pagos where id_empleado=idAsistente;
 		delete from Asistente_operario where id=idAsistente;
         delete from empleado where id=idAsistente;
         commit;
 	end if; 
 end /
-create trigger trgBorrarAsistente before delete on Asistente_operario
-for each row
-begin
-	update Rol_de_pagos set id_empleado= 'Esta vacio' where ID_empleado=old.id;
-    update registro set id_asistente = 'Esta vacio' where id_asistente=old.id;
-end / 
 -- eliminar secretaria
 create procedure EliminarSecretaria (in idSecretaria char(10),in eliminar boolean)
 begin if idSecretaria <> all(select id from Secretaria) or idSecretaria<> all(select id from Empleado) then
 		signal sqlstate '04020' set message_text ='ID inexistente';
         rollback;
 	elseif eliminar =true then
+		delete from Rol_de_pagos where id_empleado=idSecretaria;
+		delete from reclamacion where id_secretaria =idSecretaria;
+		delete from factura where id_secretaria=idSecretaria;
+		delete from lote_madera where id_secretaria=idSecretaria;
+		delete from mantenimiento where id_secretaria=idSecretaria;
+		delete from registro where id_secretaria=idSecretaria;
 		delete from Secretaria where id=idSecretaria;
         delete from empleado where id=idSecretaria;
-		delete from Rol_de_pagos where id_empleado='Esta vacio';
-		delete from reclamacion where id_secretaria ='Esta vacio';
-		delete from factura where id_secretaria='Esta vacio';
-		delete from lote_madera where id_secretaria='Esta vacio';
-		delete from mantenimiento where id_secretaria='Esta vacio';
-		delete from registro where id_secretaria='Esta vacio';
-        commit;
-	else
-		delete from secretaria where id=idSecretaria;
-		delete from empleado where id=idSecretaria;
         commit;
 	end if; 
 end /
-create trigger trgBorrarSecretaria before delete on Secretaria
-for each row
-begin
-	update Rol_de_pagos set id_empleado='Esta vacio' where ID_empleado=old.id;
-    update reclamacion set id_secretaria = 'Esta vacio' where id_secretaria=old.id;
-    update factura set id_secretaria ='Esta vacio' where id_secretaria=old.id;
-    update lote_madera set id_secretaria='Esta vacio' where id_secretaria=old.id;
-    update mantenimiento set id_secretaria='Esta vacio' where id_secretaria=old.id;
-    update registro set id_secretaria='Esta vacio' where id_secretaria=old.id;
-end / 
 -- eliminar mantenimiento
 create procedure EliminarMantenimiento (in idMantenimiento int)
 begin if idMantenimiento <> all(select id from Mantenimiento) then
@@ -780,19 +646,11 @@ begin if idMaquinaria <> all(select codigo from Maquinaria) then
 		signal sqlstate '04020' set message_text ='ID inexistente';
         rollback;
 	elseif eliminar=true then
+		delete from Mantenimiento where codigo_maquinaria=codigo;
 		delete from Maquinaria where idMaquinaria=codigo;
-		delete from Mantenimiento where codigo_maquinaria is null;
-        commit;
-	else
-        delete from Maquinaria where idMaquinaria=codigo;
         commit;
 	end if; 
 end /
-create trigger trgBorrarMaquinaria before delete on Maquinaria
-for each row
-begin
-	update Mantenimiento set codigo_maquinaria=null where codigo_maquinaria=old.codigo;
-end / 
 -- eliminar registro
 create procedure EliminarRegistro (in idAsistente char(10),in idSecretaria char(10),in idLimpieza int)
 begin if idAsistente <> all(select id from Asistente_operario) or idSecretaria <> all(select id from secretaria) or idLimpieza <> all(select id from limpieza) then
@@ -809,19 +667,11 @@ begin if idLimpieza <> all(select id from Limpieza) then
 		signal sqlstate '04020' set message_text ='ID inexistente';
         rollback;
 	elseif eliminar=true then
+		delete from Registro where id_limpieza=idLimpieza;
 		delete from Limpieza where idLimpieza=id;
-		delete from Registro where id_limpieza=999999;
-        commit;
-	else
-        delete from Limpieza where idLimpieza=id;
         commit;
 	end if; 
 end /
-create trigger trgBorrarLimpieza before delete on Limpieza
-for each row
-begin
-	update Registro set id_limpieza=999999 where id_limpieza=old.id;
-end / 
 -- eliminar reclamación
 create procedure EliminarReclamacion (in idReclamacion int)
 begin if idReclamacion <> all(select id from Reclamacion) then
@@ -833,45 +683,28 @@ begin if idReclamacion <> all(select id from Reclamacion) then
 	end if; 
 end /
 -- Eliminar cliente
-create procedure EliminarCliente (in idCliente varchar(13),in eliminar boolean)
+create procedure EliminarCliente (in idCliente varchar(13))
 begin if idCliente <> all(select cedula from Cliente) then
 		signal sqlstate '04020' set message_text ='ID inexistente';
         rollback;
-	elseif eliminar=true then
-		delete from Cliente where idCliente=cedula;
-		delete from Reclamacion where id_cliente ='Esta vacio';
-        commit;
 	else
+		update Factura set ID_cliente='0000000000000' where ID_cliente=idCliente;
+        update Reclamacion set ID_cliente='0000000000000' where ID_cliente=idCliente;
         delete from Cliente where idCliente=cedula;
         commit;
 	end if; 
 end /
-create trigger trgBorrarCliente before delete on Cliente
-for each row
-begin
-	update factura set id_cliente='0000000000000' where ID_cliente=old.cedula;
-    update reclamacion set id_cliente = '0000000000000' where id_cliente=old.cedula;
-end / 
-
 -- Eliminar factura 
 create procedure EliminarFactura (in idFactura int,in eliminar boolean)
 begin if idFactura <> all(select id from Factura) then
 		signal sqlstate '04020' set message_text ='ID inexistente';
         rollback;
 	elseif eliminar = true then
+		delete from Detalle where id_factura = idFactura;
         delete from Factura where idFactura=id;
-		delete from Detalle where id_factura = 999999;
-        commit;
-    else
-		delete from Factura where id=idFactura;
         commit;
 	end if; 
 end /
-create trigger trgBorrarFactura before delete on Factura
-for each row
-begin
-	update Detalle set id_factura=999999 where id_factura=old.id;
-end / 
 -- eliminar detalle
 create procedure EliminarDetalle (in idFactura int,in idProducto varchar(6))
 begin if idFactura <> all(select id_factura from Detalle) or idProducto <> all(select id_producto from Detalle) then
@@ -884,42 +717,27 @@ begin if idFactura <> all(select id_factura from Detalle) or idProducto <> all(s
 end /
 -- eliminar producto
 create procedure EliminarProducto (in idProducto varchar(6),in eliminar boolean)
-begin if idProducto <> all(select id from producto) then
+begin    
+	if idProducto <> all(select id from producto) then
 		signal sqlstate '04020' set message_text ='ID inexistente';
         rollback;
 	elseif eliminar = true then
-        delete from Producto where idProducto=id;
-		delete from Detalle where id_Producto = 'Vacio';
-        commit;
-    else
+		delete from Detalle where ID_producto=idProducto;
 		delete from Producto where id=idProducto;
         commit;
 	end if; 
 end /
-create trigger trgBorrarProducto before delete on Producto
-for each row
-begin
-	update Detalle set id_producto='Vacio' where id_producto=old.id;
-end / 
 -- eliminar lote de madera
 create procedure Eliminarlote (in idLote int,in eliminar boolean)
 begin if idLote <> all(select id from Lote_madera) then
 		signal sqlstate '04020' set message_text ='ID inexistente';
         rollback;
 	elseif eliminar = true then
+		delete from Especificacion where id_lote = idLote;
         delete from Lote_madera where idLote=id;
-		delete from Especificacion where id_lote = 999999;
-        commit;
-    else
-		delete from Lote_madera where idLote=id;
         commit;
 	end if; 
 end /
-create trigger trgBorrarLote before delete on Lote_madera
-for each row
-begin
-	update Especificacion set id_lote=999999 where id_lote=old.id;
-end / 
 -- eliminar proveedor
 create procedure EliminarProveedor (in idProveedor char(10),in eliminar boolean)
 begin if idProveedor <> all(select cedula from Proveedor) then
@@ -927,20 +745,11 @@ begin if idProveedor <> all(select cedula from Proveedor) then
         rollback;
 	elseif eliminar = true then
         delete from Proveedor where idProveedor=cedula;
-		delete from Lote_madera where id_proveedor = 'Esta vacio';
-        delete from Evaluacion where id_proveedor ='Esta vacio';
-        commit;
-    else
-		delete from Proveedor where idProveedor=cedula;
+		delete from Lote_madera where id_proveedor = idProveedor;
+        delete from Evaluacion where id_proveedor =idProveedor;
         commit;
 	end if; 
 end /
-create trigger trgBorrarProveedor before delete on Proveedor
-for each row
-begin
-	update Lote_madera set id_proveedor='Esta vacio' where id_proveedor=old.cedula;
-    update Evaluacion set id_proveedor='Esta vacio' where id_proveedor=old.cedula;
-end / 
 -- eliminar evaluacion
 create procedure EliminarEvaluacion (in idEvaluacion int)
 begin if idEvaluacion <> all(select id from Evaluacion) then
@@ -961,28 +770,18 @@ begin if idLote <> all(select id_lote from Especificacion) or idMadera <> all(se
         commit;
 	end if; 
 end /
--- eliminar tipo de madera
+-- eliminar totalProdutipo de madera
 create procedure EliminarMadera (in idMadera varchar(6),in eliminar boolean)
 begin if idMadera <> all(select id from tipo_de_madera) then
 		signal sqlstate '04020' set message_text ='ID inexistente';
         rollback;
 	elseif eliminar = true then
+		delete from Especificacion where id_madera = idMadera;
         delete from tipo_de_madera where id=idMadera;
-		delete from Especificacion where id_madera = 'Vacio';
-        commit;
-    else
-		delete from tipo_de_madera where id=idMadera;
         commit;
 	end if; 
 end /
-create trigger trgBorrarMadera before delete on tipo_de_madera
-for each row
-begin
-	update Especificacion set id_madera='Vacio' where id_madera=old.id;
-end / 
 delimiter ;
-
-
 -- procedures de actualizar 
 -- actualizar un detalle
 delimiter /
@@ -1007,8 +806,11 @@ END /
 create trigger ActualizarTotal after update on Detalle
 for each row
 begin
-	update factura set subtotal_sin_impuestos= new.totalProdu-old.totalProdu+subtotal_sin_impuestos , ValorTotal=new.totalProdu-old.totalProdu+ValorTotal
-    where ID=new.ID_factura;
+	UPDATE factura 
+    SET subtotal_sin_impuestos = subtotal_sin_impuestos - old.totalProdu + new.totalProdu,
+        ValorTotal = ValorTotal - old.totalProdu + new.totalProdu,
+        subtotal_0Porcent = subtotal_0Porcent - old.totalProdu + new.totalProdu
+    WHERE ID = new.ID_factura;
 end /
 -- actualizar producto 
 create procedure ActualizarProducto(in idProducto varchar(6),in nuevoNombre varchar(30),in nuevoPrecioUnitario float,in nueva_calidad varchar(10),in nueva_cond_amb varchar(20), in nuevo_tiempo_almac int,in nueva_dimension varchar(20),in nueva_desc varchar(100))
@@ -1021,11 +823,7 @@ begin
         commit;
 	end if; 
 end /
-create trigger trgActualizarDetalle after update on Producto
-for each row
-begin
-	update Detalle set totalProdu=unidades*(new.precioUnitario) where id_producto=new.id;
-end /
+
 -- actualizar factura
 create procedure ActualizarFactura(in idFactura int,in NuevaIdSecretaria char(10),in NuevoIdCliente char(10),in NuevaFecha date,in NuevaHora time,in NuevaDireccion varchar(30),in metodoPago enum('Efectivo','Transferencia'),in NuevoSubtotalSinImpuestos float,in Nuevosubtotal_0PorCiento float)
 begin
@@ -1059,6 +857,11 @@ begin
         commit;
     end if;
 end /
+create trigger trgActualizarCliente before update on Cliente
+for each row begin
+	update Reclamacion set ID_cliente=new.cedula where ID_cliente=old.cedula;
+    update Factura set ID_cliente=new.cedula where ID_cliente=old.cedula;
+end/
 -- Actualizar reclamación 
 create procedure ActualizarReclamacion (in idEspecifico int,in idSecretaria char(10),in cedulaCliente varchar(13),in descripcion_nueva varchar(100))
 begin
@@ -1319,12 +1122,6 @@ begin
     commit;
     end if;
 end/
-CREATE TRIGGER ActualizarPrecioLote AFTER UPDATE ON especificacion
-FOR EACH ROW
-BEGIN
-	update Lote_madera set precio= precio+new.importe-old.importe 
-    where id_lote=new.id_lote;
-END/ 
 -- actualizar tipo de madera 
 CREATE PROCEDURE ActualizarTipoMadera(IN idMadera varchar(6),in NuevoNombre VARCHAR(30), IN precUnit FLOAT, IN condicAmb VARCHAR(20))
 BEGIN
@@ -1738,32 +1535,6 @@ end if;
 END //
 DELIMITER ;
 -- vistas
--- Vista para ver los asistentes encargados de la limpieza de algun lugar
-create view AsistenteEncargadoDeLugar as 
-select e.nombre,r.fecha,l.lugar FROM empleado e JOIN
-asistente_operario a ON e.ID=a.ID join Registro r on a.id=r.id_asistente join limpieza l on l.id=r.id_limpieza
-order by r.fecha;
-select * from AsistenteEncargadoDeLugar;
-drop view AsistenteEncargadoDeLugar;
--- vista para ver los productos pertenecientes a cada factura 
-create view ProductosPorFactura as 
-select p.nombre as producto,d.unidades,f.id as factura_id,f.fecha,f.hora,c.nombre as cliente,c.direccion,c.num_contacto as telefono,c.correo_contacto as correo from
-Producto p join Detalle d on p.id=d.id_producto join Factura f on f.id=d.id_factura join Cliente c on f.id_cliente=c.cedula;
-select * from ProductosPorFactura;
-drop view ProductosPorFactura;
--- vista para identificar los lotes con su fecha y los tipos de madera que contiene cada uno
-create view EspecificacionLote as 
-select t.nombre as producto,e.cantidad,l.id as lote_id,l.fecha_llegada,p.nombre as proveedor,p.cedula,p.telefono from
-Tipo_de_madera t join especificacion e on e.id_madera=t.id join Lote_madera l on l.id=e.id_lote join proveedor p on l.ID_proveedor=p.cedula;
-select * from EspecificacionLote;
-drop view EspecificacionLote;
--- Vista para ver los operarios encargados del mantenimiento de alguna maquinaria
-create view OperarioEncargadoDeMantenimiento as 
-select e.nombre as operario,m.fecha,m.detalles,mq.nombre as maquina,mq.marca,mq.fecha_adqui as fecha_adquisicion FROM empleado e JOIN
-operario o ON e.ID=o.ID join mantenimiento m on o.id=m.ID_operario join maquinaria mq on mq.codigo=m.codigo_maquinaria
-order by m.fecha;
-select * from OperarioEncargadoDeMantenimiento;
-drop view OperarioEncargadoDeMantenimiento;
 
 -- indices
 -- Índice para la tabla Factura en el campo fecha
@@ -1796,3 +1567,71 @@ DROP INDEX idx_registro_fecha ON Registro;
 
 -- Eliminar el índice en la tabla Limpieza
 DROP INDEX idx_limpieza_lugar ON Limpieza;
+
+-- reportes
+-- Reporte mensual de compras
+create view ReporteCompras as 
+select p.nombre,l.fecha_llegada,t.nombre as name,e.importe,e.cantidad FROM Proveedor p JOIN
+Lote_madera l ON p.cedula=l.ID_proveedor join Especificacion e on e.id_lote=l.id join Tipo_de_madera t on t.id=e.ID_madera
+where month(l.fecha_llegada)=month(now()) and year(l.fecha_llegada)=year(now())
+order by l.fecha_llegada;
+select * from ReporteCompras;
+-- Reporte de ventas por dia
+create view ReporteVentasDia as 
+select p.nombre,d.unidades,sum(d.totalProdu) from
+Producto p join Detalle d on p.id=d.id_producto join Factura f on f.id=d.id_factura
+where f.fecha=now()
+group by p.nombre,d.unidades;
+select * from ReporteVentasDia;
+-- Reporte mensual de mantenimiento
+create view ReporteMensualDeMantenimiento as 
+select e.nombre,m.detalles,m.fecha,ma.nombre as maquinaria from empleado e join operario o using(id)
+join mantenimiento m on m.id_operario=o.id join maquinaria ma on ma.codigo=m.codigo_maquinaria
+where month(m.fecha)=month(now()) and year(m.fecha)=year(now())
+;
+select * from ReporteMensualDeMantenimiento;
+-- Reporte de limpieza diaria del area de corte
+create view AreaDeCorteLimpiezaDiaria as 
+select e.nombre
+FROM empleado e JOIN asistente_operario a using(id) JOIN registro r ON a.id = r.id_asistente 
+JOIN limpieza l ON r.id_limpieza = l.id
+WHERE l.lugar = 'Área de Corte' AND r.fecha = now();
+-- Script de creación y permisos de usuario
+-- usuario 1, dueño del negocio
+CREATE USER 'dueño'@'project-sbd.mysql.database.azure.com' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON . TO 'dueño'@'project-sbd.mysql.database.azure.com' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON . TO 'proyectoAserrio'@'127.0.0.1:3306' WITH GRANT OPTION;
+
+-- usuario 2, secretaria 1 del negocio
+CREATE USER 'secret1'@'project-sbd.mysql.database.azure.com' IDENTIFIED BY '1111';
+GRANT ALL PRIVILEGES ON aserriodatapro.* TO 'secret1'@'project-sbd.mysql.database.azure.com';
+REVOKE EXECUTE ON PROCEDURE aserriodatapro.eliminarroldepago FROM 'secret1'@'project-sbd.mysql.database.azure.com';
+REVOKE EXECUTE ON PROCEDURE aserriodatapro.actualizarRolDePago FROM 'secret1'@'project-sbd.mysql.database.azure.com';
+REVOKE EXECUTE ON PROCEDURE aserriodatapro.InsertRolDePagos FROM 'secret1'@'project-sbd.mysql.database.azure.com';
+REVOKE SELECT, INSERT, UPDATE, DELETE ON aserriodatapro.rol_de_pagos FROM 'secret1'@'project-sbd.mysql.database.azure.com';
+
+-- usuario 3, secretaria 2 del negocio
+CREATE USER 'secret2'@'project-sbd.mysql.database.azure.com' IDENTIFIED BY '2222';
+GRANT INSERT, UPDATE ON aserriodatapro.* TO 'secret2'@'project-sbd.mysql.database.azure.com';
+REVOKE EXECUTE ON PROCEDURE aserriodatapro.eliminarroldepago FROM 'secret2'@'project-sbd.mysql.database.azure.com';
+REVOKE EXECUTE ON PROCEDURE aserriodatapro.actualizarRolDePago FROM 'secret2'@'project-sbd.mysql.database.azure.com';
+REVOKE EXECUTE ON PROCEDURE aserriodatapro.InsertRolDePagos FROM 'secret2'@'project-sbd.mysql.database.azure.com';
+REVOKE SELECT, INSERT, UPDATE, DELETE ON aserriodatapro.rol_de_pagos FROM 'secret2'@'project-sbd.mysql.database.azure.com';
+
+-- usuario 4, secretaria 3 del negocio
+CREATE USER 'secret3'@'project-sbd.mysql.database.azure.com' IDENTIFIED BY '2222';
+GRANT INSERT, UPDATE ON aserriodatapro.* TO 'secret3'@'project-sbd.mysql.database.azure.com';
+REVOKE EXECUTE ON PROCEDURE aserriodatapro.eliminarroldepago FROM 'secret3'@'project-sbd.mysql.database.azure.com';
+REVOKE EXECUTE ON PROCEDURE aserriodatapro.actualizarRolDePago FROM 'secret3'@'project-sbd.mysql.database.azure.com';
+REVOKE EXECUTE ON PROCEDURE aserriodatapro.actualizarRolDePago FROM 'secret3'@'project-sbd.mysql.database.azure.com';
+REVOKE EXECUTE ON PROCEDURE aserriodatapro.eliminarMaquinaria FROM 'secret3'@'project-sbd.mysql.database.azure.com';
+GRANT EXECUTE ON PROCEDURE aserriodatapro.eliminarMaquinaria to 'secret3'@'project-sbd.mysql.database.azure.com';
+REVOKE SELECT, INSERT, UPDATE, DELETE ON aserriodatapro.rol_de_pagos FROM 'secret3'@'project-sbd.mysql.database.azure.com';
+
+-- usuario 5, secretaria 4 del negocio
+CREATE USER 'secret4'@'project-sbd.mysql.database.azure.com' IDENTIFIED BY '2222';
+GRANT INSERT, UPDATE ON aserriodatapro.* TO 'secret4'@'project-sbd.mysql.database.azure.com';
+REVOKE EXECUTE ON PROCEDURE aserriodatapro.eliminarroldepago FROM 'secret4'@'project-sbd.mysql.database.azure.com';
+REVOKE EXECUTE ON PROCEDURE aserriodatapro.actualizarRolDePago FROM 'secret4'@'project-sbd.mysql.database.azure.com';
+REVOKE EXECUTE ON PROCEDURE aserriodatapro.InsertRolDePagos FROM 'secret4'@'project-sbd.mysql.database.azure.com';
+REVOKE SELECT, INSERT, UPDATE, DELETE ON aserriodatapro.rol_de_pagos FROM 'secret4'@'project-sbd.mysql.database.azure.com';
