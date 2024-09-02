@@ -6,7 +6,11 @@ package ec.edu.espol.aserriosbd;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
+import java.sql.SQLException;
+import java.io.IOException;
 
 /**
  * FXML Controller class
@@ -22,5 +26,45 @@ public class SeccionVentasController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void irCliente(MouseEvent event) {
+        try {
+            App.setRoot("cliente");
+        } catch (IOException ex) { 
+        }
+    }
+
+    @FXML
+    private void irProducto(MouseEvent event) {
+        try {
+            App.setRoot("producto");
+        } catch (IOException ex) { 
+        }
+    }
+
+    @FXML
+    private void irFactura(MouseEvent event) {
+        try {
+            App.setRoot("facturao");
+        } catch (IOException ex) { 
+        }
+    }
+
+    @FXML
+    private void irReclamacion(MouseEvent event) {
+        try {
+            App.setRoot("reclamacion");
+        } catch (IOException ex) { 
+        }
+    }
+
+    @FXML
+    private void irDetalle(MouseEvent event) {
+        try {
+            App.setRoot("detalle");
+        } catch (IOException ex) { 
+        }
+    }
     
 }

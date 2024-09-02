@@ -265,5 +265,58 @@ public static ObservableList<Empleado> getEmpleadoList() {
 
         return facturaList;
      }
+     
+    public static ObservableList<Reclamacion> getReclamacionList() {
+        ObservableList<Reclamacion> multaList = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getConnection();
+
+        String query = "SELECT * FROM multa"; // Asegúrate que este sea el nombre correcto de la tabla en tu base de datos
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Reclamacion multa = new Reclamacion(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("id_secretaria"),
+                        resultSet.getInt("id_cliente"),
+                        resultSet.getString("descripcion")
+                );
+                multaList.add(multa);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return multaList;
+    }
+    
+    public static ObservableList<Detalle> getDetalleList() {
+    ObservableList<Detalle> detalleList = FXCollections.observableArrayList();
+    Connection connection = DatabaseConnection.getConnection();
+
+    String query = "SELECT * FROM detalle";  // Asegúrate de que este es el nombre correcto de la tabla
+
+    try (Statement statement = connection.createStatement();
+         ResultSet resultSet = statement.executeQuery(query)) {
+
+        while (resultSet.next()) {
+            Detalle detalle = new Detalle(
+                    resultSet.getInt("idFactura"),
+                    resultSet.getInt("idProducto"),
+                    resultSet.getInt("cantidad"),
+                    resultSet.getFloat("totalProducto"),
+                    resultSet.getBoolean("detalleAdic")
+            );
+            detalleList.add(detalle);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return detalleList;
+}
 }
 
