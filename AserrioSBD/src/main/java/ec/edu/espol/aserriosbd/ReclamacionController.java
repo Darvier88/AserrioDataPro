@@ -49,7 +49,7 @@ public class ReclamacionController implements Initializable {
     @FXML
     private void regresar(MouseEvent event) {
         try {
-            App.setRoot("opcionesSecretaria");
+            App.setRoot("seccionVentas");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -58,7 +58,7 @@ public class ReclamacionController implements Initializable {
     @FXML
     private void añadir(MouseEvent event) {
         try {
-            App.setRoot("AñadirMulta");
+            App.setRoot("añadirReclamacion");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -69,7 +69,7 @@ public class ReclamacionController implements Initializable {
         Reclamacion multaSeleccionada = (Reclamacion) table.getSelectionModel().getSelectedItem();
 
         if (multaSeleccionada != null) {
-            if (eliminarMultaDeBD(multaSeleccionada)) {
+            if (eliminarReclamacionDeBD(multaSeleccionada)) {
                 table.getItems().remove(multaSeleccionada);
             } else {
                 mostrarError("No se pudo eliminar la multa de la base de datos.");
@@ -79,16 +79,15 @@ public class ReclamacionController implements Initializable {
         }
     }
 
-    private boolean eliminarMultaDeBD(Reclamacion multa) {
-        String sql = "{call EliminarMulta(?)}"; // Llamada al procedimiento almacenado
+    private boolean eliminarReclamacionDeBD(Reclamacion reclamacion) {
+        String sql = "{call EliminarReclamacion(?)}"; // Llamada al procedimiento almacenado
 
         try (Connection conn = DatabaseConnection.getConnection();
              CallableStatement cstmt = conn.prepareCall(sql)) {
 
-            cstmt.setInt(1, multa.getId());
-
-            int rowsAffected = cstmt.executeUpdate();
-            return rowsAffected > 0;
+            cstmt.setInt(1, reclamacion.getId());
+            cstmt.execute();
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -106,7 +105,19 @@ public class ReclamacionController implements Initializable {
 
     @FXML
     private void modificar(MouseEvent event) {
-        
+        Reclamacion reclamacionSeleccionado = table.getSelectionModel().getSelectedItem();
+
+        if (reclamacionSeleccionado != null) {
+            try {
+                // Llamar al método que carga la ventana de modificación en un `Stage` modal
+                ModificarReclamacionController.mostrarVentanaModificacion(reclamacionSeleccionado);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                mostrarError("No se pudo cargar la ventana de modificación.");
+            }
+        } else {
+            mostrarError("Por favor, selecciona un cliente para modificar.");
+        }
     }
 
     @FXML

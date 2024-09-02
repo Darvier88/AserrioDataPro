@@ -47,7 +47,7 @@ public class SeccionVentasController implements Initializable {
     @FXML
     private void irFactura(MouseEvent event) {
         try {
-            App.setRoot("facturao");
+            App.setRoot("factura");
         } catch (IOException ex) { 
         }
     }

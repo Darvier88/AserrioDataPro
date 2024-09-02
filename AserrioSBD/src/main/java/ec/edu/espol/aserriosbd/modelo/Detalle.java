@@ -14,7 +14,10 @@ public class Detalle {
     private int cantidad;
     private float totalProducto;
     private String detalleAdic;
-
+    
+    public Detalle(){
+        
+    }
     // Constructor
     public Detalle(int idFactura, String idProducto, int cantidad, float totalProducto, String detalleAdic) {
         this.idFactura = idFactura;
@@ -57,7 +60,7 @@ public class Detalle {
         this.totalProducto = totalProducto;
     }
 
-    public String isDetalleAdic() {
+    public String getDetalleAdic() {
         return detalleAdic;
     }
 

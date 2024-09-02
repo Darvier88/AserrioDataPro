@@ -60,7 +60,7 @@ public class DetalleController implements Initializable {
     @FXML
     private void añadir(MouseEvent event) {
         try {
-            App.setRoot("AñadirDetalle");
+            App.setRoot("añadirDetalle");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -90,9 +90,9 @@ public class DetalleController implements Initializable {
             cstmt.setInt(1, detalle.getIdFactura());
             cstmt.setString(2, detalle.getIdProducto());
 
-            int rowsAffected = cstmt.executeUpdate();
-            return rowsAffected > 0;
-
+           // Ejecutar el procedimiento almacenado
+            boolean hasResultSet = cstmt.execute();
+            return !hasResultSet; // El método execute() devuelve true si hay un ResultSet, false si es solo una actualización
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -109,7 +109,19 @@ public class DetalleController implements Initializable {
 
     @FXML
     private void modificar(MouseEvent event) {
-        
+        Detalle detalleSeleccionado = table.getSelectionModel().getSelectedItem();
+
+        if (detalleSeleccionado != null) {
+            try {
+                // Llamar al método que carga la ventana de modificación en un `Stage` modal
+                ModificarDetalleController.mostrarVentanaModificacion(detalleSeleccionado);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                mostrarError("No se pudo cargar la ventana de modificación.");
+            }
+        } else {
+            mostrarError("Por favor, selecciona un detalle para modificar.");
+        }
     } 
 
     @FXML

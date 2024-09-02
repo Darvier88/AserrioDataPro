@@ -144,18 +144,16 @@ public class ProductoController implements Initializable {
         alert.showAndWait();
     }
     private boolean eliminarProductoDeBD(Producto producto) {
-    String sql = "{CALL EliminarProducto(?, ?)}";
+    String sql = "{CALL EliminarProducto(?)}";
 
     try (Connection conn = DatabaseConnection.getConnection();
          CallableStatement cstmt = conn.prepareCall(sql)) {
 
         // Establecer los parámetros del procedimiento almacenado
         cstmt.setString(1, producto.getId());
-        System.out.println(producto.getId());
-        cstmt.setBoolean(2, true);
 
         // Ejecutar el procedimiento almacenado
-        cstmt.executeUpdate();
+        cstmt.execute();
         return true;
 
     } catch (SQLException e) {

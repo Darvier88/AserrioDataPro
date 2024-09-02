@@ -278,8 +278,8 @@ public static ObservableList<Empleado> getEmpleadoList() {
             while (resultSet.next()) {
                 Reclamacion multa = new Reclamacion(
                         resultSet.getInt("ID"),
-                        resultSet.getInt("ID_secretaria"),
-                        resultSet.getInt("ID_cliente"),
+                        resultSet.getString("ID_secretaria"),
+                        resultSet.getString("ID_cliente"),
                         resultSet.getString("descripcion")
                 );
                 multaList.add(multa);

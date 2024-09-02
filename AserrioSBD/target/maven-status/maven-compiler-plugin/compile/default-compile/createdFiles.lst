@@ -1,5 +1,7 @@
 ec\edu\espol\aserriosbd\AñadirProductoController.class
+ec\edu\espol\aserriosbd\AñadirDetalleController.class
 ec\edu\espol\aserriosbd\modelo\Factura.class
+ec\edu\espol\aserriosbd\AñadirReclamacionController.class
 ec\edu\espol\aserriosbd\DetalleController.class
 ec\edu\espol\aserriosbd\LoteMaderaController.class
 ec\edu\espol\aserriosbd\modelo\Proveedor.class
@@ -24,6 +26,7 @@ ec\edu\espol\aserriosbd\ModificarClienteController.class
 ec\edu\espol\aserriosbd\PrimaryController.class
 ec\edu\espol\aserriosbd\AñadirLoteMaderaController.class
 ec\edu\espol\aserriosbd\SeccionVentasController.class
+ec\edu\espol\aserriosbd\ModificarReclamacionController.class
 ec\edu\espol\aserriosbd\modelo\Cliente.class
 ec\edu\espol\aserriosbd\modelo\Maquinaria.class
 ec\edu\espol\aserriosbd\TipoMaderaController.class
@@ -39,6 +42,7 @@ ec\edu\espol\aserriosbd\modelo\Reclamacion.class
 ec\edu\espol\aserriosbd\LoginController.class
 ec\edu\espol\aserriosbd\modelo\DatabaseConnection.class
 ec\edu\espol\aserriosbd\ModificarProductoController.class
+ec\edu\espol\aserriosbd\ModificarDetalleController.class
 ec\edu\espol\aserriosbd\modelo\ReportesDAO.class
 ec\edu\espol\aserriosbd\ClienteController.class
 ec\edu\espol\aserriosbd\modelo\TimeConverter.class

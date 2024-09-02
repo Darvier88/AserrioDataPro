@@ -82,9 +82,9 @@ public class AñadirFacturaController implements Initializable {
             cstmt.setNull(6, java.sql.Types.VARCHAR);
         }
 
-        cstmt.setFloat(7, factura.getSubtotalSinImpuestos());
-        cstmt.setFloat(8, factura.getSubtotal0Porcent());
-        cstmt.setFloat(9, factura.getValorTotal());
+        cstmt.setFloat(7, 0);
+        cstmt.setFloat(8, 0);
+        cstmt.setFloat(9, 0);
 
         // Ejecutar el procedimiento almacenado
         boolean hasResultSet = cstmt.execute();

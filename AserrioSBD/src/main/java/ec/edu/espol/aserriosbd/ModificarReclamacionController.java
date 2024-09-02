@@ -5,32 +5,35 @@
 package ec.edu.espol.aserriosbd;
 
 import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
-import ec.edu.espol.aserriosbd.modelo.Cliente;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.GridPane;
-import javafx.event.ActionEvent;
-import javafx.stage.Stage;
+import ec.edu.espol.aserriosbd.modelo.Reclamacion;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 
-public class ModificarClienteController implements Initializable {
+/**
+ * FXML Controller class
+ *
+ * @author ASUS VIVOBOOK PRO
+ */
+public class ModificarReclamacionController implements Initializable {
 
     @FXML
     private GridPane formGrid;
-    private Cliente cliente;
-    private ModificarBase<Cliente> modificarBase;
+    private Reclamacion reclamacion;
+    private ModificarBase<Reclamacion> modificarBase;
 
     /**
      * Initializes the controller class.
@@ -38,36 +41,35 @@ public class ModificarClienteController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Inicializar ModificarBase con la clase Cliente
-        modificarBase = new ModificarBase<>(Cliente.class);
+        modificarBase = new ModificarBase<>(Reclamacion.class);
 
         // Añadir el formulario generado dinámicamente al GridPane
         formGrid.getChildren().addAll(modificarBase.getFormGrid().getChildren());
-    }
-    public void setCliente(Cliente cliente) {
-        if (cliente != null) {
-            this.cliente = cliente;
-            modificarBase.loadObject(cliente);
+    }    
+    public void setReclamacion(Reclamacion reclamacion) {
+        if (reclamacion != null) {
+            this.reclamacion = reclamacion;
+            modificarBase.loadObject(reclamacion);
         }
     }
-
-    public static void cargarVistaConCliente(Cliente cliente) throws IOException {
+    public static void cargarVistaConCliente(Reclamacion  reclamacion ) throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("modificarCliente.fxml"));
         Parent root = loader.load();
 
-        ModificarClienteController controller = loader.getController();
-        controller.setCliente(cliente);
+        ModificarReclamacionController controller = loader.getController();
+        controller.setReclamacion(reclamacion);
 
-        App.setRoot("modificarCliente");
+        App.setRoot("modificarReclamacion");
     }
-    public static void mostrarVentanaModificacion(Cliente cliente) throws IOException {
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("ModificarCliente.fxml"));
+        public static void mostrarVentanaModificacion(Reclamacion reclamacion) throws IOException {
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("modificarReclamacion.fxml"));
         Parent root = loader.load();
 
-        ModificarClienteController controller = loader.getController();
-        controller.setCliente(cliente);
+        ModificarReclamacionController controller = loader.getController();
+        controller.setReclamacion(reclamacion);
 
         Stage stage = new Stage();
-        stage.setTitle("Modificar Cliente");
+        stage.setTitle("Modificar Reclamacion");
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL); // Establecer la modalidad de la ventana
         stage.showAndWait(); // Mostrar la ventana y esperar hasta que sea cerrada
@@ -76,49 +78,38 @@ public class ModificarClienteController implements Initializable {
     private void modificar(ActionEvent event) throws IOException {
         try {
             // Obtener los valores modificados del formulario
-            Cliente clienteModificado = modificarBase.getObject();
+            Reclamacion reclamacionModificado = modificarBase.getObject();
 
             // Actualizar el cliente en la base de datos
-            if (actualizarClienteEnBD(clienteModificado)) {
+            if (actualizarClienteEnBD(reclamacionModificado)) {
                 System.out.println("Cliente modificado exitosamente.");
-                App.setRoot("cliente");
+                App.setRoot("reclamacion");
                 // Cerrar la ventana emergente
                 Stage stage = (Stage) formGrid.getScene().getWindow();
                 stage.close();
 
                 // Recargar la ventana principal
-                App.setRoot("cliente");
+                App.setRoot("reclamacion");
             } else {
-                mostrarError("No se pudo modificar el cliente en la base de datos.");
+                mostrarError("No se pudo modificar la reclamacion en la base de datos.");
             }
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
-            mostrarError("Ocurrió un error al intentar modificar el cliente.");
+            mostrarError("Ocurrió un error al intentar modificar la reclamacion.");
         }
     }
-
-    private boolean actualizarClienteEnBD(Cliente clienteModificado) {
-        String sql = "{CALL ActualizarCliente(?, ?, ?, ?, ?)}";
+    private boolean actualizarClienteEnBD(Reclamacion reclamacionModificado) {
+        String sql = "{CALL ActualizarReclamacion(?, ?, ?, ?)}";
 
         try (Connection conn = DatabaseConnection.getConnection();
              CallableStatement cstmt = conn.prepareCall(sql)) {
-            System.out.println(clienteModificado.getCedula());
             // Establecer los parámetros del procedimiento almacenado
-            cstmt.setString(1, clienteModificado.getCedula());
-            cstmt.setString(2, clienteModificado.getNombre());
-            cstmt.setString(3, clienteModificado.getDireccion());
-
-            // Manejar el caso en que numContacto sea null
-            if (clienteModificado.getNumContacto() != null) {
-                cstmt.setInt(4, clienteModificado.getNumContacto());
-            } else {
-                cstmt.setNull(4, java.sql.Types.INTEGER);
-            }
-
-            cstmt.setString(5, clienteModificado.getCorreoContacto());
-
+            cstmt.setInt(1, reclamacionModificado.getId());
+            cstmt.setString(2, reclamacionModificado.getIdSecretaria());
+            cstmt.setString(3, reclamacionModificado.getIdCliente());
+            cstmt.setString(4, reclamacionModificado.getDescripcion());
             // Ejecutar el procedimiento almacenado
-            cstmt.executeUpdate();
+            cstmt.execute();
             return true;
 
         } catch (SQLException e) {
@@ -127,26 +118,18 @@ public class ModificarClienteController implements Initializable {
             return false;
         }
     }
-
-
     private void mostrarError(String mensaje) {
-        Alert alert = new Alert(AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
-
-    /**
-     * Este método será llamado para cargar los datos del cliente seleccionado.
-     */
     @FXML
-    private void cancelar(ActionEvent event) throws IOException {
+    private void cancelar(ActionEvent event) {
         // Cerrar la ventana emergente
                 Stage stage = (Stage) formGrid.getScene().getWindow();
                 stage.close();
     }
-
-
+    
 }
-
