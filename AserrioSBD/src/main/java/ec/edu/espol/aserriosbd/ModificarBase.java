@@ -10,6 +10,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 import java.lang.reflect.Field;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -107,12 +110,16 @@ public class ModificarBase<T> {
                 field.set(instance, textValue.isEmpty() ? 0.0f : Float.parseFloat(textValue));
             } else if (field.getType() == Float.class) {
                 field.set(instance, textValue.isEmpty() ? null : Float.valueOf(textValue));
+            } else if (field.getType() == LocalDate.class) {
+                field.set(instance, textValue.isEmpty() ? null : LocalDate.parse(textValue));
+            } else if (field.getType() == LocalTime.class) {
+                field.set(instance, textValue.isEmpty() ? null : LocalTime.parse(textValue));
             }
             // Agrega más tipos de datos según sea necesario
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("Error al procesar el campo " + fieldName + ": " + e.getMessage());
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | DateTimeParseException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("Error al convertir el valor del campo " + fieldName + ": " + e.getMessage());
         }

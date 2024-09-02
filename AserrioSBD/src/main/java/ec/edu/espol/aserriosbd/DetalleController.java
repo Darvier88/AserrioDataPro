@@ -88,7 +88,7 @@ public class DetalleController implements Initializable {
              CallableStatement cstmt = conn.prepareCall(sql)) {
 
             cstmt.setInt(1, detalle.getIdFactura());
-            cstmt.setInt(2, detalle.getIdProducto());
+            cstmt.setString(2, detalle.getIdProducto());
 
             int rowsAffected = cstmt.executeUpdate();
             return rowsAffected > 0;
@@ -111,5 +111,9 @@ public class DetalleController implements Initializable {
     private void modificar(MouseEvent event) {
         
     } 
+
+    @FXML
+    private void irLimpieza(ContextMenuEvent event) {
+    }
     
 }

@@ -9,8 +9,8 @@ package ec.edu.espol.aserriosbd.modelo;
  * @author ASUS VIVOBOOK PRO
  */
 
-import java.sql.Date;
 import java.time.LocalTime;
+import java.sql.Date;
 
 public class Factura {
     private int id;

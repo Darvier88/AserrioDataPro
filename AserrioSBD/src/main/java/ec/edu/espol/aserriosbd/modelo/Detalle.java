@@ -10,13 +10,13 @@ package ec.edu.espol.aserriosbd.modelo;
  */
 public class Detalle {
     private int idFactura;
-    private int idProducto;
+    private String idProducto;
     private int cantidad;
     private float totalProducto;
-    private boolean detalleAdic;
+    private String detalleAdic;
 
     // Constructor
-    public Detalle(int idFactura, int idProducto, int cantidad, float totalProducto, boolean detalleAdic) {
+    public Detalle(int idFactura, String idProducto, int cantidad, float totalProducto, String detalleAdic) {
         this.idFactura = idFactura;
         this.idProducto = idProducto;
         this.cantidad = cantidad;
@@ -33,11 +33,11 @@ public class Detalle {
         this.idFactura = idFactura;
     }
 
-    public int getIdProducto() {
+    public String getIdProducto() {
         return idProducto;
     }
 
-    public void setIdProducto(int idProducto) {
+    public void setIdProducto(String idProducto) {
         this.idProducto = idProducto;
     }
 
@@ -57,11 +57,11 @@ public class Detalle {
         this.totalProducto = totalProducto;
     }
 
-    public boolean isDetalleAdic() {
+    public String isDetalleAdic() {
         return detalleAdic;
     }
 
-    public void setDetalleAdic(boolean detalleAdic) {
+    public void setDetalleAdic(String detalleAdic) {
         this.detalleAdic = detalleAdic;
     }
 

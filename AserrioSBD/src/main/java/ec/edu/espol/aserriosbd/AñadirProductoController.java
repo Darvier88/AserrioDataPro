@@ -55,7 +55,7 @@ public class AñadirProductoController implements Initializable {
         cstmt.setString(8, producto.getDescripcion());
 
         // Ejecutar el procedimiento almacenado
-        cstmt.executeUpdate();
+        cstmt.execute();
         return true;
 
     } catch (SQLException e) {

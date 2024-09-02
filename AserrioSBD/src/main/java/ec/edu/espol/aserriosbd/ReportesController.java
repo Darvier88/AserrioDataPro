@@ -14,9 +14,9 @@ import javafx.scene.input.MouseEvent;
 /**
  * FXML Controller class
  *
- * @author nicol
+ * @author ASUS VIVOBOOK PRO
  */
-public class OpcionesSecretariaController implements Initializable {
+public class ReportesController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -26,30 +26,24 @@ public class OpcionesSecretariaController implements Initializable {
         // TODO
     }    
 
-    
-
     @FXML
-    private void irSeccionVentas(MouseEvent event) throws IOException {
-        try {
-            App.setRoot("seccionVentas");
-        } catch (IOException ex) { 
-        }
+    private void reporteMcompras(MouseEvent event) throws IOException {
+        App.setRoot("ReporteMCompras");
     }
 
     @FXML
-    private void irSeccionCompras(MouseEvent event) throws IOException {
-        App.setRoot("seccionCompras");
+    private void reporteDventas(MouseEvent event) throws IOException {
+        App.setRoot("reporteVentasDia");
     }
 
     @FXML
-    private void irSeccionEmpleados(MouseEvent event) throws IOException {
-        App.setRoot("seccionEmpleados");
+    private void reporteMmant(MouseEvent event) throws IOException {
+        App.setRoot("reporteMensualMantenimiento");
     }
 
     @FXML
-    private void irReportes(MouseEvent event) throws IOException {
-        App.setRoot("reportes");
-
+    private void LDAC(MouseEvent event) throws IOException {
+        App.setRoot("LDAC");
     }
     
 }

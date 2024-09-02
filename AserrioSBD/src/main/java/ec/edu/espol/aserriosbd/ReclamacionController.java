@@ -20,6 +20,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.input.ContextMenuEvent;
 
 /**
  * FXML Controller class
@@ -106,6 +107,10 @@ public class ReclamacionController implements Initializable {
     @FXML
     private void modificar(MouseEvent event) {
         
+    }
+
+    @FXML
+    private void irLimpieza(ContextMenuEvent event) {
     }
     
 }

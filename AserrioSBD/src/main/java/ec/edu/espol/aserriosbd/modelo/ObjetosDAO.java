@@ -236,12 +236,12 @@ public static ObservableList<Empleado> getEmpleadoList() {
 
         return tipoMaderaList;
     }
-    public static ObservableList<Factura> getFacturaList(){
-        ObservableList<Factura> facturaList =FXCollections.observableArrayList();
-        String query = "SELECT * FROM tipo_de_madera";
-        try (Connection connection = DatabaseConnection.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query)) {
+     public static ObservableList<Factura> getFacturaList(){
+         ObservableList<Factura> facturaList =FXCollections.observableArrayList();
+         String query = "SELECT * FROM factura";
+         try (Connection connection = DatabaseConnection.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
                 Factura factura = new Factura(
@@ -270,16 +270,16 @@ public static ObservableList<Empleado> getEmpleadoList() {
         ObservableList<Reclamacion> multaList = FXCollections.observableArrayList();
         Connection connection = DatabaseConnection.getConnection();
 
-        String query = "SELECT * FROM multa"; // Asegúrate que este sea el nombre correcto de la tabla en tu base de datos
+        String query = "SELECT * FROM reclamacion"; // Asegúrate que este sea el nombre correcto de la tabla en tu base de datos
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
                 Reclamacion multa = new Reclamacion(
-                        resultSet.getInt("id"),
-                        resultSet.getInt("id_secretaria"),
-                        resultSet.getInt("id_cliente"),
+                        resultSet.getInt("ID"),
+                        resultSet.getInt("ID_secretaria"),
+                        resultSet.getInt("ID_cliente"),
                         resultSet.getString("descripcion")
                 );
                 multaList.add(multa);
@@ -304,16 +304,17 @@ public static ObservableList<Empleado> getEmpleadoList() {
             while (resultSet.next()) {
                 Detalle detalle = new Detalle(
                         resultSet.getInt("idFactura"),
-                        resultSet.getInt("idProducto"),
+                        resultSet.getString("idProducto"),
                         resultSet.getInt("cantidad"),
                         resultSet.getFloat("totalProducto"),
-                        resultSet.getBoolean("detalleAdic")
+                        resultSet.getString("detalleAdic")
                 );
                 detalleList.add(detalle);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
+
         }
 
         return detalleList;

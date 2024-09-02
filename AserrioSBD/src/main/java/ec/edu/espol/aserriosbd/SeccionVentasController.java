@@ -4,6 +4,7 @@
  */
 package ec.edu.espol.aserriosbd;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -24,7 +25,7 @@ public class SeccionVentasController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
 
     @FXML
@@ -56,6 +57,7 @@ public class SeccionVentasController implements Initializable {
         try {
             App.setRoot("reclamacion");
         } catch (IOException ex) { 
+            ex.getMessage();
         }
     }
 
@@ -64,6 +66,7 @@ public class SeccionVentasController implements Initializable {
         try {
             App.setRoot("detalle");
         } catch (IOException ex) { 
+            ex.getMessage();
         }
     }
     
