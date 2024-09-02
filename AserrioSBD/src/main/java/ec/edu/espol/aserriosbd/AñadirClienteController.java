@@ -4,8 +4,11 @@
  */
 package ec.edu.espol.aserriosbd;
 
+import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
+import ec.edu.espol.aserriosbd.modelo.Cliente;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -45,35 +48,35 @@ public class AñadirClienteController implements Initializable {
     }    
 
     private boolean insertarClienteEnBD(Cliente cliente) {
-        String sql = "INSERT INTO Cliente (cedula, nombre, direccion, num_contacto, correo_contacto) VALUES (?, ?, ?, ?, ?)";
+    String sql = "{call InsertCliente(?, ?, ?, ?, ?)}"; // Llamada al procedimiento almacenado
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         CallableStatement cstmt = conn.prepareCall(sql)) {
 
-        // Configurar los parámetros del PreparedStatement
-            pstmt.setString(1, cliente.getCedula());
-            pstmt.setString(2, cliente.getNombre());
-            pstmt.setString(3, cliente.getDireccion());
+        // Configurar los parámetros del CallableStatement
+        cstmt.setString(1, cliente.getCedula());
+        cstmt.setString(2, cliente.getNombre());
+        cstmt.setString(3, cliente.getDireccion());
 
         // Manejo de nulos para enteros
         if (cliente.getNumContacto() == null) {
-            pstmt.setNull(4, java.sql.Types.INTEGER);
+            cstmt.setNull(4, java.sql.Types.INTEGER);
         } else {
-            pstmt.setInt(4, cliente.getNumContacto());
+            cstmt.setInt(4, cliente.getNumContacto());
         }
 
-            pstmt.setString(5, cliente.getCorreoContacto());
+        cstmt.setString(5, cliente.getCorreoContacto());
 
-        // Ejecutar la actualización
-        int rowsAffected = pstmt.executeUpdate();
-        return rowsAffected > 0;
-        //Verifica si se insertó al menos una fila
+        // Ejecutar el procedimiento almacenado
+        boolean hasResultSet = cstmt.execute();
+        return !hasResultSet; // El método execute() devuelve true si hay un ResultSet, false si es solo una actualización
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
+}
+
 
     private void mostrarError(String mensaje) {
         // Mostrar un mensaje de error (por ejemplo, usando un Alert de JavaFX)

@@ -2,8 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ec.edu.espol.aserriosbd;
+package ec.edu.espol.aserriosbd.modelo;
 
+import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
+import ec.edu.espol.aserriosbd.modelo.TipoMadera;
+import ec.edu.espol.aserriosbd.modelo.Proveedor;
+import ec.edu.espol.aserriosbd.modelo.Producto;
+import ec.edu.espol.aserriosbd.modelo.Maquinaria;
+import ec.edu.espol.aserriosbd.modelo.LoteMadera;
+import ec.edu.espol.aserriosbd.modelo.Limpieza;
+import ec.edu.espol.aserriosbd.modelo.Empleado;
+import ec.edu.espol.aserriosbd.modelo.Cliente;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

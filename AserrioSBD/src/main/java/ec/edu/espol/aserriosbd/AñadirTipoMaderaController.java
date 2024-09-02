@@ -4,6 +4,8 @@
  */
 package ec.edu.espol.aserriosbd;
 
+import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
+import ec.edu.espol.aserriosbd.modelo.TipoMadera;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

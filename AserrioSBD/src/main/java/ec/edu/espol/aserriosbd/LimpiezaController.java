@@ -5,6 +5,8 @@
 package ec.edu.espol.aserriosbd;
 
 import java.io.IOException;
+import ec.edu.espol.aserriosbd.modelo.ObjetosDAO;
+import ec.edu.espol.aserriosbd.modelo.Limpieza;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,7 +34,7 @@ public class LimpiezaController implements Initializable {
     @FXML
     private Text text;
     @FXML
-    private TableView<Cliente> table;
+    private TableView<Limpieza> table;
 
     private InterfazBase interfazBase;
 
@@ -72,35 +74,10 @@ public class LimpiezaController implements Initializable {
 
     @FXML
     private void eliminar(MouseEvent event) {
-        Cliente clienteSeleccionado = table.getSelectionModel().getSelectedItem();
-    
-        if (clienteSeleccionado != null) {
-            // Lógica para eliminar el cliente de la base de datos
-            if (eliminarClienteDeBD(clienteSeleccionado)) {
-                // Eliminar el cliente del TableView
-                table.getItems().remove(clienteSeleccionado);
-            } else {
-                mostrarError("No se pudo eliminar el cliente de la base de datos.");
-            }
-        } else {
-            mostrarError("Por favor, selecciona un cliente para eliminar.");
-        }
+        //////
     }
-    private boolean eliminarClienteDeBD(Cliente cliente) {
-    String sql = "DELETE FROM Cliente WHERE cedula = ?";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, cliente.getCedula());
-
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+    private void eliminarClienteDeBD(Limpieza cliente) {
+    //////
     }
 
     private void mostrarError(String mensaje) {
@@ -112,19 +89,7 @@ public class LimpiezaController implements Initializable {
     }
     @FXML
     private void modificar(MouseEvent event) {
-        Cliente clienteSeleccionado = table.getSelectionModel().getSelectedItem();
-
-        if (clienteSeleccionado != null) {
-            try {
-                // Llamar al método que carga la ventana de modificación en un `Stage` modal
-                ModificarClienteController.mostrarVentanaModificacion(clienteSeleccionado);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                mostrarError("No se pudo cargar la ventana de modificación.");
-            }
-        } else {
-            mostrarError("Por favor, selecciona un cliente para modificar.");
-        }
+        /////
     }
     
 }

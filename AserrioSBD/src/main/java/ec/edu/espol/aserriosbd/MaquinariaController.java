@@ -4,6 +4,8 @@
  */
 package ec.edu.espol.aserriosbd;
 
+import ec.edu.espol.aserriosbd.modelo.ObjetosDAO;
+import ec.edu.espol.aserriosbd.modelo.Maquinaria;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
