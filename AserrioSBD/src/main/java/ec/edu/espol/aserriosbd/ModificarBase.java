@@ -81,34 +81,46 @@ public class ModificarBase<T> {
     }
 
     public T getObject() throws InstantiationException, IllegalAccessException {
-        T instance = clazz.newInstance();
+    T instance = clazz.newInstance();
 
-        for (Map.Entry<String, TextField> entry : textFieldMap.entrySet()) {
-            String fieldName = entry.getKey();
-            TextField textField = entry.getValue();
-            String textValue = textField.getText();
+    for (Map.Entry<String, TextField> entry : textFieldMap.entrySet()) {
+        String fieldName = entry.getKey();
+        TextField textField = entry.getValue();
+        String textValue = textField.getText();
 
-            Field field = null;
-            try {
-                field = clazz.getDeclaredField(fieldName);
-                field.setAccessible(true);
+        Field field = null;
+        try {
+            field = clazz.getDeclaredField(fieldName);
+            field.setAccessible(true);
 
-                if (field.getType() == String.class) {
-                    field.set(instance, textValue.isEmpty() ? null : textValue);
-                } else if (field.getType() == int.class || field.getType() == Integer.class) {
-                    field.set(instance, textValue.isEmpty() ? null : Integer.valueOf(textValue));
-                } else if (field.getType() == double.class || field.getType() == Double.class) {
-                    field.set(instance, textValue.isEmpty() ? null : Double.valueOf(textValue));
-                }
-                // Agrega más tipos de datos según sea necesario
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-                throw new IllegalArgumentException("Error al procesar el campo " + fieldName + ": " + e.getMessage());
+            if (field.getType() == String.class) {
+                field.set(instance, textValue.isEmpty() ? null : textValue);
+            } else if (field.getType() == int.class) {
+                field.set(instance, textValue.isEmpty() ? 0 : Integer.parseInt(textValue));
+            } else if (field.getType() == Integer.class) {
+                field.set(instance, textValue.isEmpty() ? null : Integer.valueOf(textValue));
+            } else if (field.getType() == double.class) {
+                field.set(instance, textValue.isEmpty() ? 0.0 : Double.parseDouble(textValue));
+            } else if (field.getType() == Double.class) {
+                field.set(instance, textValue.isEmpty() ? null : Double.valueOf(textValue));
+            } else if (field.getType() == float.class) {
+                field.set(instance, textValue.isEmpty() ? 0.0f : Float.parseFloat(textValue));
+            } else if (field.getType() == Float.class) {
+                field.set(instance, textValue.isEmpty() ? null : Float.valueOf(textValue));
             }
+            // Agrega más tipos de datos según sea necesario
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("Error al procesar el campo " + fieldName + ": " + e.getMessage());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("Error al convertir el valor del campo " + fieldName + ": " + e.getMessage());
         }
-
-        return instance;
     }
+
+    return instance;
+}
+
      // Método para crear un GridPane con cualquier campo que comience con `id` no editable
     // y con la capacidad de establecer valores específicos para esos campos
     public GridPane buildDynamicFormWithLockedId(List<String> fieldNames, Map<String, String> idFieldValues) {

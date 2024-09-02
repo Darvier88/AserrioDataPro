@@ -8,6 +8,7 @@ import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
 import ec.edu.espol.aserriosbd.modelo.Producto;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -70,29 +71,33 @@ public class ModificarProductoController implements Initializable {
     }
 
     private boolean actualizarProductoEnBD(Producto productoModificado) {
-        String sql = "UPDATE producto SET nombre = ?, precioUnitario = ?, calidad = ?, condicAmbiental = ?, tiempoAlmacenamiento = ?, dimension = ?, descripcion = ? WHERE id = ?";
+    String sql = "{CALL ActualizarProducto(?, ?, ?, ?, ?, ?, ?, ?)}";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    try (Connection conn = DatabaseConnection.getConnection();
+         CallableStatement cstmt = conn.prepareCall(sql)) {
 
-            pstmt.setString(1, productoModificado.getNombre());
-            pstmt.setInt(2, (int) productoModificado.getPrecioUnitario());
-            pstmt.setString(3, productoModificado.getCalidad());
-            pstmt.setString(4, productoModificado.getCondicAmbiental());
-            pstmt.setInt(5, productoModificado.getTiempoAlmacenamiento());
-            pstmt.setString(6, productoModificado.getDimension());
-            pstmt.setString(7, productoModificado.getDescripcion());
-            pstmt.setString(8, productoModificado.getId());
+        // Establecer los parámetros del procedimiento almacenado
+        cstmt.setString(1, productoModificado.getId());
+        cstmt.setString(2, productoModificado.getNombre());
+        System.out.println(productoModificado.getPrecioUnitario());
+        cstmt.setFloat(3, productoModificado.getPrecioUnitario());
+        cstmt.setString(4, productoModificado.getCalidad());
+        cstmt.setString(5, productoModificado.getCondicAmbiental());
+        cstmt.setInt(6, productoModificado.getTiempoAlmacenamiento());
+        cstmt.setString(7, productoModificado.getDimension());
+        cstmt.setString(8, productoModificado.getDescripcion());
 
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0; // Verificar si se actualizó al menos una fila
+        // Ejecutar el procedimiento almacenado
+        cstmt.executeUpdate();
+        return true;
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            mostrarError("Ocurrió un error al modificar el producto en la base de datos.");
-            return false;
-        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        mostrarError("Ocurrió un error al modificar el producto en la base de datos.");
+        return false;
     }
+}
+
 
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(AlertType.ERROR);

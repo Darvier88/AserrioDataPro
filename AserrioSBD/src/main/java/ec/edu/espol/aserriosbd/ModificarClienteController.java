@@ -98,7 +98,7 @@ public class ModificarClienteController implements Initializable {
     }
 
     private boolean actualizarClienteEnBD(Cliente clienteModificado) {
-    String sql = "{CALL ActualizarCliente(?, ?, ?, ?, ?)}";
+    String sql = "{CALL ActualizarFactura(?, ?, ?, ?, ?, ?, ?, ?)}";
 
     try (Connection conn = DatabaseConnection.getConnection();
          CallableStatement cstmt = conn.prepareCall(sql)) {

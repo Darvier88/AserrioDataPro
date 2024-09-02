@@ -5,7 +5,8 @@ use aserriodatapro;
 -- usuario 1, dueño del negocio
 CREATE USER 'dueño'@'localhost' IDENTIFIED BY '1234';
 GRANT ALL PRIVILEGES ON *.* TO 'dueño'@'localhost' WITH GRANT OPTION;
-GRANT ALL PRIVILEGES ON *.* TO 'proyectoAserrio'@'127.0.0.1:3306' WITH GRANT OPTION;
+CREATE USER 'proyectoAserrio'@'localhost' IDENTIFIED BY 'Basedatos1';
+GRANT ALL PRIVILEGES ON *.* TO 'proyectoAserrio'@'localhost' WITH GRANT OPTION;
 -- usuario 2, secretaria 1 del negocio
 CREATE USER 'secret1'@'project-sbd.mysql.database.azure.com' IDENTIFIED BY '1111';
 GRANT INSERT, UPDATE ON aserriodatapro.* TO 'secret1'@'project-sbd.mysql.database.azure.com';

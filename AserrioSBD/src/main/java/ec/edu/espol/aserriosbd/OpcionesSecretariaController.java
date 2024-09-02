@@ -84,5 +84,9 @@ public class OpcionesSecretariaController implements Initializable {
         } catch (IOException ex) { 
         }
     }
+
+    @FXML
+    private void irSeccionVentas(MouseEvent event) {
+    }
     
 }

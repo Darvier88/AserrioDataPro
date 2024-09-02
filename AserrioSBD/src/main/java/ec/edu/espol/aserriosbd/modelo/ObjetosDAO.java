@@ -236,5 +236,34 @@ public static ObservableList<Empleado> getEmpleadoList() {
 
         return tipoMaderaList;
     }
+     public static ObservableList<Factura> getFacturaList(){
+         ObservableList<Factura> facturaList =FXCollections.observableArrayList();
+         String query = "SELECT * FROM tipo_de_madera";
+         try (Connection connection = DatabaseConnection.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Factura factura = new Factura(
+                        resultSet.getInt("ID"),
+                        resultSet.getString("ID_secretaria"),
+                        resultSet.getString("ID_cliente"),
+                        resultSet.getDate("fecha").toLocalDate(),
+                        resultSet.getTime("hora").toLocalTime(),
+                        resultSet.getString("direccion_local"),
+                        resultSet.getString("metodo_pago"),
+                        resultSet.getFloat("subtotal_sin_impuestos"),
+                        resultSet.getFloat("subtotal_0Porcent"),
+                        resultSet.getFloat("ValorTotal")
+                );
+                facturaList.add(factura);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return facturaList;
+     }
 }
 

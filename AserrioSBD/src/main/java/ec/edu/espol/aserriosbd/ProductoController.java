@@ -9,14 +9,17 @@ import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
 import ec.edu.espol.aserriosbd.modelo.Producto;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -69,7 +72,7 @@ public class ProductoController implements Initializable {
     @FXML
     private void regresar(MouseEvent event) {
         try {
-            App.setRoot("inicio");
+            App.setRoot("opcionesSecretaria");
         } catch (IOException ex) { 
         }
     }
@@ -108,47 +111,58 @@ public class ProductoController implements Initializable {
         Producto productoSeleccionado = tableMaquinarias.getSelectionModel().getSelectedItem();
 
         if (productoSeleccionado != null) {
-            if (eliminarProductoDeBD(productoSeleccionado)) {
-                tableMaquinarias.getItems().remove(productoSeleccionado);
+            // Mostrar una alerta de confirmación antes de eliminar
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar eliminación");
+            alert.setHeaderText("¿Estás seguro de que deseas eliminar este producto?");
+            alert.setContentText("Al eliminar este producto, se eliminarán todas las instancias asociadas en la tabla Detalle.");
+
+            // Mostrar y esperar la respuesta del usuario
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // Si el usuario confirma, proceder con la eliminación
+                if (eliminarProductoDeBD(productoSeleccionado)) {
+                    tableMaquinarias.getItems().remove(productoSeleccionado);
+                    mostrarInfo("Producto eliminado", "El producto ha sido eliminado correctamente.");
+                } else {
+                    mostrarError("No se pudo eliminar el producto de la base de datos.");
+                }
             } else {
-                mostrarError("No se pudo eliminar el producto de la base de datos.");
+                // Si el usuario cancela, no hacer nada
+                mostrarInfo("Eliminación cancelada", "El producto no ha sido eliminado.");
             }
         } else {
             mostrarError("Por favor, selecciona un producto para eliminar.");
         }
     }
-
+    private void mostrarInfo(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
     private boolean eliminarProductoDeBD(Producto producto) {
-        String sqlEspecificacion = "DELETE FROM detalle WHERE id_producto = ?";
-        String sqlProducto = "DELETE FROM producto WHERE id = ?";
+    String sql = "{CALL EliminarProducto(?, ?)}";
 
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            conn.setAutoCommit(false); // Iniciar una transacción
+    try (Connection conn = DatabaseConnection.getConnection();
+         CallableStatement cstmt = conn.prepareCall(sql)) {
 
-            try (PreparedStatement pstmtEspecificacion = conn.prepareStatement(sqlEspecificacion);
-                 PreparedStatement pstmtProducto = conn.prepareStatement(sqlProducto)) {
+        // Establecer los parámetros del procedimiento almacenado
+        cstmt.setString(1, producto.getId());
+        System.out.println(producto.getId());
+        cstmt.setBoolean(2, true);
 
-                // Eliminar registros de la tabla especificacion
-                pstmtEspecificacion.setString(1, producto.getId());
-                pstmtEspecificacion.executeUpdate();
+        // Ejecutar el procedimiento almacenado
+        cstmt.executeUpdate();
+        return true;
 
-                // Finalmente, eliminar el producto
-                pstmtProducto.setString(1, producto.getId());
-                int rowsAffected = pstmtProducto.executeUpdate();
-
-                conn.commit(); // Confirmar la transacción
-                return rowsAffected > 0;
-
-            } catch (SQLException e) {
-                conn.rollback(); // Revertir la transacción en caso de error
-                e.printStackTrace();
-                return false;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
 }
+
 
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(AlertType.ERROR);

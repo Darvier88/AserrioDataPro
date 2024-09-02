@@ -89,6 +89,8 @@ INSERT INTO Producto (ID, nombre, precioUnitario, calidad, condic_ambiental, tie
 ('VR01', 'Viga de Roble', 50.00, NULL, 'Seco', 24, '8x8x20', 'Viga de roble de alta resistencia'),
 ('TP03', 'Tablón de Pino', 28.00, 'De segunda', 'Seco', 12, '6x6x8', 'Tablón de pino para vigas'),
 ('CN01', 'Cuartón de Nogal', 22.50, 'De primera', 'Húmedo', 10, '4x4x8', 'Cuartón de nogal para estructuras');
+INSERT INTO Producto (id, nombre, precioUnitario, calidad, condic_ambiental, tiempo_almacenamiento, dimension, descripcion)
+VALUES ('Vacio', 'Producto Vacio', 0, 'De Segunda', 'N/A', 0, 'N/A', 'Producto Placeholder');
 /*Insercion de 10 secretarias distintas*/
 INSERT INTO Secretaria (ID, nombre, horaInicio, horaFine, fechaCapacitacion, tipoCapacitacion) VALUES
 ('0701234567', 'Ana Pérez', '08:00:00', '17:00:00', '2023-01-15', 'Secretaria'),
@@ -884,23 +886,16 @@ begin if idFactura <> all(select id_factura from Detalle) or idProducto <> all(s
 end /
 -- eliminar producto
 create procedure EliminarProducto (in idProducto varchar(6),in eliminar boolean)
-begin if idProducto <> all(select id from producto) then
+begin    
+	if idProducto <> all(select id from producto) then
 		signal sqlstate '04020' set message_text ='ID inexistente';
         rollback;
 	elseif eliminar = true then
-        delete from Producto where idProducto=id;
-		delete from Detalle where id_Producto = 'Vacio';
-        commit;
-    else
+		delete from Detalle where ID_producto=idProducto;
 		delete from Producto where id=idProducto;
         commit;
 	end if; 
 end /
-create trigger trgBorrarProducto before delete on Producto
-for each row
-begin
-	update Detalle set id_producto='Vacio' where id_producto=old.id;
-end / 
 -- eliminar lote de madera
 create procedure Eliminarlote (in idLote int,in eliminar boolean)
 begin if idLote <> all(select id from Lote_madera) then
@@ -1764,3 +1759,9 @@ operario o ON e.ID=o.ID join mantenimiento m on o.id=m.ID_operario join maquinar
 order by m.fecha;
 select * from OperarioEncargadoDeMantenimiento;
 drop view OperarioEncargadoDeMantenimiento;
+
+INSERT INTO Producto (ID, nombre, precioUnitario, calidad, condic_ambiental, tiempo_almacenamiento, dimension, descripcion)
+VALUES ('Test', 'Test Product', 15.0, 'De primera', 'General', 5, '15x15', 'Test Description');
+
+INSERT INTO Detalle (ID_factura, ID_producto, unidades, totalProdu, detalle_adic)
+VALUES (1, 'Test', 10, 150, 'No additional details');
