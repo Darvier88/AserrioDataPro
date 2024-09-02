@@ -26,7 +26,6 @@ public class OpcionesSecretariaController implements Initializable {
         // TODO
     }    
 
-    @FXML
     private void irMaquinaria(MouseEvent event) {
         try {
             App.setRoot("maquinaria");
@@ -35,7 +34,6 @@ public class OpcionesSecretariaController implements Initializable {
         }
     }
 
-    @FXML
     private void irProducto(MouseEvent event) {
         try {
             App.setRoot("producto");
@@ -43,7 +41,6 @@ public class OpcionesSecretariaController implements Initializable {
         }
     }
 
-    @FXML
     private void irCliente(MouseEvent event) {
         try {
             App.setRoot("cliente");
@@ -52,7 +49,6 @@ public class OpcionesSecretariaController implements Initializable {
         }
     }
 
-    @FXML
     private void irProveedor(MouseEvent event) {
         try {
             App.setRoot("proveedor");
@@ -60,7 +56,6 @@ public class OpcionesSecretariaController implements Initializable {
         }
     }
 
-    @FXML
     private void irLoteMadera(MouseEvent event) {
         try {
             App.setRoot("loteMadera");
@@ -68,7 +63,6 @@ public class OpcionesSecretariaController implements Initializable {
         }
     }
     
-    @FXML
     private void irEmpleado(MouseEvent event) {
         try {
             App.setRoot("empleado");
@@ -77,7 +71,6 @@ public class OpcionesSecretariaController implements Initializable {
     }
 
 
-    @FXML
     private void irTipoMadera(MouseEvent event) {
         try {
             App.setRoot("tipoMadera");
@@ -86,7 +79,23 @@ public class OpcionesSecretariaController implements Initializable {
     }
 
     @FXML
-    private void irSeccionVentas(MouseEvent event) {
+    private void irSeccionVentas(MouseEvent event) throws IOException {
+        App.setRoot("seccionVentas");
+    }
+
+    @FXML
+    private void irSeccionCompras(MouseEvent event) throws IOException {
+        App.setRoot("seccionCompras");
+    }
+
+    @FXML
+    private void irSeccionEmpleados(MouseEvent event) throws IOException {
+        App.setRoot("seccionEmpleados");
+    }
+
+    @FXML
+    private void irReportes(MouseEvent event) throws IOException {
+        App.setRoot("reportes");
     }
     
 }

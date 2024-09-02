@@ -238,7 +238,7 @@ public static ObservableList<Empleado> getEmpleadoList() {
     }
      public static ObservableList<Factura> getFacturaList(){
          ObservableList<Factura> facturaList =FXCollections.observableArrayList();
-         String query = "SELECT * FROM tipo_de_madera";
+         String query = "SELECT * FROM factura";
          try (Connection connection = DatabaseConnection.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {

@@ -98,11 +98,11 @@ public class ModificarClienteController implements Initializable {
     }
 
     private boolean actualizarClienteEnBD(Cliente clienteModificado) {
-    String sql = "{CALL ActualizarFactura(?, ?, ?, ?, ?, ?, ?, ?)}";
+    String sql = "{CALL ActualizarCliente(?, ?, ?, ?, ?)}";
 
     try (Connection conn = DatabaseConnection.getConnection();
          CallableStatement cstmt = conn.prepareCall(sql)) {
-
+        System.out.println(clienteModificado.getCedula());
         // Establecer los parámetros del procedimiento almacenado
         cstmt.setString(1, clienteModificado.getCedula());
         cstmt.setString(2, clienteModificado.getNombre());

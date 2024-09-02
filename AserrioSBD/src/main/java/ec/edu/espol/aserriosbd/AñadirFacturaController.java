@@ -64,10 +64,12 @@ public class AñadirFacturaController implements Initializable {
         } else {
             cstmt.setNull(3, java.sql.Types.DATE);
         }
-        // Convertir LocalTime a java.sql.Time
+        // Convertir LocalTime a java.sql.Time, asegurando que solo HH:mm se maneje
         LocalTime localTime = factura.getHora();
         if (localTime != null) {
-            cstmt.setTime(4, Time.valueOf(localTime)); // Convertir LocalTime a java.sql.Time
+            // Asegurarse de que solo HH:mm sea representado
+            Time sqlTime = Time.valueOf(localTime.withSecond(0).withNano(0)); 
+            cstmt.setTime(4, sqlTime);
         } else {
             cstmt.setNull(4, java.sql.Types.TIME);
         }
@@ -102,7 +104,6 @@ public class AñadirFacturaController implements Initializable {
         try {
         // Obtener el objeto Cliente con los valores ingresados
         Factura nuevaFactura = añadirBase.getObject();
-
         // Insertar el cliente en la base de datos
         if (insertarFactura(nuevaFactura)) {
             // Limpiar los campos después de añadir

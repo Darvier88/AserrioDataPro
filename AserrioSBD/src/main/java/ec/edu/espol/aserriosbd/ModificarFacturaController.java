@@ -80,40 +80,38 @@ public class ModificarFacturaController implements Initializable {
         stage.showAndWait(); // Mostrar la ventana y esperar hasta que sea cerrada
     }
     private boolean actualizarFacturaEnBD(Factura facturaModificado) {
-     String sql = "{CALL ActualizarFactura(?, ?, ?, ?, ?, ?, ?, ?)}";
+     String sql = "{CALL ActualizarFactura(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
     try (Connection conn = DatabaseConnection.getConnection();
          CallableStatement cstmt = conn.prepareCall(sql)) {
-
+        cstmt.setInt(1, facturaModificado.getId());
         // Configurar los parámetros del CallableStatement
-        cstmt.setString(1, factura.getIdSecretaria());
-        cstmt.setString(2, factura.getIdCliente());
-        // Convertir LocalDate a java.sql.Date
-        LocalDate localDate = factura.getFecha();
+        cstmt.setString(2, facturaModificado.getIdSecretaria());
+        cstmt.setString(3, facturaModificado.getIdCliente());
+        // Convertir LocalDate a java.sql.Date+
+        LocalDate localDate = facturaModificado.getFecha();
         if (localDate != null) {
-            cstmt.setDate(3, Date.valueOf(localDate)); // Convertir LocalDate a java.sql.Date
+            cstmt.setDate(4, Date.valueOf(localDate)); // Convertir LocalDate a java.sql.Date
         } else {
-            cstmt.setNull(3, java.sql.Types.DATE);
+            cstmt.setNull(4, java.sql.Types.DATE);
         }
         // Convertir LocalTime a java.sql.Time
-        LocalTime localTime = factura.getHora();
+        LocalTime localTime = facturaModificado.getHora();
         if (localTime != null) {
-            cstmt.setTime(4, Time.valueOf(localTime)); // Convertir LocalTime a java.sql.Time
+            cstmt.setTime(5, Time.valueOf(localTime)); // Convertir LocalTime a java.sql.Time
         } else {
-            cstmt.setNull(4, java.sql.Types.TIME);
+            cstmt.setNull(5, java.sql.Types.TIME);
         }
-        cstmt.setString(5, factura.getDireccionLocal());
-
-        // Manejo de ENUM
-        if (factura.getMetodoPago() != null) {
-            cstmt.setString(6, factura.getMetodoPago());
+        cstmt.setString(6, facturaModificado.getDireccionLocal());
+        // Manejo de ENUMs
+        if (facturaModificado.getMetodoPago() != null) {
+            cstmt.setString(7, facturaModificado.getMetodoPago());
         } else {
-            cstmt.setNull(6, java.sql.Types.VARCHAR);
+            cstmt.setNull(7, java.sql.Types.VARCHAR);
         }
 
-        cstmt.setFloat(7, factura.getSubtotalSinImpuestos());
-        cstmt.setFloat(8, factura.getSubtotal0Porcent());
-        cstmt.setFloat(9, factura.getValorTotal());
+        cstmt.setFloat(8, facturaModificado.getSubtotalSinImpuestos());
+        cstmt.setFloat(9, facturaModificado.getSubtotal0Porcent());
 
         // Ejecutar el procedimiento almacenado
         boolean hasResultSet = cstmt.execute();
@@ -137,7 +135,7 @@ public class ModificarFacturaController implements Initializable {
         try {
             // Obtener los valores modificados del formulario
             Factura facturaModificada = modificarBase.getObject();
-
+            System.out.println(facturaModificada.getDireccionLocal());
             // Actualizar la factura en la base de datos
             if (actualizarFacturaEnBD(facturaModificada)) {
                 System.out.println("Factura modificada exitosamente.");

@@ -72,8 +72,9 @@ public class ProductoController implements Initializable {
     @FXML
     private void regresar(MouseEvent event) {
         try {
-            App.setRoot("opcionesSecretaria");
+            App.setRoot("seccionVentas");
         } catch (IOException ex) { 
+            ex.printStackTrace();
         }
     }
 
