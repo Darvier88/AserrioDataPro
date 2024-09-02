@@ -10,6 +10,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
+import java.sql.SQLException;
+import java.io.IOException;
 
 /**
  * FXML Controller class
@@ -27,22 +29,45 @@ public class SeccionVentasController implements Initializable {
     }    
 
     @FXML
-    private void irCliente(MouseEvent event) throws IOException {
-        App.setRoot("cliente");
+    private void irCliente(MouseEvent event) {
+        try {
+            App.setRoot("cliente");
+        } catch (IOException ex) { 
+        }
     }
 
     @FXML
-    private void irProducto(MouseEvent event) throws IOException {
-        App.setRoot("producto");
+    private void irProducto(MouseEvent event) {
+        try {
+            App.setRoot("producto");
+        } catch (IOException ex) { 
+        }
     }
 
     @FXML
-    private void irFactura(MouseEvent event) throws IOException {
-        App.setRoot("factura");
+    private void irFactura(MouseEvent event) {
+        try {
+            App.setRoot("facturao");
+        } catch (IOException ex) { 
+        }
     }
 
     @FXML
     private void irReclamacion(MouseEvent event) {
+        try {
+            App.setRoot("reclamacion");
+        } catch (IOException ex) { 
+            ex.getMessage();
+        }
+    }
+
+    @FXML
+    private void irDetalle(MouseEvent event) {
+        try {
+            App.setRoot("detalle");
+        } catch (IOException ex) { 
+            ex.getMessage();
+        }
     }
     
 }
