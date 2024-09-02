@@ -248,7 +248,7 @@ public static ObservableList<Empleado> getEmpleadoList() {
                     resultSet.getInt("ID"),
                     resultSet.getString("ID_secretaria"),
                     resultSet.getString("ID_cliente"),
-                        resultSet.getDate("fecha").toLocalDate(),
+                    resultSet.getDate("fecha"),
                     resultSet.getTime("hora").toLocalTime(),
                     resultSet.getString("direccion_local"),
                     resultSet.getString("metodo_pago"),
@@ -293,30 +293,82 @@ public static ObservableList<Empleado> getEmpleadoList() {
     }
     
     public static ObservableList<Detalle> getDetalleList() {
-    ObservableList<Detalle> detalleList = FXCollections.observableArrayList();
-    Connection connection = DatabaseConnection.getConnection();
+        ObservableList<Detalle> detalleList = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getConnection();
 
-    String query = "SELECT * FROM detalle";  // Asegúrate de que este es el nombre correcto de la tabla
+        String query = "SELECT * FROM detalle";  // Asegúrate de que este es el nombre correcto de la tabla
 
-    try (Statement statement = connection.createStatement();
-         ResultSet resultSet = statement.executeQuery(query)) {
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
 
-        while (resultSet.next()) {
-            Detalle detalle = new Detalle(
-                    resultSet.getInt("ID_Factura"),
-                    resultSet.getString("ID_producto"),
-                    resultSet.getInt("unidades"),
-                    resultSet.getFloat("totalProdu"),
-                    resultSet.getString("detalle_adic")
-            );
-            detalleList.add(detalle);
+            while (resultSet.next()) {
+                Detalle detalle = new Detalle(
+                        resultSet.getInt("idFactura"),
+                        resultSet.getString("idProducto"),
+                        resultSet.getInt("cantidad"),
+                        resultSet.getFloat("totalProducto"),
+                        resultSet.getString("detalleAdic")
+                );
+                detalleList.add(detalle);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
         }
 
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return detalleList;
     }
+    
+    public static ObservableList<Especificación> getEspecificacionList() {
+        ObservableList<Especificación> especificacionList = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getConnection();
 
-    return detalleList;
-}
+        String query = "SELECT * FROM especificacion"; // Ajusta el nombre de la tabla según tu base de datos
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Especificación especificacion = new Especificación(
+                        resultSet.getInt("id_lote"),
+                        resultSet.getString("id_madera"),
+                        resultSet.getInt("importe"),
+                        resultSet.getInt("cantidad")
+                );
+                especificacionList.add(especificacion);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return especificacionList;
+    }
+    
+    public static ObservableList<Evaluacion> getEvaluacionList() {
+        ObservableList<Evaluacion> evaluacionList = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getConnection();
+
+        String query = "SELECT * FROM evaluacion"; // Ajusta el nombre de la tabla según tu base de datos
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Evaluacion evaluacion = new Evaluacion(
+                        resultSet.getInt("id"),
+                        resultSet.getString("id_proveedor"),
+                        resultSet.getInt("calidad"),
+                        resultSet.getInt("puntualidad"),
+                        resultSet.getString("detalle")
+                );
+                evaluacionList.add(evaluacion);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return evaluacionList;
+    }
 }
 

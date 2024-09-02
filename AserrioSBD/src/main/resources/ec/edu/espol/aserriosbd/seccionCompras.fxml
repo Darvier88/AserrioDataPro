@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: rgb(241, 245, 249);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.aserriosbd.OpcionesSecretariaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: rgb(241, 245, 249);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.aserriosbd.SeccionComprasController">
    <children>
       <HBox layoutX="-21.0" layoutY="-16.0" prefHeight="342.0" prefWidth="1396.0" style="-fx-background-color: rgb(34, 30, 38);">
          <children>
@@ -95,51 +95,33 @@
                   <Insets top="50.0" />
                </VBox.margin>
                <children>
-<<<<<<< HEAD
                   <VBox alignment="CENTER" prefHeight="342.0" prefWidth="406.0" spacing="25.0">
                      <children>
-                        <Button mnemonicParsing="false" onMouseClicked="#irCompras" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" stylesheets="@../../../../styles/inicioperfiles.css" text="Compras">
+                        <Button mnemonicParsing="false" onMouseClicked="#irLoteMadera" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" stylesheets="@../../../../styles/inicioperfiles.css" text="Lote de Madera">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" onMouseClicked="#irProducto" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" stylesheets="@../../../../styles/inicioperfiles.css" text="Productos">
+                        <Button mnemonicParsing="false" onMouseClicked="#irTipoMadera" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" stylesheets="@../../../../styles/inicioperfiles.css" text="Tipo de Madera">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" onMouseClicked="#irTipoMadera" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" stylesheets="@../../../../styles/inicioperfiles.css" text="Tipos de Madera">
-                           <font>
-                              <Font name="System Bold" size="22.0" />
-                           </font>
-                        </Button>
-                        <Button mnemonicParsing="false" onMouseClicked="#irLoteMadera" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" stylesheets="@../../../../styles/inicioperfiles.css" text="Lotes de Madera">
+                        <Button mnemonicParsing="false" onMouseClicked="#irEspecificación" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" stylesheets="@../../../../styles/inicioperfiles.css" text="Especificación">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>
                         </Button>
                      </children>
                   </VBox>
-=======
->>>>>>> bd3f3ed3b0101ab409cd029cf6baf2af32721a72
-                  <VBox alignment="CENTER" prefHeight="342.0" prefWidth="370.0" spacing="25.0">
+                  <VBox alignment="CENTER" prefHeight="342.0" prefWidth="406.0" spacing="25.0">
                      <children>
-                        <Button mnemonicParsing="false" onMouseClicked="#irSeccionVentas" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" stylesheets="@../../../../styles/inicioperfiles.css" text="Ventas">
+                        <Button mnemonicParsing="false" onMouseClicked="#irProveedor" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" stylesheets="@../../../../styles/inicioperfiles.css" text="Proveedor">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>
                         </Button>
-                        <Button layoutX="10.0" layoutY="164.0" mnemonicParsing="false" onMouseClicked="#irSeccionCompras" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" stylesheets="@../../../../styles/inicioperfiles.css" text="Compras">
-                           <font>
-                              <Font name="System Bold" size="22.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="10.0" layoutY="120.0" mnemonicParsing="false" onMouseClicked="#irSeccionEmpleados" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" stylesheets="@../../../../styles/inicioperfiles.css" text="Empleados">
-                           <font>
-                              <Font name="System Bold" size="22.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onMouseClicked="#irReportes" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" stylesheets="@../../../../styles/inicioperfiles.css" text="Reportes">
+                        <Button mnemonicParsing="false" onMouseClicked="#irEvaluacion" prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: white; -fx-background-radius: 25; -fx-border-color: gray; -fx-border-radius: 25;" stylesheets="@../../../../styles/inicioperfiles.css" text="Evaluacion del Proveedor">
                            <font>
                               <Font name="System Bold" size="22.0" />
                            </font>

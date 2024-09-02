@@ -9,14 +9,14 @@ package ec.edu.espol.aserriosbd.modelo;
  * @author ASUS VIVOBOOK PRO
  */
 
-import java.time.LocalDate;
 import java.time.LocalTime;
+import java.sql.Date;
 
 public class Factura {
     private int id;
     private String idSecretaria;
     private String idCliente;
-    private LocalDate fecha;
+    private Date fecha;
     private LocalTime hora;
     private String direccionLocal;
     private String metodoPago;
@@ -28,7 +28,7 @@ public class Factura {
     }
 
     // Constructor
-    public Factura(int id, String idSecretaria, String idCliente, LocalDate fecha, LocalTime hora, String direccionLocal,
+    public Factura(int id, String idSecretaria, String idCliente, Date fecha, LocalTime hora, String direccionLocal,
                    String metodoPago, float subtotalSinImpuestos, float subtotal0Porcent, float valorTotal) {
         this.id = id;
         this.idSecretaria = idSecretaria;
@@ -67,11 +67,11 @@ public class Factura {
         this.idCliente = idCliente;
     }
 
-    public LocalDate getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
