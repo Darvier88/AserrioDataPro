@@ -44,7 +44,7 @@ public class LoteMaderaController implements Initializable {
     @FXML
     private void regresar(MouseEvent event) {
         try {
-            App.setRoot("inicio");
+            App.setRoot("seccionCompras");
         } catch (IOException ex) { 
             ex.printStackTrace();
         }
