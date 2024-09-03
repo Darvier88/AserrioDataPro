@@ -6,6 +6,7 @@ package ec.edu.espol.aserriosbd;
 
 import ec.edu.espol.aserriosbd.modelo.ObjetosDAO;
 import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
+import ec.edu.espol.aserriosbd.modelo.SessionManager;
 import ec.edu.espol.aserriosbd.modelo.TipoMadera;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,10 +19,14 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 
 public class TipoMaderaController implements Initializable {
 
@@ -29,6 +34,9 @@ public class TipoMaderaController implements Initializable {
     private Text text;
     @FXML
     private TableView<TipoMadera> table;
+    
+    private TipoMadera tipoMadera;
+    
     private InterfazBase interfazBase;
 
     @Override
@@ -71,46 +79,52 @@ public class TipoMaderaController implements Initializable {
 
         if (tipoMaderaSeleccionado != null) {
             // Lógica para eliminar el tipo de madera de la base de datos
-            if (eliminarTipoMaderaDeBD(tipoMaderaSeleccionado)) {
+            // Crear una ventana de confirmación
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar Eliminación");
+            alert.setHeaderText("¿Estás seguro de que deseas eliminar este tipo de madera?");
+            alert.setContentText("Al eliminar el tipo de madera, todas las instancias relacionadas en las especificaciones se eliminarán.");
+
+            ButtonType botonConfirmar = new ButtonType("Eliminar");
+            ButtonType botonCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+            alert.getButtonTypes().setAll(botonConfirmar, botonCancelar);
+            
+            Optional<ButtonType> resultado = alert.showAndWait();
+            if(resultado.isPresent() && resultado.get() == botonConfirmar){
+                 if (eliminarTipoMaderaDeBD(tipoMaderaSeleccionado)) {
                 // Eliminar el tipo de madera del TableView
                 table.getItems().remove(tipoMaderaSeleccionado);
-            } else {
-                mostrarError("No se pudo eliminar el tipo de madera de la base de datos.");
-            }
+                } else {
+                    mostrarError("No se pudo eliminar el tipo de madera de la base de datos.");
+                }
+            }   
         } else {
             mostrarError("Por favor, selecciona un tipo de madera para eliminar.");
         }
     }
 
     private boolean eliminarTipoMaderaDeBD(TipoMadera tipoMadera) {
-    String sqlEspecificacion = "DELETE FROM especificacion WHERE id_madera = ?";
-    String sqlTipoMadera = "DELETE FROM tipo_de_madera WHERE id = ?";
+    String sql = "{CALL eliminarMadera (?,?)}";
 
-    try (Connection conn = DatabaseConnection.getConnection()) {
-        conn.setAutoCommit(false); // Iniciar una transacción
+    SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        
+        try (Connection conn = DatabaseConnection.getConnection(user, password);
+         CallableStatement cstmt = conn.prepareCall(sql)) {
 
-        try (PreparedStatement pstmtEspecificacion = conn.prepareStatement(sqlEspecificacion);
-             PreparedStatement pstmtTipoMadera = conn.prepareStatement(sqlTipoMadera)) {
+        // Configurar el parámetro del CallableStatement
+        cstmt.setString(1, tipoMadera.getId());
+        cstmt.setBoolean(2, true);
+        // Ejecutar el procedimiento almacenado
+        cstmt.execute(); // Usa execute en lugar de executeUpdate para procedimientos almacenados
 
-            // Eliminar registros de la tabla especificacion donde id_madera es igual al id del tipo de madera
-            pstmtEspecificacion.setString(1, tipoMadera.getId());
-            pstmtEspecificacion.executeUpdate();
+        // Comprobar si el cliente fue eliminado exitosamente
+        return true; // El procedimiento se ejecutó sin errores
 
-            // Eliminar el tipo de madera
-            pstmtTipoMadera.setString(1, tipoMadera.getId());
-            int rowsAffected = pstmtTipoMadera.executeUpdate();
-
-            conn.commit(); // Confirmar la transacción
-            return rowsAffected > 0;
-
-        } catch (SQLException e) {
-            conn.rollback(); // Revertir la transacción en caso de error
-            e.printStackTrace();
-            return false;
-        }
     } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
+        e.printStackTrace(); // Imprime el error para depuración
+        return false; // Indica que ocurrió un error
     }
 }
 

@@ -17,10 +17,14 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.text.Text;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 
 public class LoteMaderaController implements Initializable {
 
@@ -28,6 +32,7 @@ public class LoteMaderaController implements Initializable {
     private Text text;
     @FXML
     private TableView<LoteMadera> table;
+    private LoteMadera loteMadera;
     private InterfazBase interfazBase;
 
     @Override
@@ -67,50 +72,53 @@ public class LoteMaderaController implements Initializable {
     @FXML
     private void eliminar(MouseEvent event) {
         LoteMadera loteMaderaSeleccionado = table.getSelectionModel().getSelectedItem();
-
+        
         if (loteMaderaSeleccionado != null) {
             // Lógica para eliminar el lote de madera de la base de datos
-            if (eliminarLoteMaderaDeBD(loteMaderaSeleccionado)) {
-                // Eliminar el lote de madera del TableView
-                table.getItems().remove(loteMaderaSeleccionado);
-            } else {
-                mostrarError("No se pudo eliminar el lote de madera de la base de datos.");
+            // Crear una ventana de confirmación
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar Eliminación");
+            alert.setHeaderText("¿Estás seguro de que deseas eliminar este lote de madera?");
+            alert.setContentText("Al eliminar el lote de madera, todas las instancias relacionadas en las especificaciones se eliminarán.");
+
+            ButtonType botonConfirmar = new ButtonType("Eliminar");
+            ButtonType botonCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+            alert.getButtonTypes().setAll(botonConfirmar, botonCancelar);
+            
+            Optional<ButtonType> resultado = alert.showAndWait();
+             if(resultado.isPresent() && resultado.get() == botonConfirmar){   
+                    // Lógica para eliminar el lote de madera de la base de datos
+                    if (eliminarLoteMaderaDeBD(loteMaderaSeleccionado)) {
+                        // Eliminar el lote de madera del TableView
+                        table.getItems().remove(loteMaderaSeleccionado);
+                    } else {
+                        mostrarError("No se pudo eliminar el lote de madera de la base de datos.");
+                    }
+                } else {
+                    mostrarError("Por favor, selecciona un lote de madera para eliminar.");
+                }
             }
-        } else {
-            mostrarError("Por favor, selecciona un lote de madera para eliminar.");
-        }
+
     }
-
     private boolean eliminarLoteMaderaDeBD(LoteMadera loteMadera) {
-        String sqlEspecificacion = "DELETE FROM especificacion WHERE id_lote = ?";
-        String sqlLoteMadera = "DELETE FROM lote_madera WHERE id = ?";
+        String sql = "CALL eliminarLote (?, ?)";
         
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            conn.setAutoCommit(false); // Iniciar una transacción
-
-            try (PreparedStatement pstmtEspecificacion = conn.prepareStatement(sqlEspecificacion);
-                 PreparedStatement pstmtLoteMadera = conn.prepareStatement(sqlLoteMadera)) {
+        try (Connection conn = DatabaseConnection.getConnection();
+         CallableStatement cstmt = conn.prepareCall(sql)) {
 
                 // Eliminar registros de la tabla especificacion
-                pstmtEspecificacion.setInt(1, loteMadera.getId());
-                pstmtEspecificacion.executeUpdate();
+                // Configurar el parámetro del CallableStatement
+            cstmt.setInt(1, loteMadera.getId());
+            cstmt.setBoolean(2, true);
+            cstmt.execute(); // Usa execute en lugar de executeUpdate para procedimientos almacenados
 
-                // Finalmente, eliminar el lote de madera
-                pstmtLoteMadera.setInt(1, loteMadera.getId());
-                int rowsAffected = pstmtLoteMadera.executeUpdate();
-
-                conn.commit(); // Confirmar la transacción
-                return rowsAffected > 0;
+        // Comprobar fue eliminado exitosamente
+            return true;
 
             } catch (SQLException e) {
-                conn.rollback(); // Revertir la transacción en caso de error
                 e.printStackTrace();
                 return false;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     private void mostrarError(String mensaje) {

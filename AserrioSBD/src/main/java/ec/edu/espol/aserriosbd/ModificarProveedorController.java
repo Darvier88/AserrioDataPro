@@ -16,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -76,35 +77,33 @@ public static void mostrarVentanaModificacion(Proveedor proveedor) throws IOExce
             } else {
                 mostrarError("No se pudo modificar el proveedor en la base de datos.");
             }
-        } catch (InstantiationException | IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException | IOException e) {
             e.printStackTrace();
             mostrarError("Ocurrió un error al intentar modificar el proveedor.");
         }
     }
 
     private boolean actualizarProveedorEnBD(Proveedor proveedorModificado) {
-        String sql = "UPDATE proveedor SET nombre = ?, telefono = ? WHERE cedula = ?";
+        String sql = "CALL actualizarProveedor (?, ? ,?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, proveedorModificado.getNombre());
-
-            // Manejar el caso en que telefono sea null
-            if (proveedorModificado.getTelefono() != null) {
-                pstmt.setInt(2, proveedorModificado.getTelefono());
+             CallableStatement cstmt = conn.prepareCall(sql)) {
+            
+            cstmt.setString(1, proveedorModificado.getCedula());
+            cstmt.setString(2, proveedorModificado.getNombre());
+            // Manejo de nulos para el campo telefono
+            if (proveedorModificado.getTelefono() == null) {
+                cstmt.setNull(3, java.sql.Types.INTEGER);
             } else {
-                pstmt.setNull(2, java.sql.Types.INTEGER);
+                cstmt.setInt(3, proveedorModificado.getTelefono());
             }
-
-            pstmt.setString(3, proveedorModificado.getCedula());
-
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0; // Verificar si se actualizó al menos una fila
+           
+            cstmt.executeUpdate();
+            return true; // Verificar si se actualizó al menos una fila
 
         } catch (SQLException e) {
             e.printStackTrace();
-            mostrarError("Ocurrió un error al modificar el proveedor en la base de datos.");
+            mostrarError("Ocurrió un error al modificar el lote de madera en la base de datos.");
             return false;
         }
     }

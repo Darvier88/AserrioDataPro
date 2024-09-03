@@ -41,6 +41,7 @@ public class LimpiezaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Inicializar la instancia de InterfazBase
         interfazBase = new InterfazBase();
         interfazBase.configureTableFromClass(table, text, "Limpieza", Limpieza.class);
 

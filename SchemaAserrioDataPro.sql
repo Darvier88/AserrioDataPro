@@ -589,6 +589,8 @@ begin if id_Rol_de_pago <> all(select id from Rol_de_pagos) then
 	end if;
 end /
 -- eliminar un operario
+use aserriodatapro;
+delimiter /
 CREATE PROCEDURE EliminarOperario (IN idOperario CHAR(10))
 BEGIN
     DECLARE v_count INT;
@@ -650,7 +652,10 @@ BEGIN
         COMMIT;
     END IF;
 END /
+drop procedure EliminarAsistente;
 -- eliminar asistente
+delimiter /
+
 create procedure EliminarAsistente (in idAsistente char(10))
 begin 
 	DECLARE v_count INT;
@@ -713,10 +718,12 @@ begin
     END IF;
 
 end /
+drop procedure EliminarSecretaria;
 -- eliminar secretaria
+delimiter /
 create procedure EliminarSecretaria (in idSecretaria char(10))
-begin 
-	DECLARE v_count INT;
+BEGIN 
+    DECLARE v_count INT;
     DECLARE v_exists_in_rol_de_pagos BOOLEAN DEFAULT FALSE;
     DECLARE v_exists_in_reclamacion BOOLEAN DEFAULT FALSE;
     DECLARE v_exists_in_factura BOOLEAN DEFAULT FALSE;
@@ -785,11 +792,15 @@ begin
         END IF;
 
         IF v_exists_in_factura THEN
+            -- Primero eliminar los detalles asociados a las facturas
+            DELETE FROM detalle WHERE ID_factura IN (SELECT ID FROM factura WHERE id_secretaria = idSecretaria);
             DELETE FROM factura WHERE id_secretaria = idSecretaria;
         END IF;
-
+		
         IF v_exists_in_lote_madera THEN
+			DELETE FROM especificacion WHERE id_lote = (SELECT id FROM lote_madera WHERE  id_secretaria = idSecretaria);
             DELETE FROM lote_madera WHERE id_secretaria = idSecretaria;
+            
         END IF;
 
         IF v_exists_in_mantenimiento THEN
@@ -823,6 +834,7 @@ begin if idMantenimiento <> all(select id from Mantenimiento) then
 	end if; 
 end /
 -- eliminar maquinaria
+
 create procedure EliminarMaquinaria (in idMaquinaria int)
 begin 
 	DECLARE v_count INT;
@@ -873,6 +885,7 @@ begin if idAsistente <> all(select id from Asistente_operario) or idSecretaria <
 	end if; 
 end /
 -- eliminar limpieza
+
 create procedure EliminarLimpieza (in idLimpieza int)
 begin
 	DECLARE v_count INT;
@@ -923,6 +936,7 @@ begin if idReclamacion <> all(select id from Reclamacion) then
 	end if; 
 end /
 -- Eliminar cliente
+
 CREATE PROCEDURE eliminarCliente (IN idCliente VARCHAR(13))
 BEGIN
     DECLARE v_count INT;
@@ -1052,60 +1066,30 @@ begin
     END IF;
 end /
 -- eliminar lote de madera
-create procedure Eliminarlote (in idLote int)
-begin 
-	DECLARE v_count INT;
-
-    -- Iniciar la transacción
-    START TRANSACTION;
-
-    -- Verificar existencia en Lote_madera
-    SELECT COUNT(*) INTO v_count FROM Lote_madera WHERE id = idLote;
-
-    IF v_count = 0 THEN
-        -- El ID del lote no existe, emite un mensaje de error
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'ID inexistente en la tabla Lote_madera';
-        ROLLBACK;
-    ELSE
-        -- Eliminar registros relacionados en Especificacion
-        DELETE FROM Especificacion WHERE id_lote = idLote;
-
-        -- Eliminar el registro en la tabla Lote_madera
-        DELETE FROM Lote_madera WHERE id = idLote;
-
-        -- Confirmar la transacción
-        COMMIT;
-    END IF;
+create procedure Eliminarlote (in idLote int,in eliminar boolean)
+begin if idLote <> all(select id from Lote_madera) then
+		signal sqlstate '04020' set message_text ='ID inexistente';
+        rollback;
+	elseif eliminar = true then
+		delete from Especificacion where id_lote = idLote;
+        delete from Lote_madera where idLote=id;
+        commit;
+	end if; 
 end /
 -- eliminar proveedor
-create procedure EliminarProveedor (in idProveedor char(10))
-begin 
-	 DECLARE v_count INT;
-
-    -- Iniciar la transacción
-    START TRANSACTION;
-
-    -- Verificar existencia en Proveedor
-    SELECT COUNT(*) INTO v_count FROM Proveedor WHERE cedula = idProveedor;
-
-    IF v_count = 0 THEN
-        -- El ID del proveedor no existe, emite un mensaje de error
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'ID inexistente en la tabla Proveedor';
-        ROLLBACK;
-    ELSE
-        -- Eliminar registros relacionados en Lote_madera
-        DELETE FROM Lote_madera WHERE id_proveedor = idProveedor;
-        
-        -- Eliminar registros relacionados en Evaluacion
-        DELETE FROM Evaluacion WHERE id_proveedor = idProveedor;
-
-        -- Eliminar el registro en la tabla Proveedor
-        DELETE FROM Proveedor WHERE cedula = idProveedor;
-
-        -- Confirmar la transacción
-        COMMIT;
-    END IF;
+create procedure EliminarProveedor (in idProveedor char(10),in eliminar boolean)
+begin if idProveedor <> all(select cedula from Proveedor) then
+		signal sqlstate '04020' set message_text ='ID inexistente';
+        rollback;
+	elseif eliminar = true then
+        delete from Proveedor where idProveedor=cedula;
+        delete from especificacion where id_lote = (select id from lote_madera where id_proveedor = idProveedor);
+		delete from Lote_madera where id_proveedor = idProveedor;
+        delete from Evaluacion where id_proveedor =idProveedor;
+        commit;
+	end if; 
 end /
+
 -- eliminar evaluacion
 create procedure EliminarEvaluacion (in idEvaluacion int)
 begin if idEvaluacion <> all(select id from Evaluacion) then
@@ -1118,15 +1102,34 @@ begin if idEvaluacion <> all(select id from Evaluacion) then
 end /
 -- eliminar especificacion 
 create procedure EliminarEspecificacion (in idLote int,in idMadera varchar(6))
-begin if idLote <> all(select id_lote from Especificacion) or idMadera <> all(select id_madera from Especificacion) then
+begin 
+DECLARE importeOld float;
+DECLARE precioNew float;
+
+SELECT importe into importeOld 
+FROM especificacion
+WHERE id_lote = idLote and id_madera = idMadera;
+
+SELECT precio - importeOld into precioNew 
+FROM lote_madera 
+WHERE id = idLote;
+
+if idLote <> all(select id_lote from Especificacion) or idMadera <> all(select id_madera from Especificacion) then
 		signal sqlstate '04020' set message_text ='ID inexistente';
         rollback;
+elseif precioNew <= 0 then 
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No se puede eliminar la especifacacion ya que el precio del lote asociado sería 0';
+            ROLLBACK;
 	else
-        delete from Especificacion where idLote=id_lote and idMadera=id_madera;
+		UPDATE lote_madera
+        SET precio = precioNew
+        WHERE id = idLote;
+        delete from Especificacion where id_lote = idLote and id_madera = idMadera;
         commit;
 	end if; 
 end /
 -- eliminar totalProdutipo de madera
+
 create procedure EliminarMadera (in idMadera varchar(6))
 begin 
 	DECLARE v_count INT;
@@ -1156,7 +1159,7 @@ delimiter ;
 -- procedures de actualizar 
 -- actualizar un detalle
 delimiter /
-call ActualizarDetalle(1,'CC01',1,'Hola2')/
+
 create procedure ActualizarDetalle(in idFactura int,in idProducto varchar(6),in unidades_nuevas int,in nuevo_detalle_adic varchar(100))
 BEGIN
 	declare precio_unitario float;
@@ -1183,6 +1186,7 @@ for each row
 begin
 	UPDATE factura 
     SET subtotal_sin_impuestos = subtotal_sin_impuestos - old.totalProdu + new.totalProdu,
+
         ValorTotal = ValorTotal - old.totalProdu + new.totalProdu
     WHERE ID = old.ID_factura;
 end /
@@ -1242,6 +1246,7 @@ begin
         commit;
     end if;
 end /
+
 -- Actualizar reclamación 
 create procedure ActualizarReclamacion (in idEspecifico int,in idSecretaria char(10),in cedulaCliente varchar(13),in descripcion_nueva varchar(100))
 begin
@@ -1279,6 +1284,7 @@ begin
 	end if;
 end /
 -- actualizar la información del operario
+delimiter /
 create procedure actualizarOperario(in idOperario char(10), in nomb varchar(40),in horaI time,in horaF time,in fechaCapa date,in tipoCapa varchar(20))
 begin
 	if idOperario<> all(select id from Operario) then
@@ -1293,6 +1299,7 @@ begin
         WHERE ID=idOperario;
 	end if;
 end/
+delimiter /
 create trigger actualizarOperario
 before update on operario
 for each row
@@ -1465,27 +1472,50 @@ begin
 end/
 -- actualizar la informacion de un lote de madera
 create procedure ActualizarLoteMadera(in idLote int,in idProveedor char(10),in idsecret char(10),in precioNuevo float,in fechaNueva date)
+
 begin
-	if idLote <> all(select id from lote_madera) then
-		signal sqlstate '09301' set message_text ='ID del lote no existente';
+
+	 DECLARE precioAnterior FLOAT;
+
+    -- Validar la existencia del lote
+    IF NOT EXISTS (SELECT 1 FROM lote_madera WHERE id = idLote) THEN
+        SIGNAL SQLSTATE '09301' SET MESSAGE_TEXT = 'ID del lote no existente';
         rollback;
-	elseif idProveedor <> all(select cedula from proveedor)then
-		signal sqlstate '09334' set message_text ='Proveedor no existente';
+    END IF;
+
+    -- Validar la existencia del proveedor
+    IF NOT EXISTS (SELECT 1 FROM proveedor WHERE cedula = idProveedor) THEN
+        SIGNAL SQLSTATE '09334' SET MESSAGE_TEXT = 'Proveedor no existente';
         rollback;
-	elseif idsecret <>all(select id from secretaria) then 
-		signal sqlstate '08891' set message_text= 'ID de la secretaria no existe';
+    END IF;
+
+    -- Validar la existencia de la secretaria
+    IF NOT EXISTS (SELECT 1 FROM secretaria WHERE id = idsecret) THEN
+        SIGNAL SQLSTATE '08891' SET MESSAGE_TEXT = 'ID de la secretaria no existe';
         rollback;
-	else 
-		UPDATE lote_madera
-		SET id_proveedor=idProveedor, id_secretaria = idsecret,precio=precioNuevo,fecha_llegada=fechaNueva
-		WHERE id=idLote;
-        commit;
-	end if;
+    END IF;
+
+    -- Obtener el precio actual del lote
+    SELECT precio INTO precioAnterior
+    FROM lote_madera
+    WHERE id = idLote;
+
+    -- Actualizar el registro en lote_madera
+    UPDATE lote_madera
+    SET id_proveedor = idProveedor,
+        id_secretaria = idsecret,
+        precio = precioAnterior,
+        fecha_llegada = fechaNueva
+    WHERE id = idLote;
+
 end/
 -- actualizar una especificación
 create procedure ActualizarEspecificacion(in idLote int,in idMadera varchar(6), in cantidadNueva int)
 begin
 	DECLARE precUnit float;
+    DECLARE precLote float;
+    DECLARE importeNuevo float;
+    DECLARE importeAnterior float;
 	if idLote <> all(select id_lote from especificacion) then
 		signal sqlstate '05030' set message_text = 'ID del lote no existente';
         rollback;
@@ -1496,10 +1526,33 @@ begin
 		signal sqlstate '04002' set message_text ='Unidades negativas no validas';
         rollback;
 	else
-    SELECT precio_unitario INTO precUnit FROM tipo_de_madera WHERE id=idMadera;
-    UPDATE especificacion SET importe= cantidadNueva*precUnit,cantidad=cantidadNueva
-    WHERE id_madera = idMadera and idLote=id_lote;
-    commit;
+    -- valores anteriores
+     -- Iniciar la transacción
+
+        -- Obtener el precio unitario de la madera
+        SELECT precio_unitario INTO precUnit FROM tipo_de_madera WHERE id = idMadera;
+
+        -- Obtener el importe anterior del lote
+        SELECT importe INTO importeAnterior FROM especificacion WHERE id_lote = idLote AND id_madera = idMadera;
+
+        -- Calcular el nuevo importe
+        SET importeNuevo = cantidadNueva * precUnit;
+
+        -- Actualizar la especificación con el nuevo importe y cantidad
+        UPDATE especificacion
+        SET importe = importeNuevo, cantidad = cantidadNueva
+        WHERE id_madera = idMadera AND id_lote = idLote;
+
+        -- Obtener el precio actual del lote
+        SELECT precio INTO precLote FROM lote_madera WHERE id = idLote;
+
+        -- Actualizar el precio del lote
+        UPDATE lote_madera
+        SET precio = precLote - importeAnterior + importeNuevo
+        WHERE id = idLote;
+
+        -- Confirmar la transacción
+        COMMIT;
     end if;
 end/
 -- actualizar tipo de madera 
@@ -1515,10 +1568,17 @@ BEGIN
 		commit;
     end if;
 END /
+
 create trigger trgActualizarTipoMadera before update on tipo_de_madera
 for each row begin
 	update Especificacion set ID_madera=new.ID where ID_madera=old.ID;
 end/
+CREATE TRIGGER ActualizarImporteEspecificacion
+AFTER UPDATE ON tipo_de_madera
+FOR EACH ROW
+BEGIN
+	update Especificacion set importe=new.precio_unitario*cantidad where id_madera=new.id;
+END/
 -- actualizar rol de pago
 create procedure ActualizarRolDePago(in idNuevo int,in idEmpleado char(10),in laborados int,in sueldoNuevo float,in horasExtras float,in totalIngresos float,in EgresosIEES float,NuevosAnticipos float,totalEgresos float)
 begin
@@ -1586,7 +1646,7 @@ CREATE PROCEDURE InsertSecretaria(
     IN p_ID CHAR(10),
     IN p_nombre VARCHAR(40),
     IN p_horaInicio TIME,
-    IN p_horaFine TIME,
+    IN p_horaFin TIME,
     IN p_fechaCapacitacion DATE,
     IN p_tipoCapacitacion VARCHAR(20)
 )
@@ -1595,10 +1655,11 @@ if p_ID=any(select ID from Secretaria) or p_ID = any(select ID from Empleado) th
 	signal sqlstate '07444' set message_text='ID de secretaria ya existente';
     rollback;
 else
+	INSERT INTO Empleado (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion)
+    VALUES (p_ID, p_nombre, p_horaInicio, p_horaFin, p_fechaCapacitacion, p_tipoCapacitacion);
     INSERT INTO Secretaria (ID)
     VALUES (p_ID);
-    INSERT INTO Empleado (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion)
-    VALUES (p_ID, p_nombre, p_horaInicio, p_horaFin, p_fechaCapacitacion, p_tipoCapacitacion);
+    
     commit;
 end if;
 END //
@@ -1630,11 +1691,12 @@ end if;
 END //
 
 -- Procedimientos almacenados para la tabla Detalle
-call InsertDetalle(12,'CN01',2,'Prueba') // 
+
 CREATE PROCEDURE InsertDetalle(
     IN p_ID_factura INT,
     IN p_ID_producto VARCHAR(6),
     IN p_unidades INT,
+
     IN p_detalle_adic VARCHAR(100)
 )
 BEGIN
@@ -1647,6 +1709,7 @@ elseif p_ID_factura <>all(select id from factura) or p_ID_producto<>all(select i
 	signal sqlstate '04020' set message_text ='ID inexistente';
     rollback;
 else
+
     -- Obtiene el precio unitario del producto
         SELECT precioUnitario 
         INTO precio_unitario 
@@ -1723,14 +1786,15 @@ CREATE PROCEDURE InsertEvaluacion(
     IN p_detalle VARCHAR(100)
 )
 BEGIN
-if p_id_proveedor <>all(select cedula from proveedor) then
-	signal sqlstate '04020' set message_text ='ID inexistente';
-    rollback;
-else
-    INSERT INTO Evaluacion (id_proveedor, calidad, puntualidad, detalle)
-    VALUES (p_id_proveedor, p_calidad, p_puntualidad, p_detalle);
-    commit;
-end if;
+    -- Verificar si el ID del proveedor existe en la tabla proveedor
+    IF NOT EXISTS (SELECT 1 FROM proveedor WHERE cedula = p_id_proveedor) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'ID inexistente';
+        -- No es necesario un ROLLBACK aquí ya que el INSERT no ha ocurrido aún.
+    ELSE
+        INSERT INTO Evaluacion (id_proveedor, calidad, puntualidad, detalle)
+        VALUES (p_id_proveedor, p_calidad, p_puntualidad, p_detalle);
+        COMMIT;
+    END IF;
 END //
 
 -- Procedimientos almacenados para la tabla Tipo_de_madera
@@ -1758,17 +1822,42 @@ CREATE PROCEDURE InsertEspecificacion(
     IN p_cantidad INT
 )
 BEGIN
-if p_id_lote=(select id_lote from especificacion where id_lote=p_id_lote and id_madera=p_id_madera) and p_id_madera=(select id_madera from especificacion where id_lote=p_id_lote and id_madera=p_id_madera)then
-	signal sqlstate '05402' set message_text= 'Especificacion ya existente';
-	rollback;
-elseif p_id_lote<>any(select id from lote_madera) or p_id_madera <> any(select id from tipo_de_madera)then
-	signal sqlstate '04020' set message_text ='ID inexistente';
-	rollback;
-else
-    INSERT INTO Especificacion (id_lote, id_madera, importe, cantidad)
-    VALUES (p_id_lote, p_id_madera, p_importe, p_cantidad);
-    commit;
-end if;
+ DECLARE importeNew FLOAT;
+
+    -- Verifica si la especificación ya existe
+    IF EXISTS (
+        SELECT 1 
+        FROM especificacion 
+        WHERE id_lote = p_id_lote 
+          AND id_madera = p_id_madera
+    ) THEN
+        SIGNAL SQLSTATE '05402' 
+            SET MESSAGE_TEXT = 'Especificacion ya existente';
+
+    -- Verifica si el lote y tipo de madera existen
+    ELSEIF NOT EXISTS (
+        SELECT 1 
+        FROM lote_madera 
+        WHERE id = p_id_lote
+    ) OR NOT EXISTS (
+        SELECT 1 
+        FROM tipo_de_madera 
+        WHERE id = p_id_madera
+    ) THEN
+        SIGNAL SQLSTATE '04020' 
+            SET MESSAGE_TEXT = 'ID inexistente';
+
+    ELSE
+        -- Calcula el importe
+        SELECT precio_unitario * p_cantidad 
+        INTO importeNew
+        FROM tipo_de_madera
+        WHERE id = p_id_madera;
+
+        -- Inserta la nueva especificación
+        INSERT INTO especificacion (id_lote, id_madera, importe, cantidad)
+        VALUES (p_id_lote, p_id_madera, importeNew, p_cantidad);
+    END IF;
 END //
 
 -- Procedimientos almacenados para la tabla Operario
@@ -1806,14 +1895,14 @@ if p_ID =any(select id from Asistente_operario) or p_ID=any(select id from Emple
 	signal sqlstate '07302' set message_text='Asistente ya existente';
     rollback;
 else
+	INSERT INTO Empleado (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion)
+    VALUES (p_ID, p_nombre, p_horaInicio, p_horaFin, p_fechaCapacitacion, p_tipoCapacitacion);
 	INSERT INTO Asistente_operario (ID)
     VALUES (p_ID);
-    INSERT INTO Empleado (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion)
-    VALUES (p_ID, p_nombre, p_horaInicio, p_horaFin, p_fechaCapacitacion, p_tipoCapacitacion);
+    
     commit;
 end if;
 END //
-
 -- Procedimientos almacenados para la tabla Maquinaria
 CREATE PROCEDURE InsertMaquinaria(
     IN p_codigo INT,
@@ -1923,6 +2012,7 @@ else
     commit;
 end if;
 END //
+
 -- triggers de insercion
 delimiter /
 create trigger trgNuevoTotal after insert on Detalle
@@ -1955,7 +2045,7 @@ select * from ReporteVentasDia;
 create view ReporteMensualDeMantenimiento as 
 select e.nombre,m.detalles,m.fecha,ma.nombre as maquinaria from empleado e join operario o using(id)
 join mantenimiento m on m.id_operario=o.id join maquinaria ma on ma.codigo=m.codigo_maquinaria
-where month(m.fecha)=month(now()) and year(m.fecha)=year(now())
+WHERE m.fecha BETWEEN DATE_FORMAT(NOW(), '%Y-%m-01') AND LAST_DAY(NOW())
 ;
 select * from ReporteMensualDeMantenimiento;
 -- Reporte de limpieza diaria del area de corte
@@ -1964,6 +2054,7 @@ select e.nombre
 FROM empleado e JOIN asistente_operario a using(id) JOIN registro r ON a.id = r.id_asistente 
 JOIN limpieza l ON r.id_limpieza = l.id
 WHERE l.lugar = 'Área de Corte' AND r.fecha = now();
+
 -- Script de creación y permisos de usuario
 -- usuario 1, dueño del negocio
 CREATE USER 'dueño'@'project-sbd.mysql.database.azure.com' IDENTIFIED BY '1234';
@@ -1984,6 +2075,11 @@ GRANT INSERT, UPDATE ON aserriodatapro.* TO 'secret2'@'project-sbd.mysql.databas
 REVOKE EXECUTE ON PROCEDURE aserriodatapro.eliminarroldepago FROM 'secret2'@'project-sbd.mysql.database.azure.com';
 REVOKE EXECUTE ON PROCEDURE aserriodatapro.actualizarRolDePago FROM 'secret2'@'project-sbd.mysql.database.azure.com';
 REVOKE EXECUTE ON PROCEDURE aserriodatapro.InsertRolDePagos FROM 'secret2'@'project-sbd.mysql.database.azure.com';
+REVOKE SELECT ON aserriodatapro.Reportecompras FROM 'secret2'@'project-sbd.mysql.database.azure.com';
+REVOKE SELECT ON aserriodatapro.Reporteventasdia FROM 'secret2'@'project-sbd.mysql.database.azure.com';
+-- permiso a vistas
+GRANT SELECT ON  aserriodatapro.Reportecompras to 'secret2'@'project-sbd.mysql.database.azure.com';
+GRANT SELECT ON aserriodatapro.Reporteventasdia to 'secret2'@'project-sbd.mysql.database.azure.com';
 REVOKE SELECT, INSERT, UPDATE, DELETE ON aserriodatapro.rol_de_pagos FROM 'secret2'@'project-sbd.mysql.database.azure.com';
 
 -- usuario 4, secretaria 3 del negocio
@@ -1993,6 +2089,8 @@ REVOKE EXECUTE ON PROCEDURE aserriodatapro.eliminarroldepago FROM 'secret3'@'pro
 REVOKE EXECUTE ON PROCEDURE aserriodatapro.actualizarRolDePago FROM 'secret3'@'project-sbd.mysql.database.azure.com';
 REVOKE EXECUTE ON PROCEDURE aserriodatapro.actualizarRolDePago FROM 'secret3'@'project-sbd.mysql.database.azure.com';
 REVOKE EXECUTE ON PROCEDURE aserriodatapro.eliminarMaquinaria FROM 'secret3'@'project-sbd.mysql.database.azure.com';
+-- permiso a 1 sp
+
 GRANT EXECUTE ON PROCEDURE aserriodatapro.eliminarMaquinaria to 'secret3'@'project-sbd.mysql.database.azure.com';
 REVOKE SELECT, INSERT, UPDATE, DELETE ON aserriodatapro.rol_de_pagos FROM 'secret3'@'project-sbd.mysql.database.azure.com';
 
@@ -2002,6 +2100,8 @@ GRANT INSERT, UPDATE ON aserriodatapro.* TO 'secret4'@'project-sbd.mysql.databas
 REVOKE EXECUTE ON PROCEDURE aserriodatapro.eliminarroldepago FROM 'secret4'@'project-sbd.mysql.database.azure.com';
 REVOKE EXECUTE ON PROCEDURE aserriodatapro.actualizarRolDePago FROM 'secret4'@'project-sbd.mysql.database.azure.com';
 REVOKE EXECUTE ON PROCEDURE aserriodatapro.InsertRolDePagos FROM 'secret4'@'project-sbd.mysql.database.azure.com';
+REVOKE SELECT, INSERT, UPDATE, DELETE ON aserriodatapro.rol_de_pagos FROM 'secret4'@'project-sbd.mysql.database.azure.com';
+
 REVOKE SELECT, INSERT, UPDATE, DELETE ON aserriodatapro.rol_de_pagos FROM 'secret4'@'project-sbd.mysql.database.azure.com';
 -- indices
 -- Índice para la tabla Factura en el campo fecha

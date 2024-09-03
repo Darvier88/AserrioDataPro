@@ -7,6 +7,7 @@ package ec.edu.espol.aserriosbd;
 import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
 import ec.edu.espol.aserriosbd.modelo.Factura;
 import ec.edu.espol.aserriosbd.modelo.ObjetosDAO;
+import ec.edu.espol.aserriosbd.modelo.SessionManager;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.CallableStatement;
@@ -96,7 +97,11 @@ public class FacturaController implements Initializable {
     private boolean eliminarFacturaDeBD(Factura factura) {
     String sql = "{CALL EliminarFactura(?)}"; // Llamada al procedimiento almacenado
 
-    try (Connection conn = DatabaseConnection.getConnection();
+    SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        
+        try (Connection conn = DatabaseConnection.getConnection(user, password);
          CallableStatement cstmt = conn.prepareCall(sql)) {
 
         // Configurar el parámetro del CallableStatement

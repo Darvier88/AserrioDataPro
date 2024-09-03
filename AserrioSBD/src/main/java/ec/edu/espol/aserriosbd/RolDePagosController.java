@@ -7,6 +7,7 @@ package ec.edu.espol.aserriosbd;
 import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
 import ec.edu.espol.aserriosbd.modelo.ObjetosDAO;
 import ec.edu.espol.aserriosbd.modelo.RolDePagos;
+import ec.edu.espol.aserriosbd.modelo.SessionManager;
 import java.io.IOException;
 import javafx.scene.control.SelectionMode;
 import java.net.URL;
@@ -70,7 +71,11 @@ public class RolDePagosController implements Initializable {
     private boolean eliminarRolDePagosDeBD(RolDePagos rolDePagos) {
         String sql = "{call EliminarRolDePago(?)}";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        
+        try (Connection conn = DatabaseConnection.getConnection(user, password);
              CallableStatement cstmt = conn.prepareCall(sql)) {
             cstmt.setInt(1, rolDePagos.getId());
 

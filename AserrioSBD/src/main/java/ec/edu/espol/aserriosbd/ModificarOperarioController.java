@@ -60,7 +60,7 @@ public class ModificarOperarioController implements Initializable {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("modificarOperario.fxml"));
         Parent root = loader.load();
 
-        ModificarEmpleadoController controller = loader.getController();
+        ModificarOperarioController controller = loader.getController();
         controller.setEmpleado(emp);
 
         App.setRoot("modificarOperario");
@@ -69,7 +69,7 @@ public class ModificarOperarioController implements Initializable {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("modificarOperario.fxml"));
         Parent root = loader.load();
 
-        ModificarEmpleadoController controller = loader.getController();
+        ModificarOperarioController controller = loader.getController();
         controller.setEmpleado(emp);
 
         Stage stage = new Stage();

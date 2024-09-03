@@ -28,27 +28,26 @@ import javafx.scene.text.Text;
 /**
  * FXML Controller class
  *
- * @author ASUS VIVOBOOK PRO
+ * @author Zambrano
  */
-public class OperariosController implements Initializable {
+public class AsistenteOperarioController implements Initializable {
 
     @FXML
     private Text text;
     @FXML
     private TableView<Empleado> table;
-    private InterfazBase interfazBase;
+ private InterfazBase interfazBase;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Inicializar la instancia de InterfazBase
         interfazBase = new InterfazBase();
 
         // Configurar la tabla con los datos de la clase Empleado
         interfazBase.configureTableFromClass(table, text, "Empleados", Empleado.class);
-        table.setItems(ObjetosDAO.getOperarioList());
+        table.setItems(ObjetosDAO.getAsistenteList());
         table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }    
 
@@ -59,12 +58,13 @@ public class OperariosController implements Initializable {
     @FXML
     private void añadir(MouseEvent event) {
         try {
-            App.setRoot("añadirOperario");
+            App.setRoot("añadirAsistenteOperario");
         } catch (IOException ex) {
         }
     }
-    private boolean eliminarOperarioDeBD(Empleado emp) {
-    String sql = "{CALL EliminarOperario(?)}"; // Llamada al procedimiento almacenado
+    
+    private boolean eliminarAsistenteDeBD(Empleado emp) {
+    String sql = "{CALL EliminarAsistente(?)}"; // Llamada al procedimiento almacenado
 
     try (Connection conn = DatabaseConnection.getConnection();
          CallableStatement cstmt = conn.prepareCall(sql)) {
@@ -83,7 +83,7 @@ public class OperariosController implements Initializable {
         return false; // Indica que ocurrió un error
     }
 }
-
+    
     @FXML
     private void eliminar(MouseEvent event) {
         Empleado empSeleccionado = table.getSelectionModel().getSelectedItem();
@@ -92,8 +92,8 @@ public class OperariosController implements Initializable {
         // Crear una ventana de confirmación
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmar Eliminación");
-        alert.setHeaderText("¿Estás seguro de que deseas eliminar este operario?");
-        alert.setContentText("Al eliminar el operario, se eliminarán todos los detalles relacionados con este.");
+        alert.setHeaderText("¿Estás seguro de que deseas eliminar este asistente de operario?");
+        alert.setContentText("Al eliminar este asistente de operario, se eliminarán todos los detalles relacionados con esta");
 
         ButtonType botonConfirmar = new ButtonType("Eliminar");
         ButtonType botonCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -102,23 +102,16 @@ public class OperariosController implements Initializable {
         Optional<ButtonType> resultado = alert.showAndWait();
         if (resultado.isPresent() && resultado.get() == botonConfirmar) {
             // Lógica para eliminar la factura de la base de datos
-            if (eliminarOperarioDeBD(empSeleccionado)) {
+            if (eliminarAsistenteDeBD(empSeleccionado)) {
                 // Eliminar la factura del TableView
                 table.getItems().remove(empSeleccionado);
             } else {
-                mostrarError("No se pudo eliminar el operario de la base de datos.");
+                mostrarError("No se pudo eliminar el asistente de operario de la base de datos.");
             }
         }
     } else {
-        mostrarError("Por favor, selecciona un operario para eliminar.");
+        mostrarError("Por favor, selecciona un asistente de operario para eliminar.");
     }
-    }
-    private void mostrarError(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
     }
 
     @FXML
@@ -145,6 +138,14 @@ public class OperariosController implements Initializable {
         } catch (IOException ex) { 
             ex.printStackTrace();
         }
+    }
+    
+    private void mostrarError(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
     
 }

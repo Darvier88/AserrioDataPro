@@ -29,7 +29,7 @@ public class SeccionComprasController implements Initializable {
     @FXML
     private void irLoteMadera(MouseEvent event) {
         try {
-            App.setRoot("tipoMadera");
+            App.setRoot("loteMadera");
         } catch (IOException ex) { 
         }
     }
@@ -37,30 +37,34 @@ public class SeccionComprasController implements Initializable {
     @FXML
     private void irTipoMadera(MouseEvent event) {
         try {
-            App.setRoot("loteMadera");
+            App.setRoot("tipoMadera");
         } catch (IOException ex) { 
         }
     }
-
+    
     @FXML
-    private void irEspecificación(MouseEvent event) throws IOException {
-        App.setRoot("especificación");
+    private void irEspecificación(MouseEvent event)   {
+        try{
+            App.setRoot("especificación");
+        } catch(IOException ex){
+            
+        }
     }
-
     @FXML
-    private void irProveedor(MouseEvent event) {
+    private void irProveedor(MouseEvent event)  {
         try {
             App.setRoot("proveedor");
         } catch (IOException ex) { 
         }
     }
-
+    
     @FXML
-    private void irEvaluacion(MouseEvent event)throws IOException {
-        App.setRoot("evaluacion"); 
-            
+    private void irEvaluacion(MouseEvent event)  {
+        try {
+            App.setRoot("evaluacion");
+        } catch (IOException ex) { 
+        }
     }
-
     @FXML
     private void regresar(MouseEvent event) throws IOException {
         App.setRoot("opcionesSecretaria");

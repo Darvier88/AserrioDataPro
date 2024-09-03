@@ -67,11 +67,13 @@ public class SeccionEmpleadosController implements Initializable {
     }
 
     @FXML
-    private void irAsistentes(MouseEvent event) {
+    private void irAsistentes(MouseEvent event) throws IOException {
+        App.setRoot("asistenteOperario");
     }
 
     @FXML
-    private void irSecretarias(MouseEvent event) {
+    private void irSecretarias(MouseEvent event) throws IOException {
+        App.setRoot("secretaria");
     }
     
 }
