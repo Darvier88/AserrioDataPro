@@ -4,6 +4,7 @@ ec\edu\espol\aserriosbd\modelo\Factura.class
 ec\edu\espol\aserriosbd\ModificarEspecificacionesController.class
 ec\edu\espol\aserriosbd\AñadirReclamacionController.class
 ec\edu\espol\aserriosbd\DetalleController.class
+ec\edu\espol\aserriosbd\AñadirSecretariaController.class
 ec\edu\espol\aserriosbd\LoteMaderaController.class
 ec\edu\espol\aserriosbd\modelo\Evaluacion.class
 ec\edu\espol\aserriosbd\modelo\Proveedor.class
@@ -24,6 +25,7 @@ ec\edu\espol\aserriosbd\ProductoController.class
 ec\edu\espol\aserriosbd\EspecificaciónController.class
 ec\edu\espol\aserriosbd\MaquinariaController.class
 ec\edu\espol\aserriosbd\modelo\ReporteMensualMantenimiento.class
+ec\edu\espol\aserriosbd\ModificarAsistenteOperarioController.class
 ec\edu\espol\aserriosbd\AñadirEvaluacionController.class
 ec\edu\espol\aserriosbd\SeccionComprasController.class
 ec\edu\espol\aserriosbd\ReportesController.class
@@ -40,6 +42,8 @@ ec\edu\espol\aserriosbd\PrimaryController.class
 ec\edu\espol\aserriosbd\AñadirLoteMaderaController.class
 ec\edu\espol\aserriosbd\modelo\RolDePagos.class
 ec\edu\espol\aserriosbd\ModificarMaquinariaController.class
+ec\edu\espol\aserriosbd\AñadirAsistenteOperarioController.class
+ec\edu\espol\aserriosbd\ModificarSecretariaController.class
 ec\edu\espol\aserriosbd\SeccionVentasController.class
 ec\edu\espol\aserriosbd\ModificarReclamacionController.class
 ec\edu\espol\aserriosbd\modelo\Cliente.class
@@ -47,6 +51,7 @@ ec\edu\espol\aserriosbd\modelo\Maquinaria.class
 ec\edu\espol\aserriosbd\TipoMaderaController.class
 ec\edu\espol\aserriosbd\EmpleadoController.class
 ec\edu\espol\aserriosbd\modelo\RegistroDeLimpieza.class
+ec\edu\espol\aserriosbd\AsistenteOperarioController.class
 ec\edu\espol\aserriosbd\ModificarFacturaController.class
 ec\edu\espol\aserriosbd\SeccionEmpleadosController.class
 ec\edu\espol\aserriosbd\ModificarTipoMaderaController.class
@@ -66,6 +71,7 @@ ec\edu\espol\aserriosbd\ClienteController.class
 ec\edu\espol\aserriosbd\LDACController.class
 ec\edu\espol\aserriosbd\modelo\TimeConverter.class
 ec\edu\espol\aserriosbd\AñadirLimpiezaController.class
+ec\edu\espol\aserriosbd\SecretariaController.class
 ec\edu\espol\aserriosbd\modelo\ReporteCompra.class
 ec\edu\espol\aserriosbd\ReclamacionController.class
 ec\edu\espol\aserriosbd\ReporteVentasDiaController.class

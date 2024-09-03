@@ -745,6 +745,7 @@ begin if idProveedor <> all(select cedula from Proveedor) then
         rollback;
 	elseif eliminar = true then
         delete from Proveedor where idProveedor=cedula;
+        delete from especificacion where id_lote = (select id from lote_madera where id_proveedor = idProveedor);
 		delete from Lote_madera where id_proveedor = idProveedor;
         delete from Evaluacion where id_proveedor =idProveedor;
         commit;
@@ -1201,7 +1202,6 @@ BEGIN
     end if;
 END /
 drop procedure ActualizarTipoMadera;
-call ActualizarTipoMadera('TS13', 'Titon', "asas", 'Humedote');
 CREATE TRIGGER ActualizarImporteEspecificacion
 AFTER UPDATE ON tipo_de_madera
 FOR EACH ROW
@@ -1275,7 +1275,7 @@ CREATE PROCEDURE InsertSecretaria(
     IN p_ID CHAR(10),
     IN p_nombre VARCHAR(40),
     IN p_horaInicio TIME,
-    IN p_horaFine TIME,
+    IN p_horaFin TIME,
     IN p_fechaCapacitacion DATE,
     IN p_tipoCapacitacion VARCHAR(20)
 )
@@ -1284,14 +1284,15 @@ if p_ID=any(select ID from Secretaria) or p_ID = any(select ID from Empleado) th
 	signal sqlstate '07444' set message_text='ID de secretaria ya existente';
     rollback;
 else
+	INSERT INTO Empleado (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion)
+    VALUES (p_ID, p_nombre, p_horaInicio, p_horaFin, p_fechaCapacitacion, p_tipoCapacitacion);
     INSERT INTO Secretaria (ID)
     VALUES (p_ID);
-    INSERT INTO Empleado (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion)
-    VALUES (p_ID, p_nombre, p_horaInicio, p_horaFin, p_fechaCapacitacion, p_tipoCapacitacion);
+    
     commit;
 end if;
 END //
-
+drop procedure InsertSecretaria;
 -- Procedimientos almacenados para la tabla Factura
 CREATE PROCEDURE InsertFactura(
     IN p_ID_secretaria CHAR(10),
@@ -1510,14 +1511,15 @@ if p_ID =any(select id from Asistente_operario) or p_ID=any(select id from Emple
 	signal sqlstate '07302' set message_text='Asistente ya existente';
     rollback;
 else
+	INSERT INTO Empleado (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion)
+    VALUES (p_ID, p_nombre, p_horaInicio, p_horaFin, p_fechaCapacitacion, p_tipoCapacitacion);
 	INSERT INTO Asistente_operario (ID)
     VALUES (p_ID);
-    INSERT INTO Empleado (ID, nombre, horaInicio, horaFin, fechaCapacitacion, tipoCapacitacion)
-    VALUES (p_ID, p_nombre, p_horaInicio, p_horaFin, p_fechaCapacitacion, p_tipoCapacitacion);
+    
     commit;
 end if;
 END //
-
+drop procedure InsertAsistenteOperario;
 -- Procedimientos almacenados para la tabla Maquinaria
 CREATE PROCEDURE InsertMaquinaria(
     IN p_codigo INT,
