@@ -16,7 +16,7 @@ import javafx.scene.input.MouseEvent;
  *
  * @author nicol
  */
-public class SeccionComprasController implements Initializable {
+public class SeccionEmpleadosController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -27,38 +27,33 @@ public class SeccionComprasController implements Initializable {
     }    
 
     @FXML
-    private void irLoteMadera(MouseEvent event) {
-        try {
-            App.setRoot("tipoMadera");
-        } catch (IOException ex) { 
-        }
+    private void irEmpleados(MouseEvent event) throws IOException {
+        App.setRoot("empleado");
     }
 
     @FXML
-    private void irTipoMadera(MouseEvent event) {
-        try {
-            App.setRoot("loteMadera");
-        } catch (IOException ex) { 
-        }
+    private void irRolDePagos(MouseEvent event) throws IOException {
+        App.setRoot("rolDePagos");
     }
 
     @FXML
-    private void irEspecificación(MouseEvent event) throws IOException {
-        App.setRoot("especificación");
+    private void irRegistroLimpieza(MouseEvent event) throws IOException {
+        App.setRoot("registroDeLimpieza");
     }
 
     @FXML
-    private void irProveedor(MouseEvent event) {
-        try {
-            App.setRoot("proveedor");
-        } catch (IOException ex) { 
-        }
+    private void irMaquinarias(MouseEvent event) throws IOException {
+        App.setRoot("maquinaria");
     }
 
     @FXML
-    private void irEvaluacion(MouseEvent event)throws IOException {
-        App.setRoot("evaluacion"); 
-            
+    private void irMantenimiento(MouseEvent event) throws IOException {
+        App.setRoot("mantenimiento");
+    }
+
+    @FXML
+    private void irLimpieza(MouseEvent event) throws IOException {
+        App.setRoot("limpieza");
     }
 
     @FXML

@@ -11,18 +11,19 @@ import java.util.Date;
  * @author nicol
  */
 public class Maquinaria {
-   private int codigo;
-    private String nombre;
-    private String marca;
-    private Date fecha;
+   private int codigo;           
+    private String nombre;        
+    private String marca;          
+    private Date fechaAdquisicion; 
 
-    public Maquinaria(int codigo, String nombre, String marca, Date fecha) {
+    public Maquinaria(int codigo, String nombre, String marca, Date fechaAdquisicion) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.marca = marca;
-        this.fecha = fecha;
+        this.fechaAdquisicion = fechaAdquisicion;
     }
 
+    // Getters y Setters
     public int getCodigo() {
         return codigo;
     }
@@ -47,11 +48,11 @@ public class Maquinaria {
         this.marca = marca;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public Date getFechaAdquisicion() {
+        return fechaAdquisicion;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFechaAdquisicion(Date fechaAdquisicion) {
+        this.fechaAdquisicion = fechaAdquisicion;
     }
 }

@@ -41,7 +41,7 @@ public class LoginDueñoController implements Initializable {
     
     @FXML
     private void mostrarDatos(MouseEvent event) {
-        try(Connection connection = DatabaseConnection.getConnection("dueño", contraseña.getText())) {
+        try(Connection connection = DatabaseConnection.getConnection()) {
              if (connection != null) {
             System.out.println("Conexión exitosa a la base de datos con usuario: dueño" );
             // Cambia la pantalla a "opcionesSecretaria" o cualquier otra dependiendo del rol
@@ -64,5 +64,10 @@ public class LoginDueñoController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void regresar(MouseEvent event) throws IOException {
+        App.setRoot("inicioPerfiles");
     }
 }

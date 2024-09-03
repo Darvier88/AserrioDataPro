@@ -6,6 +6,7 @@ package ec.edu.espol.aserriosbd;
 
 import ec.edu.espol.aserriosbd.modelo.ObjetosDAO;
 import ec.edu.espol.aserriosbd.modelo.Maquinaria;
+import javafx.scene.control.SelectionMode;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -17,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -25,34 +27,28 @@ import javafx.scene.input.MouseEvent;
  */
 public class MaquinariaController implements Initializable {
 
+    
     @FXML
-    private TableColumn<Maquinaria, Integer> codigoColumn;
+    private Text text;
     @FXML
-    private TableColumn<Maquinaria, String> nombreColumn;
-    @FXML
-    private TableColumn<Maquinaria, String> marcaColumn;
-    @FXML
-    private TableColumn<Maquinaria, Date> fechaColumn;
-    @FXML
-    private TableView<Maquinaria> tableMaquinarias;
+    private TableView<Maquinaria> table;
+    
+    private InterfazBase interfazBase;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        codigoColumn.setCellValueFactory(new PropertyValueFactory<>("codigo"));
-        nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        marcaColumn.setCellValueFactory(new PropertyValueFactory<>("marca"));
-        fechaColumn.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+        interfazBase = new InterfazBase();
+        interfazBase.configureTableFromClass(table, text, "Maquinaria", Maquinaria.class);
 
-        tableMaquinarias.setItems(ObjetosDAO.getMaquinariaList());
-    }    
+        // Configuración de la selección
+        table.setItems(ObjetosDAO.getMaquinariaList());
+        table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+    }   
 
     @FXML
     private void regresar(MouseEvent event) {
         try {
-            App.setRoot("inicio");
+            App.setRoot("seccionEmpleado");
         } catch (IOException ex) { 
         }
     
@@ -60,6 +56,18 @@ public class MaquinariaController implements Initializable {
 
     @FXML
     private void irLimpieza(ContextMenuEvent event) {
+    }
+
+    @FXML
+    private void añadir(MouseEvent event) {
+    }
+
+    @FXML
+    private void eliminar(MouseEvent event) {
+    }
+
+    @FXML
+    private void modificar(MouseEvent event) {
     }
     
 }

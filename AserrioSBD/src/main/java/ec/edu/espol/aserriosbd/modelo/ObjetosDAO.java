@@ -28,19 +28,20 @@ import java.sql.Date;
 
 
 public class ObjetosDAO {
+    
     public static ObservableList<Limpieza> getLimpiezaList() {
         ObservableList<Limpieza> limpiezaList = FXCollections.observableArrayList();
         Connection connection = DatabaseConnection.getConnection();
 
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM limpieza");
+        String query = "SELECT * FROM limpieza"; // Ajusta el nombre de la tabla según tu base de datos
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
                 Limpieza limpieza = new Limpieza(
                         resultSet.getInt("id"),
-                        resultSet.getString("lugar"),
-                        resultSet.getDate("fecha")
+                        resultSet.getString("lugar")
                 );
                 limpiezaList.add(limpieza);
             }
@@ -55,16 +56,17 @@ public class ObjetosDAO {
         ObservableList<Maquinaria> maquinariaList = FXCollections.observableArrayList();
         Connection connection = DatabaseConnection.getConnection();
 
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM maquinaria");
+        String query = "SELECT * FROM maquinaria"; // Ajusta el nombre de la tabla según tu base de datos
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
                 Maquinaria maquinaria = new Maquinaria(
                         resultSet.getInt("codigo"),
                         resultSet.getString("nombre"),
                         resultSet.getString("marca"),
-                        resultSet.getDate("fecha_adqui")
+                        resultSet.getDate("fecha_adquisicion")
                 );
                 maquinariaList.add(maquinaria);
             }
@@ -108,7 +110,7 @@ public class ObjetosDAO {
 
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM Cliente");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM cliente");
 
             while (resultSet.next()) {
                 Cliente cliente = new Cliente(
@@ -369,6 +371,91 @@ public static ObservableList<Empleado> getEmpleadoList() {
             e.printStackTrace();
         }
         return evaluacionList;
+    }
+    
+    public static ObservableList<RolDePagos> getRolDePagosList() {
+        ObservableList<RolDePagos> rolDePagosList = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getConnection();
+
+        String query = "SELECT * FROM rol_de_pagos"; // Ajusta el nombre de la tabla según tu base de datos
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                RolDePagos rolDePagos = new RolDePagos(
+                        resultSet.getInt("id"),
+                        resultSet.getString("id_empleado"),
+                        resultSet.getString("rol"),
+                        resultSet.getInt("dias_laborados"),
+                        resultSet.getFloat("sueldo"),
+                        resultSet.getFloat("horas_extras"),
+                        resultSet.getFloat("total_ingresos"),
+                        resultSet.getFloat("egresos"),
+                        resultSet.getFloat("anticipos"),
+                        resultSet.getFloat("total_egresos"),
+                        resultSet.getFloat("liquido_a_recibir")
+                );
+                rolDePagosList.add(rolDePagos);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rolDePagosList;
+    }
+    
+    public static ObservableList<Mantenimiento> getMantenimientoList() {
+        ObservableList<Mantenimiento> mantenimientoList = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getConnection();
+
+        String query = "SELECT * FROM mantenimiento"; // Ajusta el nombre de la tabla según tu base de datos
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Mantenimiento mantenimiento = new Mantenimiento(
+                        resultSet.getInt("id"),
+                        resultSet.getString("id_operario"),
+                        resultSet.getInt("codigo_maquinaria"),
+                        resultSet.getString("id_secretaria"),
+                        resultSet.getString("detalle"),
+                        resultSet.getDate("fecha")
+                );
+                mantenimientoList.add(mantenimiento);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return mantenimientoList;
+    }
+    
+    public static ObservableList<RegistroDeLimpieza> getRegistroLimpiezaList() {
+        ObservableList<RegistroDeLimpieza> registroLimpiezaList = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getConnection();
+
+        String query = "SELECT * FROM registro_limpieza"; // Ajusta el nombre de la tabla según tu base de datos
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                RegistroDeLimpieza registroLimpieza = new RegistroDeLimpieza(
+                        resultSet.getInt("id"),
+                        resultSet.getString("id_asistente"),
+                        resultSet.getInt("id_limpieza"),
+                        resultSet.getString("id_secretaria"),
+                        resultSet.getDate("fecha")
+                );
+                registroLimpiezaList.add(registroLimpieza);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return registroLimpiezaList;
     }
 }
 

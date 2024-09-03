@@ -45,5 +45,10 @@ public class ReportesController implements Initializable {
     private void LDAC(MouseEvent event) throws IOException {
         App.setRoot("LDAC");
     }
+
+    @FXML
+    private void regresar(MouseEvent event) throws IOException {
+        App.setRoot("opcionesSecretaria");
+    }
     
 }

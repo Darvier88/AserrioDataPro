@@ -8,19 +8,12 @@ import java.io.IOException;
 import ec.edu.espol.aserriosbd.modelo.ObjetosDAO;
 import ec.edu.espol.aserriosbd.modelo.Limpieza;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
@@ -40,29 +33,24 @@ public class LimpiezaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Inicializar la instancia de InterfazBase
         interfazBase = new InterfazBase();
-
-        // Configurar la tabla con los datos de la clase Cliente
         interfazBase.configureTableFromClass(table, text, "Limpiezas", Limpieza.class);
+
+        // Configuración de la selección
         table.setItems(ObjetosDAO.getLimpiezaList());
         table.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
     }
 
     @FXML
     private void regresar(MouseEvent event) {
         try {
-            App.setRoot("opcionesSecretaria");
+            App.setRoot("seccionEmpleados");
         } catch (IOException ex) { 
             ex.printStackTrace();
         }
     }
 
-    @FXML
-    private void irLimpieza(ContextMenuEvent event) {
-        // Acción de ir a limpieza
-    }
+    
 
     @FXML
     private void añadir(MouseEvent event) {
