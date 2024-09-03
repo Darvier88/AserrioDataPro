@@ -5,7 +5,6 @@
 package ec.edu.espol.aserriosbd;
 
 import ec.edu.espol.aserriosbd.modelo.ReporteMensualMantenimiento;
-import ec.edu.espol.aserriosbd.modelo.ReporteVentasDia;
 import ec.edu.espol.aserriosbd.modelo.ReportesDAO;
 import java.io.IOException;
 import java.net.URL;

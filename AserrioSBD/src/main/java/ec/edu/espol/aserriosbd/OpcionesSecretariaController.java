@@ -53,7 +53,8 @@ public class OpcionesSecretariaController implements Initializable {
     }
 
     @FXML
-    private void regresar(MouseEvent event) {
+    private void regresar(MouseEvent event) throws IOException {
+        App.setRoot("inicioPerfiles");
     }
     
 }

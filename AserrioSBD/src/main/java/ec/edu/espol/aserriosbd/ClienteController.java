@@ -11,16 +11,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -29,8 +24,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -67,10 +60,7 @@ public class ClienteController implements Initializable {
         }
     }
 
-    @FXML
-    private void irLimpieza(ContextMenuEvent event) {
-        // Acción de ir a limpieza
-    }
+  
 
     @FXML
     private void añadir(MouseEvent event) {

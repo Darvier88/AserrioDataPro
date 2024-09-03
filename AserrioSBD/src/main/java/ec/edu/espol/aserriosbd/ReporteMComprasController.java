@@ -4,8 +4,6 @@
  */
 package ec.edu.espol.aserriosbd;
 
-import ec.edu.espol.aserriosbd.modelo.Cliente;
-import ec.edu.espol.aserriosbd.modelo.ObjetosDAO;
 import ec.edu.espol.aserriosbd.modelo.ReporteCompra;
 import ec.edu.espol.aserriosbd.modelo.ReportesDAO;
 import java.io.IOException;
@@ -15,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableView;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 

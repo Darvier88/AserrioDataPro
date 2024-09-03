@@ -5,18 +5,16 @@
 package ec.edu.espol.aserriosbd;
 
 import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
+import ec.edu.espol.aserriosbd.modelo.SessionManager;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -49,6 +47,9 @@ public class LoginController implements Initializable {
              if (connection != null) {
             System.out.println("Conexión exitosa a la base de datos con usuario: " + usuario.getText());
             // Cambia la pantalla a "opcionesSecretaria" o cualquier otra dependiendo del rol
+            SessionManager session = SessionManager.getInstance();
+            session.setUsuario(usuario.getText());
+            session.setContraseña(contraseña.getText());
             App.setRoot("opcionesSecretaria");
             } else {
                 mostrarAlertaError("Conexión fallida", "Fallo en la conexión, revisa las credenciales.");

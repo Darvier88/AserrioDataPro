@@ -4,15 +4,6 @@
  */
 package ec.edu.espol.aserriosbd.modelo;
 
-import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
-import ec.edu.espol.aserriosbd.modelo.TipoMadera;
-import ec.edu.espol.aserriosbd.modelo.Proveedor;
-import ec.edu.espol.aserriosbd.modelo.Producto;
-import ec.edu.espol.aserriosbd.modelo.Maquinaria;
-import ec.edu.espol.aserriosbd.modelo.LoteMadera;
-import ec.edu.espol.aserriosbd.modelo.Limpieza;
-import ec.edu.espol.aserriosbd.modelo.Empleado;
-import ec.edu.espol.aserriosbd.modelo.Cliente;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -20,7 +11,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Date;
+import javafx.scene.control.Alert;
 /**
  *
  * @author nicol
@@ -29,9 +20,15 @@ import java.sql.Date;
 
 public class ObjetosDAO {
     
+    
+
+    
     public static ObservableList<Limpieza> getLimpiezaList() {
         ObservableList<Limpieza> limpiezaList = FXCollections.observableArrayList();
-        Connection connection = DatabaseConnection.getConnection();
+        SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        Connection connection = DatabaseConnection.getConnection(user, password);
 
         String query = "SELECT * FROM limpieza"; // Ajusta el nombre de la tabla según tu base de datos
 
@@ -47,14 +44,21 @@ public class ObjetosDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
         }
         return limpiezaList;
     }
     
     public static ObservableList<Maquinaria> getMaquinariaList() {
         ObservableList<Maquinaria> maquinariaList = FXCollections.observableArrayList();
-        Connection connection = DatabaseConnection.getConnection();
+        SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        Connection connection = DatabaseConnection.getConnection(user, password);
 
         String query = "SELECT * FROM maquinaria"; // Ajusta el nombre de la tabla según tu base de datos
 
@@ -72,14 +76,21 @@ public class ObjetosDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
         }
         return maquinariaList;
     }
     
     public static ObservableList<Producto> getProductoList() {
         ObservableList<Producto> productoList = FXCollections.observableArrayList();
-        Connection connection = DatabaseConnection.getConnection();
+        SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        Connection connection = DatabaseConnection.getConnection(user, password);
 
         try {
             Statement statement = connection.createStatement();
@@ -100,14 +111,20 @@ public class ObjetosDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
         }
         return productoList;
     }
     public static ObservableList<Cliente> getClienteList() {
         ObservableList<Cliente> clienteList = FXCollections.observableArrayList();
-        Connection connection = DatabaseConnection.getConnection();
-
+        SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        Connection connection = DatabaseConnection.getConnection(user, password);
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM cliente");
@@ -124,7 +141,11 @@ public class ObjetosDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
         }
         return clienteList;
     }
@@ -132,8 +153,10 @@ public class ObjetosDAO {
         ObservableList<Proveedor> proveedorList = FXCollections.observableArrayList();
 
         String query = "SELECT * FROM proveedor";
-
-        try (Connection connection = DatabaseConnection.getConnection();
+        SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        try (Connection connection = DatabaseConnection.getConnection(user, password);
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
@@ -147,7 +170,11 @@ public class ObjetosDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
         }
 
         return proveedorList;
@@ -161,7 +188,10 @@ public class ObjetosDAO {
                    "JOIN proveedor p ON lm.id_proveedor = p.cedula " +
                    "JOIN secretaria s ON lm.id_secretaria = s.ID";
 
-    try (Connection connection = DatabaseConnection.getConnection();
+    SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        try (Connection connection = DatabaseConnection.getConnection(user, password);
          Statement statement = connection.createStatement();
          ResultSet resultSet = statement.executeQuery(query)) {
 
@@ -179,7 +209,11 @@ public class ObjetosDAO {
         }
 
     } catch (SQLException e) {
-        e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
     }
 
     return loteMaderaList;
@@ -187,8 +221,10 @@ public class ObjetosDAO {
 
 public static ObservableList<Empleado> getEmpleadoList() {
     ObservableList<Empleado> empleadoList = FXCollections.observableArrayList();
-    Connection connection = DatabaseConnection.getConnection();
-
+    SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        Connection connection = DatabaseConnection.getConnection(user, password);
     try {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM Empleado");
@@ -206,14 +242,20 @@ public static ObservableList<Empleado> getEmpleadoList() {
         }
 
     } catch (SQLException e) {
-        e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
     }
     return empleadoList;
 }
 public static ObservableList<Empleado> getOperarioList() {
     ObservableList<Empleado> empleadoList = FXCollections.observableArrayList();
-    Connection connection = DatabaseConnection.getConnection();
-
+    SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        Connection connection = DatabaseConnection.getConnection(user, password);
     try {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM Empleado JOIN Operario USING(ID)");
@@ -231,14 +273,20 @@ public static ObservableList<Empleado> getOperarioList() {
         }
 
     } catch (SQLException e) {
-        e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
     }
     return empleadoList;
 }
 public static ObservableList<Empleado> getAsistenteList() {
     ObservableList<Empleado> empleadoList = FXCollections.observableArrayList();
-    Connection connection = DatabaseConnection.getConnection();
-
+    SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        Connection connection = DatabaseConnection.getConnection(user, password);
     try {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM Empleado JOIN Asistente_operario USING(ID)");
@@ -256,14 +304,20 @@ public static ObservableList<Empleado> getAsistenteList() {
         }
 
     } catch (SQLException e) {
-        e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
     }
     return empleadoList;
 }
 public static ObservableList<Empleado> getSecretariaList() {
     ObservableList<Empleado> empleadoList = FXCollections.observableArrayList();
-    Connection connection = DatabaseConnection.getConnection();
-
+    SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        Connection connection = DatabaseConnection.getConnection(user, password);
     try {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM Empleado JOIN Secretaria USING(ID)");
@@ -281,7 +335,11 @@ public static ObservableList<Empleado> getSecretariaList() {
         }
 
     } catch (SQLException e) {
-        e.printStackTrace();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
     }
     return empleadoList;
 }
@@ -292,7 +350,10 @@ public static ObservableList<Empleado> getSecretariaList() {
 
         String query = "SELECT * FROM tipo_de_madera";
 
-        try (Connection connection = DatabaseConnection.getConnection();
+        SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        try (Connection connection = DatabaseConnection.getConnection(user, password);
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
@@ -307,7 +368,11 @@ public static ObservableList<Empleado> getSecretariaList() {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
         }
 
         return tipoMaderaList;
@@ -315,7 +380,10 @@ public static ObservableList<Empleado> getSecretariaList() {
      public static ObservableList<Factura> getFacturaList(){
          ObservableList<Factura> facturaList =FXCollections.observableArrayList();
          String query = "SELECT * FROM factura";
-         try (Connection connection = DatabaseConnection.getConnection();
+         SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        try (Connection connection = DatabaseConnection.getConnection(user, password);
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
 
@@ -336,7 +404,11 @@ public static ObservableList<Empleado> getSecretariaList() {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
         }
 
         return facturaList;
@@ -344,8 +416,10 @@ public static ObservableList<Empleado> getSecretariaList() {
      
     public static ObservableList<Reclamacion> getReclamacionList() {
         ObservableList<Reclamacion> multaList = FXCollections.observableArrayList();
-        Connection connection = DatabaseConnection.getConnection();
-
+        SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        Connection connection = DatabaseConnection.getConnection(user, password);
         String query = "SELECT * FROM reclamacion"; // Asegúrate que este sea el nombre correcto de la tabla en tu base de datos
 
         try (Statement statement = connection.createStatement();
@@ -362,7 +436,11 @@ public static ObservableList<Empleado> getSecretariaList() {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
         }
 
         return multaList;
@@ -370,8 +448,10 @@ public static ObservableList<Empleado> getSecretariaList() {
     
     public static ObservableList<Detalle> getDetalleList() {
         ObservableList<Detalle> detalleList = FXCollections.observableArrayList();
-        Connection connection = DatabaseConnection.getConnection();
-
+        SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        Connection connection = DatabaseConnection.getConnection(user, password);
         String query = "SELECT * FROM detalle";  // Asegúrate de que este es el nombre correcto de la tabla
 
         try (Statement statement = connection.createStatement();
@@ -389,7 +469,11 @@ public static ObservableList<Empleado> getSecretariaList() {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
 
         }
 
@@ -398,8 +482,10 @@ public static ObservableList<Empleado> getSecretariaList() {
     
     public static ObservableList<Especificación> getEspecificacionList() {
         ObservableList<Especificación> especificacionList = FXCollections.observableArrayList();
-        Connection connection = DatabaseConnection.getConnection();
-
+        SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        Connection connection = DatabaseConnection.getConnection(user, password);
         String query = "SELECT * FROM especificacion"; // Ajusta el nombre de la tabla según tu base de datos
 
         try (Statement statement = connection.createStatement();
@@ -416,7 +502,11 @@ public static ObservableList<Empleado> getSecretariaList() {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
         }
         return especificacionList;
     }
@@ -442,14 +532,21 @@ public static ObservableList<Empleado> getSecretariaList() {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
         }
         return evaluacionList;
     }
     
     public static ObservableList<RolDePagos> getRolDePagosList() {
         ObservableList<RolDePagos> rolDePagosList = FXCollections.observableArrayList();
-        Connection connection = DatabaseConnection.getConnection();
+        SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        Connection connection = DatabaseConnection.getConnection(user, password);
 
         String query = "SELECT * FROM rol_de_pagos"; // Ajusta el nombre de la tabla según tu base de datos
 
@@ -474,14 +571,21 @@ public static ObservableList<Empleado> getSecretariaList() {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
         }
         return rolDePagosList;
     }
     
     public static ObservableList<Mantenimiento> getMantenimientoList() {
         ObservableList<Mantenimiento> mantenimientoList = FXCollections.observableArrayList();
-        Connection connection = DatabaseConnection.getConnection();
+        SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        Connection connection = DatabaseConnection.getConnection(user, password);
 
         String query = "SELECT * FROM mantenimiento"; // Ajusta el nombre de la tabla según tu base de datos
 
@@ -501,14 +605,21 @@ public static ObservableList<Empleado> getSecretariaList() {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
         }
         return mantenimientoList;
     }
     
     public static ObservableList<RegistroDeLimpieza> getRegistroLimpiezaList() {
         ObservableList<RegistroDeLimpieza> registroLimpiezaList = FXCollections.observableArrayList();
-        Connection connection = DatabaseConnection.getConnection();
+        SessionManager session = SessionManager.getInstance();
+        String user = session.getUsuario();
+        String password = session.getContraseña();
+        Connection connection = DatabaseConnection.getConnection(user, password);
 
         String query = "SELECT * FROM registro"; // Ajusta el nombre de la tabla según tu base de datos
 
@@ -526,7 +637,11 @@ public static ObservableList<Empleado> getSecretariaList() {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Sin Acceso");
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes Permisos para entrar a esta seccion");
+            alert.showAndWait();
         }
         return registroLimpiezaList;
     }

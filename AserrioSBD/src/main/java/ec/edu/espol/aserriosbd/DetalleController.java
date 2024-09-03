@@ -7,9 +7,6 @@ package ec.edu.espol.aserriosbd;
 import ec.edu.espol.aserriosbd.modelo.ObjetosDAO;
 import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
 import ec.edu.espol.aserriosbd.modelo.Detalle;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -20,7 +17,6 @@ import java.sql.CallableStatement;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.scene.input.ContextMenuEvent;
 import java.sql.Connection;
 import java.sql.SQLException;

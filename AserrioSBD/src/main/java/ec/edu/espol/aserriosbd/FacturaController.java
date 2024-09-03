@@ -4,7 +4,6 @@
  */
 package ec.edu.espol.aserriosbd;
 
-import ec.edu.espol.aserriosbd.modelo.Cliente;
 import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
 import ec.edu.espol.aserriosbd.modelo.Factura;
 import ec.edu.espol.aserriosbd.modelo.ObjetosDAO;

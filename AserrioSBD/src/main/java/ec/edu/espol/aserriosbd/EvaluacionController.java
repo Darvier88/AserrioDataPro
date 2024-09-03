@@ -5,7 +5,6 @@
 package ec.edu.espol.aserriosbd;
 
 import ec.edu.espol.aserriosbd.modelo.ObjetosDAO;
-import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
 import ec.edu.espol.aserriosbd.modelo.Evaluacion;
 import java.io.IOException;
 import javafx.scene.control.SelectionMode;

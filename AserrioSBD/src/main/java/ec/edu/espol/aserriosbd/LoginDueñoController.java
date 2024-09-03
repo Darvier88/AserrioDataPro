@@ -5,6 +5,7 @@
 package ec.edu.espol.aserriosbd;
 
 import ec.edu.espol.aserriosbd.modelo.DatabaseConnection;
+import ec.edu.espol.aserriosbd.modelo.SessionManager;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -45,6 +46,9 @@ public class LoginDueñoController implements Initializable {
              if (connection != null) {
             System.out.println("Conexión exitosa a la base de datos con usuario: dueño" );
             // Cambia la pantalla a "opcionesSecretaria" o cualquier otra dependiendo del rol
+            SessionManager session = SessionManager.getInstance();
+            session.setUsuario("dueño");
+            session.setContraseña(contraseña.getText());
             App.setRoot("opcionesSecretaria");
             } else {
                 mostrarAlertaError("Conexión fallida", "Fallo en la conexión, revisa las credenciales.");
