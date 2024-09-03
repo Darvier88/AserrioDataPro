@@ -10,12 +10,16 @@ package ec.edu.espol.aserriosbd.modelo;
  */
 public class Reclamacion {
     private int id;
-    private int idSecretaria;
-    private int idCliente;
+    private String idSecretaria;
+    private String idCliente;
     private String descripcion;
+    
+    public Reclamacion(){
+        
+    }
 
     // Constructor
-    public Reclamacion(int id, int idSecretaria, int idCliente, String descripcion) {
+    public Reclamacion(int id, String idSecretaria, String idCliente, String descripcion) {
         this.id = id;
         this.idSecretaria = idSecretaria;
         this.idCliente = idCliente;
@@ -31,19 +35,19 @@ public class Reclamacion {
         this.id = id;
     }
 
-    public int getIdSecretaria() {
+    public String getIdSecretaria() {
         return idSecretaria;
     }
 
-    public void setIdSecretaria(int idSecretaria) {
+    public void setIdSecretaria(String idSecretaria) {
         this.idSecretaria = idSecretaria;
     }
 
-    public int getIdCliente() {
+    public String getIdCliente() {
         return idCliente;
     }
 
-    public void setIdCliente(int idCliente) {
+    public void setIdCliente(String idCliente) {
         this.idCliente = idCliente;
     }
 

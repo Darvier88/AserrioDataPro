@@ -58,9 +58,9 @@ public class AñadirFacturaController implements Initializable {
         cstmt.setString(1, factura.getIdSecretaria());
         cstmt.setString(2, factura.getIdCliente());
         // Convertir LocalDate a java.sql.Date
-        Date localDate = factura.getFecha();
+        LocalDate localDate = factura.getFecha();
         if (localDate != null) {
-            cstmt.setDate(3, localDate); // Convertir LocalDate a java.sql.Date
+            cstmt.setDate(3, Date.valueOf(localDate)); // Convertir LocalDate a java.sql.Date
         } else {
             cstmt.setNull(3, java.sql.Types.DATE);
         }
@@ -82,9 +82,9 @@ public class AñadirFacturaController implements Initializable {
             cstmt.setNull(6, java.sql.Types.VARCHAR);
         }
 
-        cstmt.setFloat(7, factura.getSubtotalSinImpuestos());
-        cstmt.setFloat(8, factura.getSubtotal0Porcent());
-        cstmt.setFloat(9, factura.getValorTotal());
+        cstmt.setFloat(7, 0);
+        cstmt.setFloat(8, 0);
+        cstmt.setFloat(9, 0);
 
         // Ejecutar el procedimiento almacenado
         boolean hasResultSet = cstmt.execute();

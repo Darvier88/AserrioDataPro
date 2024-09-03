@@ -11,21 +11,18 @@ import java.util.Date;
  * @author nicol
  */
 public class Limpieza {
-    private Integer id;
-    private String lugar;
-    private Date fecha;
-
-    public Limpieza() {
+    private int id;      
+    private String lugar;   
+    public Limpieza(){
+        
     }
-    
-    
-
-    public Limpieza(int id, String lugar, Date fecha) {
+    public Limpieza(int id, String lugar) {
         this.id = id;
         this.lugar = lugar;
-        this.fecha = fecha;
+        
     }
 
+    // Getters y Setters
     public int getId() {
         return id;
     }
@@ -42,11 +39,5 @@ public class Limpieza {
         this.lugar = lugar;
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+    
 }

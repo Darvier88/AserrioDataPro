@@ -51,5 +51,9 @@ public class OpcionesSecretariaController implements Initializable {
         App.setRoot("reportes");
 
     }
+
+    @FXML
+    private void regresar(MouseEvent event) {
+    }
     
 }

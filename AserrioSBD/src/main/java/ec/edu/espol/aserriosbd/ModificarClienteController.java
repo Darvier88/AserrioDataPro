@@ -98,35 +98,35 @@ public class ModificarClienteController implements Initializable {
     }
 
     private boolean actualizarClienteEnBD(Cliente clienteModificado) {
-    String sql = "{CALL ActualizarCliente(?, ?, ?, ?, ?)}";
+        String sql = "{CALL ActualizarCliente(?, ?, ?, ?, ?)}";
 
-    try (Connection conn = DatabaseConnection.getConnection();
-         CallableStatement cstmt = conn.prepareCall(sql)) {
-        System.out.println(clienteModificado.getCedula());
-        // Establecer los parámetros del procedimiento almacenado
-        cstmt.setString(1, clienteModificado.getCedula());
-        cstmt.setString(2, clienteModificado.getNombre());
-        cstmt.setString(3, clienteModificado.getDireccion());
-        
-        // Manejar el caso en que numContacto sea null
-        if (clienteModificado.getNumContacto() != null) {
-            cstmt.setInt(4, clienteModificado.getNumContacto());
-        } else {
-            cstmt.setNull(4, java.sql.Types.INTEGER);
+        try (Connection conn = DatabaseConnection.getConnection();
+             CallableStatement cstmt = conn.prepareCall(sql)) {
+            System.out.println(clienteModificado.getCedula());
+            // Establecer los parámetros del procedimiento almacenado
+            cstmt.setString(1, clienteModificado.getCedula());
+            cstmt.setString(2, clienteModificado.getNombre());
+            cstmt.setString(3, clienteModificado.getDireccion());
+
+            // Manejar el caso en que numContacto sea null
+            if (clienteModificado.getNumContacto() != null) {
+                cstmt.setInt(4, clienteModificado.getNumContacto());
+            } else {
+                cstmt.setNull(4, java.sql.Types.INTEGER);
+            }
+
+            cstmt.setString(5, clienteModificado.getCorreoContacto());
+
+            // Ejecutar el procedimiento almacenado
+            cstmt.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            mostrarError("Ocurrió un error al modificar el cliente en la base de datos.");
+            return false;
         }
-
-        cstmt.setString(5, clienteModificado.getCorreoContacto());
-
-        // Ejecutar el procedimiento almacenado
-        cstmt.executeUpdate();
-        return true;
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-        mostrarError("Ocurrió un error al modificar el cliente en la base de datos.");
-        return false;
     }
-}
 
 
     private void mostrarError(String mensaje) {

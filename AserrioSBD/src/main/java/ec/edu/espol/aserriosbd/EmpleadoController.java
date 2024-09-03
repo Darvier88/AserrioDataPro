@@ -52,18 +52,13 @@ public class EmpleadoController implements Initializable {
     @FXML
     private void regresar(MouseEvent event) {
         try {
-            App.setRoot("opcionesSecretaria");
+            App.setRoot("seccionEmpleados");
         } catch (IOException ex) { 
             ex.printStackTrace();
         }
     }
 
-    @FXML
-    private void irLimpieza(ContextMenuEvent event) {
-        // Acción de ir a limpieza
-    }
 
-    @FXML
     private void añadir(MouseEvent event) {
         try {
             App.setRoot("AñadirEmpleado");
@@ -72,7 +67,6 @@ public class EmpleadoController implements Initializable {
         }
     }
 
-    @FXML
     private void eliminar(MouseEvent event) {
         Empleado empleadoSeleccionado = table.getSelectionModel().getSelectedItem();
 
@@ -114,7 +108,6 @@ public class EmpleadoController implements Initializable {
         alert.showAndWait();
     }
 
-    @FXML
     private void modificar(MouseEvent event) {
         Empleado empleadoSeleccionado = table.getSelectionModel().getSelectedItem();
 

@@ -177,5 +177,59 @@ public class ReportesDAO {
         // Obtiene los datos de la vista
         return getReporteMensualMantenimientoList();
     }
+    // Método para crear o actualizar la vista
+    public static void crearOActualizarVistaAreaDeCorteLimpiezaDiaria() {
+        String sql = "CREATE OR REPLACE VIEW AreaDeCorteLimpiezaDiaria AS " +
+                "SELECT e.nombre " +
+                "FROM empleado e " +
+                "JOIN asistente_operario a USING(id) " +
+                "JOIN registro r ON a.id = r.id_asistente " +
+                "JOIN limpieza l ON r.id_limpieza = l.id " +
+                "WHERE l.lugar = 'Área de Corte' AND r.fecha = CURRENT_DATE;";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement()) {
+
+            stmt.execute(sql);
+            System.out.println("Vista AreaDeCorteLimpiezaDiaria actualizada exitosamente.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("Error al actualizar la vista AreaDeCorteLimpiezaDiaria.");
+        }
+    }
+
+    // Método para obtener los datos de la vista
+    public static ObservableList<LDAC> getAreaDeCorteLimpiezaDiariaList() {
+        ObservableList<LDAC> lista = FXCollections.observableArrayList();
+
+        String query = "SELECT nombre FROM AreaDeCorteLimpiezaDiaria";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                LDAC reporte = new LDAC(
+                        resultSet.getString("nombre")
+                );
+                lista.add(reporte);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+    // Método para actualizar o crear la vista y obtener los datos
+    public static ObservableList<LDAC> obtenerDatosAreaDeCorteLimpiezaActualizados() {
+        // Actualiza o crea la vista
+        crearOActualizarVistaAreaDeCorteLimpiezaDiaria();
+
+        // Obtiene los datos de la vista
+        return getAreaDeCorteLimpiezaDiariaList();
+    }
 
 }

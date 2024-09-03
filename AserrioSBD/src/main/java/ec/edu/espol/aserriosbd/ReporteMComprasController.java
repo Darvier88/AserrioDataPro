@@ -49,7 +49,7 @@ public class ReporteMComprasController implements Initializable {
     @FXML
     private void regresar(MouseEvent event) {
         try {
-            App.setRoot("opcionesSecretaria");
+            App.setRoot("reportes");
         } catch (IOException ex) { 
             ex.printStackTrace();
         }

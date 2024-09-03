@@ -12,7 +12,7 @@ import java.time.LocalTime;
  * @author Zambrano
  */
 public class Empleado {
-      private String id;
+    private String id;
     private String nombre;
     private LocalTime horaInicio;
     private LocalTime horaFin;

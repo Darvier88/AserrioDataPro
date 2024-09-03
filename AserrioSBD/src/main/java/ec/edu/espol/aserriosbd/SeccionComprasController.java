@@ -41,30 +41,33 @@ public class SeccionComprasController implements Initializable {
         } catch (IOException ex) { 
         }
     }
-
+    
     @FXML
-    private void irEspecificación(MouseEvent event) {
+    private void irEspecificación(MouseEvent event)   {
         try{
             App.setRoot("especificación");
         } catch(IOException ex){
             
         }
     }
-
     @FXML
-    private void irProveedor(MouseEvent event) {
+    private void irProveedor(MouseEvent event)  {
         try {
             App.setRoot("proveedor");
         } catch (IOException ex) { 
         }
     }
-
+    
     @FXML
-    private void irEvaluacion(MouseEvent event) {
+    private void irEvaluacion(MouseEvent event)  {
         try {
             App.setRoot("evaluacion");
         } catch (IOException ex) { 
         }
+    }
+    @FXML
+    private void regresar(MouseEvent event) throws IOException {
+        App.setRoot("opcionesSecretaria");
     }
     
 }

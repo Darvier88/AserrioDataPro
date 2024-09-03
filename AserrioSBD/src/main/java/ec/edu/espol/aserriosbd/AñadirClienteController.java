@@ -48,34 +48,34 @@ public class AñadirClienteController implements Initializable {
     }    
 
     private boolean insertarClienteEnBD(Cliente cliente) {
-    String sql = "{call InsertCliente(?, ?, ?, ?, ?)}"; // Llamada al procedimiento almacenado
+        String sql = "{call InsertCliente(?, ?, ?, ?, ?)}"; // Llamada al procedimiento almacenado
 
-    try (Connection conn = DatabaseConnection.getConnection();
-         CallableStatement cstmt = conn.prepareCall(sql)) {
+        try (Connection conn = DatabaseConnection.getConnection();
+             CallableStatement cstmt = conn.prepareCall(sql)) {
 
-        // Configurar los parámetros del CallableStatement
-        cstmt.setString(1, cliente.getCedula());
-        cstmt.setString(2, cliente.getNombre());
-        cstmt.setString(3, cliente.getDireccion());
+            // Configurar los parámetros del CallableStatement
+            cstmt.setString(1, cliente.getCedula());
+            cstmt.setString(2, cliente.getNombre());
+            cstmt.setString(3, cliente.getDireccion());
 
-        // Manejo de nulos para enteros
-        if (cliente.getNumContacto() == null) {
-            cstmt.setNull(4, java.sql.Types.INTEGER);
-        } else {
-            cstmt.setInt(4, cliente.getNumContacto());
+            // Manejo de nulos para enteros
+            if (cliente.getNumContacto() == null) {
+                cstmt.setNull(4, java.sql.Types.INTEGER);
+            } else {
+                cstmt.setInt(4, cliente.getNumContacto());
+            }
+
+            cstmt.setString(5, cliente.getCorreoContacto());
+
+            // Ejecutar el procedimiento almacenado
+            boolean hasResultSet = cstmt.execute();
+            return !hasResultSet; // El método execute() devuelve true si hay un ResultSet, false si es solo una actualización
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
-
-        cstmt.setString(5, cliente.getCorreoContacto());
-
-        // Ejecutar el procedimiento almacenado
-        boolean hasResultSet = cstmt.execute();
-        return !hasResultSet; // El método execute() devuelve true si hay un ResultSet, false si es solo una actualización
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
     }
-}
 
 
     private void mostrarError(String mensaje) {
@@ -97,12 +97,12 @@ public class AñadirClienteController implements Initializable {
             mostrarError("No se pudo añadir el cliente a la base de datos.");
         }
         App.setRoot("cliente");
-    } catch (IllegalArgumentException e) {
-        mostrarError(e.getMessage()); // Mostrar el mensaje de error al usuario
-    } catch (Exception e) {
-        e.printStackTrace();
-        mostrarError("Ocurrió un error al intentar añadir el cliente.");
-    }
+        } catch (IllegalArgumentException e) {
+            mostrarError(e.getMessage()); // Mostrar el mensaje de error al usuario
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarError("Ocurrió un error al intentar añadir el cliente.");
+        }
     }
 
     @FXML

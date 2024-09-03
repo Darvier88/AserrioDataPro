@@ -28,19 +28,20 @@ import java.sql.Date;
 
 
 public class ObjetosDAO {
+    
     public static ObservableList<Limpieza> getLimpiezaList() {
         ObservableList<Limpieza> limpiezaList = FXCollections.observableArrayList();
         Connection connection = DatabaseConnection.getConnection();
 
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM limpieza");
+        String query = "SELECT * FROM limpieza"; // Ajusta el nombre de la tabla según tu base de datos
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
                 Limpieza limpieza = new Limpieza(
                         resultSet.getInt("id"),
-                        resultSet.getString("lugar"),
-                        resultSet.getDate("fecha")
+                        resultSet.getString("lugar")
                 );
                 limpiezaList.add(limpieza);
             }
@@ -55,16 +56,17 @@ public class ObjetosDAO {
         ObservableList<Maquinaria> maquinariaList = FXCollections.observableArrayList();
         Connection connection = DatabaseConnection.getConnection();
 
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM maquinaria");
+        String query = "SELECT * FROM maquinaria"; // Ajusta el nombre de la tabla según tu base de datos
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
                 Maquinaria maquinaria = new Maquinaria(
                         resultSet.getInt("codigo"),
                         resultSet.getString("nombre"),
                         resultSet.getString("marca"),
-                        resultSet.getDate("fecha_adqui")
+                        resultSet.getDate("fecha_adqui").toLocalDate()
                 );
                 maquinariaList.add(maquinaria);
             }
@@ -108,7 +110,7 @@ public class ObjetosDAO {
 
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM Cliente");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM cliente");
 
             while (resultSet.next()) {
                 Cliente cliente = new Cliente(
@@ -208,7 +210,81 @@ public static ObservableList<Empleado> getEmpleadoList() {
     }
     return empleadoList;
 }
+public static ObservableList<Empleado> getOperarioList() {
+    ObservableList<Empleado> empleadoList = FXCollections.observableArrayList();
+    Connection connection = DatabaseConnection.getConnection();
 
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Empleado JOIN Operario USING(ID)");
+
+        while (resultSet.next()) {
+            Empleado empleado = new Empleado(
+                    resultSet.getString("ID"),
+                    resultSet.getString("nombre"),
+                    resultSet.getTime("horaInicio").toLocalTime(),
+                    resultSet.getTime("horaFin").toLocalTime(),
+                    resultSet.getDate("fechaCapacitacion") != null ? resultSet.getDate("fechaCapacitacion").toLocalDate() : null,
+                    resultSet.getString("tipoCapacitacion")
+            );
+            empleadoList.add(empleado);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return empleadoList;
+}
+public static ObservableList<Empleado> getAsistenteList() {
+    ObservableList<Empleado> empleadoList = FXCollections.observableArrayList();
+    Connection connection = DatabaseConnection.getConnection();
+
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Empleado JOIN Asistente_operario USING(ID)");
+
+        while (resultSet.next()) {
+            Empleado empleado = new Empleado(
+                    resultSet.getString("ID"),
+                    resultSet.getString("nombre"),
+                    resultSet.getTime("horaInicio").toLocalTime(),
+                    resultSet.getTime("horaFin").toLocalTime(),
+                    resultSet.getDate("fechaCapacitacion") != null ? resultSet.getDate("fechaCapacitacion").toLocalDate() : null,
+                    resultSet.getString("tipoCapacitacion")
+            );
+            empleadoList.add(empleado);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return empleadoList;
+}
+public static ObservableList<Empleado> getSecretariaList() {
+    ObservableList<Empleado> empleadoList = FXCollections.observableArrayList();
+    Connection connection = DatabaseConnection.getConnection();
+
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Empleado JOIN Secretaria USING(ID)");
+
+        while (resultSet.next()) {
+            Empleado empleado = new Empleado(
+                    resultSet.getString("ID"),
+                    resultSet.getString("nombre"),
+                    resultSet.getTime("horaInicio").toLocalTime(),
+                    resultSet.getTime("horaFin").toLocalTime(),
+                    resultSet.getDate("fechaCapacitacion") != null ? resultSet.getDate("fechaCapacitacion").toLocalDate() : null,
+                    resultSet.getString("tipoCapacitacion")
+            );
+            empleadoList.add(empleado);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return empleadoList;
+}
     
 
      public static ObservableList<TipoMadera> getTipoMaderaList() {
@@ -248,7 +324,7 @@ public static ObservableList<Empleado> getEmpleadoList() {
                     resultSet.getInt("ID"),
                     resultSet.getString("ID_secretaria"),
                     resultSet.getString("ID_cliente"),
-                    resultSet.getDate("fecha"),
+                    resultSet.getDate("fecha").toLocalDate(),
                     resultSet.getTime("hora").toLocalTime(),
                     resultSet.getString("direccion_local"),
                     resultSet.getString("metodo_pago"),
@@ -278,8 +354,8 @@ public static ObservableList<Empleado> getEmpleadoList() {
             while (resultSet.next()) {
                 Reclamacion multa = new Reclamacion(
                         resultSet.getInt("ID"),
-                        resultSet.getInt("ID_secretaria"),
-                        resultSet.getInt("ID_cliente"),
+                        resultSet.getString("ID_secretaria"),
+                        resultSet.getString("ID_cliente"),
                         resultSet.getString("descripcion")
                 );
                 multaList.add(multa);
@@ -303,11 +379,11 @@ public static ObservableList<Empleado> getEmpleadoList() {
 
             while (resultSet.next()) {
                 Detalle detalle = new Detalle(
-                        resultSet.getInt("idFactura"),
-                        resultSet.getString("idProducto"),
-                        resultSet.getInt("cantidad"),
-                        resultSet.getFloat("totalProducto"),
-                        resultSet.getString("detalleAdic")
+                        resultSet.getInt("ID_factura"),
+                        resultSet.getString("ID_Producto"),
+                        resultSet.getInt("unidades"),
+                        resultSet.getFloat("totalProdu"),
+                        resultSet.getString("detalle_adic")
                 );
                 detalleList.add(detalle);
             }
@@ -369,6 +445,90 @@ public static ObservableList<Empleado> getEmpleadoList() {
             e.printStackTrace();
         }
         return evaluacionList;
+    }
+    
+    public static ObservableList<RolDePagos> getRolDePagosList() {
+        ObservableList<RolDePagos> rolDePagosList = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getConnection();
+
+        String query = "SELECT * FROM rol_de_pagos"; // Ajusta el nombre de la tabla según tu base de datos
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                RolDePagos rolDePagos = new RolDePagos(
+                        resultSet.getInt("id"),
+                        resultSet.getString("id_empleado"),
+                        resultSet.getString("rol"),
+                        resultSet.getInt("dias_laborados"),
+                        resultSet.getFloat("sueldo"),
+                        resultSet.getFloat("horas_extras"),
+                        resultSet.getFloat("total_ingresos"),
+                        resultSet.getFloat("egreso_IESS"),
+                        resultSet.getFloat("anticipos"),
+                        resultSet.getFloat("total_egresos"),
+                        resultSet.getFloat("liquido_a_recibir")
+                );
+                rolDePagosList.add(rolDePagos);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rolDePagosList;
+    }
+    
+    public static ObservableList<Mantenimiento> getMantenimientoList() {
+        ObservableList<Mantenimiento> mantenimientoList = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getConnection();
+
+        String query = "SELECT * FROM mantenimiento"; // Ajusta el nombre de la tabla según tu base de datos
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                Mantenimiento mantenimiento = new Mantenimiento(
+                        resultSet.getInt("ID"),
+                        resultSet.getString("ID_operario"),
+                        resultSet.getInt("codigo_maquinaria"),
+                        resultSet.getString("ID_secretaria"),
+                        resultSet.getString("detalles"),
+                        resultSet.getDate("fecha").toLocalDate()
+                );
+                mantenimientoList.add(mantenimiento);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return mantenimientoList;
+    }
+    
+    public static ObservableList<RegistroDeLimpieza> getRegistroLimpiezaList() {
+        ObservableList<RegistroDeLimpieza> registroLimpiezaList = FXCollections.observableArrayList();
+        Connection connection = DatabaseConnection.getConnection();
+
+        String query = "SELECT * FROM registro"; // Ajusta el nombre de la tabla según tu base de datos
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                RegistroDeLimpieza registroLimpieza = new RegistroDeLimpieza(
+                        resultSet.getString("ID_asistente"),
+                        resultSet.getInt("ID_limpieza"),
+                        resultSet.getString("ID_secretaria"),
+                        resultSet.getDate("fecha").toLocalDate()
+                );
+                registroLimpiezaList.add(registroLimpieza);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return registroLimpiezaList;
     }
 }
 
