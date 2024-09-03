@@ -65,4 +65,9 @@ public class LoginDueñoController implements Initializable {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
+
+    @FXML
+    private void regresar(MouseEvent event) throws IOException {
+        App.setRoot("inicioPerfiles");
+    }
 }

@@ -43,7 +43,8 @@ public class SeccionComprasController implements Initializable {
     }
 
     @FXML
-    private void irEspecificación(MouseEvent event) {
+    private void irEspecificación(MouseEvent event) throws IOException {
+        App.setRoot("especificación");
     }
 
     @FXML
@@ -55,7 +56,14 @@ public class SeccionComprasController implements Initializable {
     }
 
     @FXML
-    private void irEvaluacion(MouseEvent event) {
+    private void irEvaluacion(MouseEvent event)throws IOException {
+        App.setRoot("evaluacion"); 
+            
+    }
+
+    @FXML
+    private void regresar(MouseEvent event) throws IOException {
+        App.setRoot("opcionesSecretaria");
     }
     
 }

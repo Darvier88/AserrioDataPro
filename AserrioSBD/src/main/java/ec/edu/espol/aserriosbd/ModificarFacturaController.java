@@ -89,11 +89,10 @@ public class ModificarFacturaController implements Initializable {
         cstmt.setString(2, facturaModificado.getIdSecretaria());
         cstmt.setString(3, facturaModificado.getIdCliente());
         // Convertir LocalDate a java.sql.Date+
-        Date localDate = facturaModificado.getFecha();
+        LocalDate localDate = facturaModificado.getFecha();
         // Convertir LocalDate a java.sql.Date
         if (localDate != null) {
-            cstmt.setDate(3, localDate); // Convertir LocalDate a java.sql.Date
-
+            cstmt.setDate(4, Date.valueOf(localDate)); // Convertir LocalDate a java.sql.Date
         } else {
             cstmt.setNull(4, java.sql.Types.DATE);
         }

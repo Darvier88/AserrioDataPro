@@ -4,6 +4,7 @@
  */
 package ec.edu.espol.aserriosbd.modelo;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -11,18 +12,21 @@ import java.util.Date;
  * @author nicol
  */
 public class Maquinaria {
-   private int codigo;
-    private String nombre;
-    private String marca;
-    private Date fecha;
-
-    public Maquinaria(int codigo, String nombre, String marca, Date fecha) {
+   private int codigo;           
+    private String nombre;        
+    private String marca;          
+    private LocalDate fechaAdquisicion; 
+    public Maquinaria(){
+        
+    }
+    public Maquinaria(int codigo, String nombre, String marca, LocalDate  fechaAdquisicion) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.marca = marca;
-        this.fecha = fecha;
+        this.fechaAdquisicion = fechaAdquisicion;
     }
 
+    // Getters y Setters
     public int getCodigo() {
         return codigo;
     }
@@ -47,11 +51,11 @@ public class Maquinaria {
         this.marca = marca;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public LocalDate  getFechaAdquisicion() {
+        return fechaAdquisicion;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFechaAdquisicion(LocalDate  fechaAdquisicion) {
+        this.fechaAdquisicion = fechaAdquisicion;
     }
 }

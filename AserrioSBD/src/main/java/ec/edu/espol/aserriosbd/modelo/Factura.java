@@ -11,12 +11,13 @@ package ec.edu.espol.aserriosbd.modelo;
 
 import java.time.LocalTime;
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Factura {
     private int id;
     private String idSecretaria;
     private String idCliente;
-    private Date fecha;
+    private LocalDate fecha;
     private LocalTime hora;
     private String direccionLocal;
     private String metodoPago;
@@ -28,7 +29,7 @@ public class Factura {
     }
 
     // Constructor
-    public Factura(int id, String idSecretaria, String idCliente, Date fecha, LocalTime hora, String direccionLocal,
+    public Factura(int id, String idSecretaria, String idCliente, LocalDate fecha, LocalTime hora, String direccionLocal,
                    String metodoPago, float subtotalSinImpuestos, float subtotal0Porcent, float valorTotal) {
         this.id = id;
         this.idSecretaria = idSecretaria;
@@ -67,11 +68,11 @@ public class Factura {
         this.idCliente = idCliente;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 

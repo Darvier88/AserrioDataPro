@@ -69,5 +69,10 @@ public class SeccionVentasController implements Initializable {
             ex.getMessage();
         }
     }
+
+    @FXML
+    private void regresar(MouseEvent event) throws IOException {
+        App.setRoot("opcionesSecretaria");
+    }
     
 }

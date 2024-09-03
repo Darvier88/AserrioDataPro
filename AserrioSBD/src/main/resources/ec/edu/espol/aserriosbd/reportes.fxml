@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: rgb(241, 245, 249);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.aserriosbd.ReportesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: rgb(241, 245, 249);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.aserriosbd.ReportesController">
    <children>
       <HBox layoutX="-21.0" layoutY="-16.0" prefHeight="342.0" prefWidth="1396.0" style="-fx-background-color: rgb(34, 30, 38);">
          <children>
@@ -126,5 +126,14 @@
             <Insets top="40.0" />
          </padding>
       </VBox>
+      <Button layoutX="1274.0" layoutY="691.0" mnemonicParsing="false" onMouseClicked="#regresar" prefHeight="50.0" prefWidth="57.0" style="-fx-background-color: rgb(34, 30, 38); -fx-background-radius: 20;" stylesheets="@../../../../styles/inicioperfiles.css">
+         <graphic>
+            <ImageView fitHeight="28.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../imagenes/PngItem_3360659.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
