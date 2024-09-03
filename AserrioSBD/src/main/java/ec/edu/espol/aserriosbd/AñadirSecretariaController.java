@@ -29,6 +29,7 @@ import javafx.scene.layout.VBox;
  */
 public class AñadirSecretariaController implements Initializable {
 
+    
     @FXML
     private VBox mainContainer;
     @FXML
@@ -102,14 +103,14 @@ public class AñadirSecretariaController implements Initializable {
             // Limpiar los campos después de añadir
             añadirBase.clearFields();
         } else {
-            mostrarError("No se pudo añadir la secretaria a la base de datos.");
+            mostrarError("No se pudo añadir el empleado a la base de datos.");
         }
         App.setRoot("secretaria");
     } catch (IllegalArgumentException e) {
         mostrarError(e.getMessage()); // Mostrar el mensaje de error al usuario
     } catch (Exception e) {
         e.printStackTrace();
-        mostrarError("Ocurrió un error al intentar añadir a la secretaria.");
+        mostrarError("Ocurrió un error al intentar añadir el empleado.");
     }
     }
 

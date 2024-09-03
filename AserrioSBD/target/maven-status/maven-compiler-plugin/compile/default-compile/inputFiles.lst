@@ -1,100 +1,101 @@
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirFacturaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Evaluacion.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Cliente.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\ReporteVentasDia.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ProductoController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\SeccionComprasController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirMantenimientoController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\InicioPerfilesController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarTipoMaderaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirRolDePagosController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarLoteMaderaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Detalle.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\ReporteCompra.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Empleado.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\module-info.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\LDACController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\InterfazBase.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarProductoController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ReportesController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ReporteMComprasController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarMaquinariaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\LoginDueñoController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarEvaluacionController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirEvaluacionController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirProveedorController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\TimeConverter.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarMantenimientoController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Limpieza.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Factura.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Producto.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarReclamacionController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirEspecificaciónController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Maquinaria.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\EmpleadoController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarDetalleController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\OperariosController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\RolDePagos.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ReporteMensualMantenimientoController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Especificación.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirBase.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\MaquinariaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\App.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\ObjetosDAO.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirProductoController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Mantenimiento.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\TipoMadera.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\ReporteMensualMantenimiento.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\RegistroDeLimpiezaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\MantenimientoController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarBase.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\SeccionVentasController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Reclamacion.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarAsistenteOperarioController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarProveedorController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirClienteController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\LDAC.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\ReportesDAO.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\LoginController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarClienteController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\TipoMaderaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\DatabaseConnection.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirReclamacionController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ClienteController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\EvaluacionController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarEmpleadoController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\LoteMaderaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirDetalleController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ReclamacionController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirMaquinariaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirOperarioController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirRegistroController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Proveedor.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\SeccionEmpleadosController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\SecretariaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirLimpiezaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarLimpiezaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarRegistroController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarOperarioController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\FacturaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarEspecificacionesController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AsistenteOperarioController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirAsistenteOperarioController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\EspecificaciónController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirTipoMaderaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarRolDePagosController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirLoteMaderaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\OpcionesSecretariaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\PrimaryController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\DetalleController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarFacturaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\RolDePagosController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\LimpiezaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ReporteVentasDiaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ProveedorController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarSecretariaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirSecretariaController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\LoteMadera.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\InicioController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\SecondaryController.java
-C:\Users\Zambrano\Documents\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\RegistroDeLimpieza.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarReclamacionController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ReporteVentasDiaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\MaquinariaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\DatabaseConnection.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\module-info.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\FacturaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarMantenimientoController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\SecretariaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\LoteMadera.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirEvaluacionController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\LDAC.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirTipoMaderaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\LoteMaderaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Factura.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\SessionManager.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirBase.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\InicioController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Reclamacion.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirEspecificaciónController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirLoteMaderaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\TipoMaderaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\EmpleadoController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirMantenimientoController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Cliente.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarRolDePagosController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Producto.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirReclamacionController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarEvaluacionController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\SeccionEmpleadosController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirAsistenteOperarioController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Proveedor.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirLimpiezaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirOperarioController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\LDACController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirRegistroController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ReclamacionController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirMaquinariaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarMaquinariaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirProveedorController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ClienteController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\SecondaryController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarClienteController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarProveedorController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\RegistroDeLimpieza.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Detalle.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarLimpiezaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarOperarioController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarProductoController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ReportesController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\DetalleController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ProveedorController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarAsistenteOperarioController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\RolDePagosController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Maquinaria.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ReporteMComprasController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\RolDePagos.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\SeccionVentasController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\ReporteCompra.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\TimeConverter.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\TipoMadera.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarDetalleController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\ReporteVentasDia.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarBase.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirFacturaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\App.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\EspecificaciónController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\ReporteMensualMantenimiento.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\PrimaryController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarRegistroController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirProductoController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Limpieza.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AsistenteOperarioController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Especificación.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\MantenimientoController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Evaluacion.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Empleado.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarSecretariaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\RegistroDeLimpiezaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\LoginController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\LoginDueñoController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\EvaluacionController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirRolDePagosController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarLoteMaderaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarEmpleadoController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\OpcionesSecretariaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\OperariosController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirDetalleController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ProductoController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\InterfazBase.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\InicioPerfilesController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\ReportesDAO.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarEspecificacionesController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Mantenimiento.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ReporteMensualMantenimientoController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarFacturaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\LimpiezaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\ObjetosDAO.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirClienteController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\SeccionComprasController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirSecretariaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarTipoMaderaController.java

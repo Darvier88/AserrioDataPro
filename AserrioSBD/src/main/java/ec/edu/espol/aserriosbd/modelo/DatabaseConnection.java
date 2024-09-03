@@ -16,7 +16,7 @@ public class DatabaseConnection {
     
     private static final String URL = "jdbc:mysql://127.0.0.1:3306/AserrioDataPro";
     private static final String USER = "root";
-    private static final String PASSWORD = "Admin";
+    private static final String PASSWORD = "root";
 
     public static Connection getConnection() {
         Connection connection = null;

@@ -54,7 +54,7 @@ public class EmpleadoController implements Initializable {
 
     private void añadir(MouseEvent event) {
         try {
-            App.setRoot("AñadirEmpleado");
+            App.setRoot("añadirSecretaria");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -106,7 +106,7 @@ public class EmpleadoController implements Initializable {
 
         if (empleadoSeleccionado != null) {
             try {
-                ModificarEmpleadoController.mostrarVentanaModificacion(empleadoSeleccionado);
+                ModificarSecretariaController.mostrarVentanaModificacion(empleadoSeleccionado);
             } catch (IOException ex) {
                 ex.printStackTrace();
                 mostrarError("No se pudo cargar la ventana de modificación.");

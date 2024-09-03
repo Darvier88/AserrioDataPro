@@ -121,7 +121,7 @@ public class SecretariaController implements Initializable {
         if (empSeleccionado != null) {
             try {
                 // Llamar al método que carga la ventana de modificación en un `Stage` modal
-                ModificarEmpleadoController.mostrarVentanaModificacion(empSeleccionado);
+                ModificarSecretariaController.mostrarVentanaModificacion(empSeleccionado);
             } catch (IOException ex) {
                 ex.printStackTrace();
                 mostrarError("No se pudo cargar la ventana de modificación.");

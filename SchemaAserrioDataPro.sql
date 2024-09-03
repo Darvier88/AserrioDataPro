@@ -1306,12 +1306,14 @@ before update on operario
 for each row
 begin
 	UPDATE mantenimiento
-	SET ID_operario= new.ID
-	WHERE ID_operario= old.ID;
+	SET ID= new.ID
+	WHERE ID= old.ID;
 	UPDATE rol_de_pagos
-	SET ID_operario= new.ID
-	WHERE ID_operario= old.ID;
+	SET ID_empleado= new.ID
+	WHERE ID_empleado= old.ID;
 end/
+USE aserriodatapro/
+drop trigger actualizarOperario/
 -- actualizar la información de la maquinaria
 create procedure actualizarMaquinaria(in codig int,in nomb varchar(20),in mar varchar(20),in fechaAdqui date)
 begin
@@ -1373,12 +1375,13 @@ before update on asistente_operario
 for each row
 begin
 	UPDATE registro
-	SET ID_asistente= new.ID
-	WHERE ID_asistente= old.ID;
+	SET ID= new.ID
+	WHERE ID= old.ID;
 	UPDATE rol_de_pagos
 	SET ID_empleado= new.ID
 	WHERE ID_empleado= old.ID;
 end/
+drop trigger actualizarAsistente/
 -- actualizar la información de la limpieza
 create procedure actualizarLimpieza(in idLimpieza int, in place varchar(30))
 begin
@@ -1422,13 +1425,14 @@ begin
         SET ID_secretaria= new.ID
         WHERE ID_secretaria= old.ID;
         UPDATE registro
-        SET ID_secretaria= new.ID
-        WHERE ID_secretaria= old.ID;
+        SET ID= new.ID
+        WHERE ID= old.ID;
         UPDATE rol_de_pagos
         SET ID_empleado= new.ID
         WHERE ID_empleado= old.ID;
 	end if;
 end/
+drop trigger actualizarSecretaria/
 -- actualizar la información de la evaluación
 create procedure actualizarEvaluacion(in evalu int,in proveedor char(10), in p_calidad varchar(10), in p_puntualidad varchar(15), in p_detalle varchar(100))
 begin

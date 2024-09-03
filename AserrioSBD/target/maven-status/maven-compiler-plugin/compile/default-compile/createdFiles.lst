@@ -56,6 +56,7 @@ ec\edu\espol\aserriosbd\ModificarFacturaController.class
 ec\edu\espol\aserriosbd\SeccionEmpleadosController.class
 ec\edu\espol\aserriosbd\ModificarTipoMaderaController.class
 ec\edu\espol\aserriosbd\AñadirRegistroController.class
+ec\edu\espol\aserriosbd\modelo\SessionManager.class
 ec\edu\espol\aserriosbd\LimpiezaController.class
 ec\edu\espol\aserriosbd\modelo\Producto.class
 ec\edu\espol\aserriosbd\InterfazBase.class
