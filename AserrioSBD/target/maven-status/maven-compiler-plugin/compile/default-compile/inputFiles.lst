@@ -49,6 +49,7 @@ C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Proveedor.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirLimpiezaController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Empleado.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirOperarioController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\LDACController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\RegistroDeLimpiezaController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirRegistroController.java
@@ -68,6 +69,7 @@ C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\SecondaryController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarClienteController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarProveedorController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\OperariosController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\RegistroDeLimpieza.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirDetalleController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ProductoController.java
@@ -75,6 +77,7 @@ C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Detalle.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\InicioPerfilesController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarLimpiezaController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarOperarioController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarProductoController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\ReportesDAO.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Mantenimiento.java

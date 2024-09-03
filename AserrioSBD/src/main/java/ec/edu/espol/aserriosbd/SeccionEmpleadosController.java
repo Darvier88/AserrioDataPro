@@ -60,5 +60,18 @@ public class SeccionEmpleadosController implements Initializable {
     private void regresar(MouseEvent event) throws IOException {
         App.setRoot("opcionesSecretaria");
     }
+
+    @FXML
+    private void irOperarios(MouseEvent event) throws IOException {
+        App.setRoot("operarios");
+    }
+
+    @FXML
+    private void irAsistentes(MouseEvent event) {
+    }
+
+    @FXML
+    private void irSecretarias(MouseEvent event) {
+    }
     
 }

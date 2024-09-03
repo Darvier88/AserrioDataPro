@@ -210,7 +210,81 @@ public static ObservableList<Empleado> getEmpleadoList() {
     }
     return empleadoList;
 }
+public static ObservableList<Empleado> getOperarioList() {
+    ObservableList<Empleado> empleadoList = FXCollections.observableArrayList();
+    Connection connection = DatabaseConnection.getConnection();
 
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Empleado JOIN Operario USING(ID)");
+
+        while (resultSet.next()) {
+            Empleado empleado = new Empleado(
+                    resultSet.getString("ID"),
+                    resultSet.getString("nombre"),
+                    resultSet.getTime("horaInicio").toLocalTime(),
+                    resultSet.getTime("horaFin").toLocalTime(),
+                    resultSet.getDate("fechaCapacitacion") != null ? resultSet.getDate("fechaCapacitacion").toLocalDate() : null,
+                    resultSet.getString("tipoCapacitacion")
+            );
+            empleadoList.add(empleado);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return empleadoList;
+}
+public static ObservableList<Empleado> getAsistenteList() {
+    ObservableList<Empleado> empleadoList = FXCollections.observableArrayList();
+    Connection connection = DatabaseConnection.getConnection();
+
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Empleado JOIN Asistente_operario USING(ID)");
+
+        while (resultSet.next()) {
+            Empleado empleado = new Empleado(
+                    resultSet.getString("ID"),
+                    resultSet.getString("nombre"),
+                    resultSet.getTime("horaInicio").toLocalTime(),
+                    resultSet.getTime("horaFin").toLocalTime(),
+                    resultSet.getDate("fechaCapacitacion") != null ? resultSet.getDate("fechaCapacitacion").toLocalDate() : null,
+                    resultSet.getString("tipoCapacitacion")
+            );
+            empleadoList.add(empleado);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return empleadoList;
+}
+public static ObservableList<Empleado> getSecretariaList() {
+    ObservableList<Empleado> empleadoList = FXCollections.observableArrayList();
+    Connection connection = DatabaseConnection.getConnection();
+
+    try {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Empleado JOIN Secretaria USING(ID)");
+
+        while (resultSet.next()) {
+            Empleado empleado = new Empleado(
+                    resultSet.getString("ID"),
+                    resultSet.getString("nombre"),
+                    resultSet.getTime("horaInicio").toLocalTime(),
+                    resultSet.getTime("horaFin").toLocalTime(),
+                    resultSet.getDate("fechaCapacitacion") != null ? resultSet.getDate("fechaCapacitacion").toLocalDate() : null,
+                    resultSet.getString("tipoCapacitacion")
+            );
+            empleadoList.add(empleado);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return empleadoList;
+}
     
 
      public static ObservableList<TipoMadera> getTipoMaderaList() {

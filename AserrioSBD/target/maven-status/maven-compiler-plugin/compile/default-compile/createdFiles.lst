@@ -29,6 +29,7 @@ ec\edu\espol\aserriosbd\modelo\LDAC.class
 ec\edu\espol\aserriosbd\ModificarEmpleadoController.class
 ec\edu\espol\aserriosbd\ModificarRegistroController.class
 ec\edu\espol\aserriosbd\ModificarRolDePagosController.class
+ec\edu\espol\aserriosbd\AñadirOperarioController.class
 module-info.class
 ec\edu\espol\aserriosbd\RolDePagosController.class
 ec\edu\espol\aserriosbd\modelo\Empleado.class
@@ -66,6 +67,7 @@ ec\edu\espol\aserriosbd\AñadirLimpiezaController.class
 ec\edu\espol\aserriosbd\modelo\ReporteCompra.class
 ec\edu\espol\aserriosbd\ReclamacionController.class
 ec\edu\espol\aserriosbd\ReporteVentasDiaController.class
+ec\edu\espol\aserriosbd\ModificarOperarioController.class
 ec\edu\espol\aserriosbd\EvaluacionController.class
 ec\edu\espol\aserriosbd\modelo\Mantenimiento.class
 ec\edu\espol\aserriosbd\ReporteMComprasController.class
@@ -81,6 +83,7 @@ ec\edu\espol\aserriosbd\MantenimientoController.class
 ec\edu\espol\aserriosbd\ModificarLoteMaderaController.class
 ec\edu\espol\aserriosbd\modelo\UsuariosDAO.class
 ec\edu\espol\aserriosbd\AñadirMaquinariaController.class
+ec\edu\espol\aserriosbd\OperariosController.class
 ec\edu\espol\aserriosbd\ReporteMensualMantenimientoController.class
 ec\edu\espol\aserriosbd\InicioPerfilesController.class
 ec\edu\espol\aserriosbd\AñadirBase.class
