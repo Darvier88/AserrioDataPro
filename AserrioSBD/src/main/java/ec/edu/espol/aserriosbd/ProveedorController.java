@@ -17,13 +17,17 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.text.Text;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -72,62 +76,49 @@ public class ProveedorController implements Initializable {
     @FXML
     private void eliminar(MouseEvent event) {
         Proveedor proveedorSeleccionado = table.getSelectionModel().getSelectedItem();
-
         if (proveedorSeleccionado != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar Eliminación");
+            alert.setHeaderText("¿Estás seguro de que deseas eliminar este proveedor?");
+            alert.setContentText("Al eliminar el proveedor, se eliminarán también todas las instancias relacionadas en las evaluaciones, los lotes de madera, y las especificaciones asociadas a estos lotes.");
+            ButtonType botonConfirmar = new ButtonType("Eliminar");
+            ButtonType botonCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+            alert.getButtonTypes().setAll(botonConfirmar, botonCancelar);
+            
+            Optional<ButtonType> resultado = alert.showAndWait();
+            if(resultado.isPresent() && resultado.get() == botonConfirmar){
             // Lógica para eliminar el proveedor de la base de datos
-            if (eliminarProveedorDeBD(proveedorSeleccionado)) {
-                // Eliminar el proveedor del TableView
-                table.getItems().remove(proveedorSeleccionado);
+                if (eliminarProveedorDeBD(proveedorSeleccionado)) {
+                    // Eliminar el proveedor del TableView
+                    table.getItems().remove(proveedorSeleccionado);
+                } else {
+                    mostrarError("No se pudo eliminar el proveedor de la base de datos.");
+                }
             } else {
-                mostrarError("No se pudo eliminar el proveedor de la base de datos.");
+                mostrarError("Por favor, selecciona un proveedor para eliminar.");
             }
-        } else {
-            mostrarError("Por favor, selecciona un proveedor para eliminar.");
         }
     }
 
     private boolean eliminarProveedorDeBD(Proveedor proveedor) {
-    String sqlEspecificacion = "DELETE FROM especificacion WHERE id_lote IN (SELECT id FROM lote_madera WHERE id_proveedor = ?)";
-    String sqlLoteMadera = "DELETE FROM lote_madera WHERE id_proveedor = ?";
-    String sqlEvaluacion = "DELETE FROM evaluacion WHERE id_proveedor = ?";
-    String sqlProveedor = "DELETE FROM proveedor WHERE cedula = ?";
+    String sql = "CALL EliminarProveedor (?, ?)";
+    
+    try (Connection conn = DatabaseConnection.getConnection();
+         CallableStatement cstmt = conn.prepareCall(sql)) {
 
-    try (Connection conn = DatabaseConnection.getConnection()) {
-        conn.setAutoCommit(false); // Iniciar una transacción
+                // Eliminar registros de la tabla especificacion
+                // Configurar el parámetro del CallableStatement
+            cstmt.setString(1, proveedor.getCedula());
+            cstmt.setBoolean(2, true);
+            cstmt.execute(); // Usa execute en lugar de executeUpdate para procedimientos almacenados
 
-        try (PreparedStatement pstmtEspecificacion = conn.prepareStatement(sqlEspecificacion);
-             PreparedStatement pstmtLoteMadera = conn.prepareStatement(sqlLoteMadera);
-             PreparedStatement pstmtEvaluacion = conn.prepareStatement(sqlEvaluacion);
-             PreparedStatement pstmtProveedor = conn.prepareStatement(sqlProveedor)) {
+        // Comprobar fue eliminado exitosamente
+            return true;
 
-            // Eliminar registros de la tabla especificacion
-            pstmtEspecificacion.setString(1, proveedor.getCedula());
-            pstmtEspecificacion.executeUpdate();
-
-            // Eliminar registros de la tabla lote_madera
-            pstmtLoteMadera.setString(1, proveedor.getCedula());
-            pstmtLoteMadera.executeUpdate();
-
-            // Eliminar registros de la tabla evaluacion
-            pstmtEvaluacion.setString(1, proveedor.getCedula());
-            pstmtEvaluacion.executeUpdate();
-
-            // Finalmente, eliminar el proveedor
-            pstmtProveedor.setString(1, proveedor.getCedula());
-            int rowsAffected = pstmtProveedor.executeUpdate();
-
-            conn.commit(); // Confirmar la transacción
-            return rowsAffected > 0;
-
-        } catch (SQLException e) {
-            conn.rollback(); // Revertir la transacción en caso de error
-            e.printStackTrace();
-            return false;
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
-    }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
 }
 
 

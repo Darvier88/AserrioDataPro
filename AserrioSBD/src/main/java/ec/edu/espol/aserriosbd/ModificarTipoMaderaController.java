@@ -16,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -85,18 +86,19 @@ public class ModificarTipoMaderaController implements Initializable {
     }
 
     private boolean actualizarTipoMaderaEnBD(TipoMadera tipoMaderaModificado) {
-        String sql = "UPDATE tipo_de_madera SET nombre = ?, precio_unitario = ?, condic_ambiental = ? WHERE id = ?";
+        String sql = "{CALL ActualizarTipoMadera(?, ?, ?, ?)}";
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             CallableStatement cstmt = conn.prepareCall(sql)) {
+            
+            cstmt.setString(1, tipoMaderaModificado.getId());
+            cstmt.setString(2, tipoMaderaModificado.getNombre());
+            
+            cstmt.setFloat(3, tipoMaderaModificado.getPrecioUnitario());
+            cstmt.setString(4, tipoMaderaModificado.getCondicionAmbiental());
 
-            pstmt.setString(1, tipoMaderaModificado.getNombre());
-            pstmt.setFloat(2, tipoMaderaModificado.getPrecioUnitario());
-            pstmt.setString(3, tipoMaderaModificado.getCondicionAmbiental());
-            pstmt.setString(4, tipoMaderaModificado.getId());
-
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0; // Verificar si se actualizó al menos una fila
+            cstmt.executeUpdate();
+            return true; // Verificar si se actualizó al menos una fila
 
         } catch (SQLException e) {
             e.printStackTrace();

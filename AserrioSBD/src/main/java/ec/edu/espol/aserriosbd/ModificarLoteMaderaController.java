@@ -16,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -38,29 +39,17 @@ public class ModificarLoteMaderaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // Inicializar ModificarBase con la clase LoteMadera
         modificarBase = new ModificarBase<>(LoteMadera.class);
+        formGrid.getChildren().addAll(modificarBase.getFormGrid().getChildren());
+        
     }
 
     // Método que se llamará para cargar los datos del lote de madera seleccionado
     public void setLoteMadera(LoteMadera loteMadera) {
          if (loteMadera != null) {
-        this.loteMadera = loteMadera; // Guardar el lote de madera para referencia futura
-
-        // Lista de nombres de los campos que deseas incluir en el formulario
-        List<String> fieldNames = Arrays.asList("id", "idProveedor", "idSecretaria", "precio", "fechaLlegada");
-
-        // Mapa de valores para los campos `id`
-        Map<String, String> idFieldValues = Map.of(
-            "id", String.valueOf(loteMadera.getId()),
-            "idProveedor", loteMadera.getIdProveedor(),
-            "idSecretaria", loteMadera.getIdSecretaria()
-        );
-
-        // Generar el formulario dinámico con los campos `id` no editables y con valores específicos
-        GridPane formGrid = modificarBase.buildDynamicFormWithLockedId(fieldNames, idFieldValues);
-        
-        // Agregar el formulario generado al contenedor principal
-        this.formGrid.getChildren().addAll(formGrid.getChildren());
-    }
+            this.loteMadera = loteMadera;
+            modificarBase.loadObject(loteMadera);
+        }
+    
     }
 
     public static void mostrarVentanaModificacion(LoteMadera loteMadera) throws IOException {
@@ -100,19 +89,19 @@ public class ModificarLoteMaderaController implements Initializable {
         }
     }
     private boolean actualizarLoteMaderaEnBD(LoteMadera loteMaderaModificado) {
-        String sql = "UPDATE lote_madera SET id_proveedor = ?, id_secretaria = ?, precio = ?, fecha_llegada = ? WHERE id = ?";
+            String sql = "CALL ActualizarLoteMadera(?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, loteMaderaModificado.getIdProveedor());
-            pstmt.setString(2, loteMaderaModificado.getIdSecretaria());
-            pstmt.setFloat(3, loteMaderaModificado.getPrecio());
-            pstmt.setDate(4, java.sql.Date.valueOf(loteMaderaModificado.getFechaLlegada())); // Convertir LocalDate a SQL Date
-            pstmt.setInt(5, loteMaderaModificado.getId());
-
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0; // Verificar si se actualizó al menos una fila
+             CallableStatement cstmt = conn.prepareCall(sql)) {
+            
+            cstmt.setInt(1, loteMaderaModificado.getId());
+            cstmt.setString(2, loteMaderaModificado.getIdProveedor());
+            cstmt.setString(3, loteMaderaModificado.getIdSecretaria());
+            cstmt.setFloat(4, loteMaderaModificado.getPrecio());
+            cstmt.setDate(5, java.sql.Date.valueOf(loteMaderaModificado.getFechaLlegada())); // Convertir LocalDate a SQL Date
+          
+            cstmt.executeUpdate();
+            return true; // Verificar si se actualizó al menos una fila
 
         } catch (SQLException e) {
             e.printStackTrace();

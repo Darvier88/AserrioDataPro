@@ -13,13 +13,18 @@ public class Especificación {
     private String idMadera;      // ID de la madera (FK)
     private int importe;          // Importe
     private int cantidad;         // Cantidad
-
+    
+    public Especificación() {
+        // Inicialización de variables si es necesario
+    }
+    
     public Especificación(int idLote, String idMadera, int importe, int cantidad) {
         this.idLote = idLote;
         this.idMadera = idMadera;
         this.importe = importe;
         this.cantidad = cantidad;
     }
+    
 
     // Getters y Setters
     public int getIdLote() {

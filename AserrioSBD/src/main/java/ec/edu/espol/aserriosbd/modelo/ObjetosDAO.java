@@ -153,11 +153,11 @@ public class ObjetosDAO {
     public static ObservableList<LoteMadera> getLoteMaderaList() {
     ObservableList<LoteMadera> loteMaderaList = FXCollections.observableArrayList();
 
-    String query = "SELECT lm.id, lm.id_proveedor, lm.id_secretaria, lm.precio, lm.fecha_llegada, " +
-                   "p.nombre AS proveedor_nombre, s.nombre AS secretaria_nombre " +
-                   "FROM lote_madera lm " +
-                   "JOIN proveedor p ON lm.id_proveedor = p.cedula " +
-                   "JOIN secretaria s ON lm.id_secretaria = s.ID";
+    String query = "SELECT lm.id, lm.id_proveedor, p.nombre AS proveedor_nombre, lm.id_secretaria, e.nombre AS secretaria_nombre, lm.precio, lm.fecha_llegada " +
+               "FROM lote_madera lm " +
+               "JOIN proveedor p ON lm.id_proveedor = p.cedula " +
+               "JOIN secretaria s ON lm.id_secretaria = s.ID " +
+               "JOIN empleado e ON s.ID = e.ID";
 
     try (Connection connection = DatabaseConnection.getConnection();
          Statement statement = connection.createStatement();
@@ -358,8 +358,8 @@ public static ObservableList<Empleado> getEmpleadoList() {
                 Evaluacion evaluacion = new Evaluacion(
                         resultSet.getInt("id"),
                         resultSet.getString("id_proveedor"),
-                        resultSet.getInt("calidad"),
-                        resultSet.getInt("puntualidad"),
+                        resultSet.getString("calidad"),
+                        resultSet.getString("puntualidad"),
                         resultSet.getString("detalle")
                 );
                 evaluacionList.add(evaluacion);

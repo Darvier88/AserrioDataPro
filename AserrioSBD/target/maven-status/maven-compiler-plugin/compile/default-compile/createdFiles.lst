@@ -1,5 +1,6 @@
 ec\edu\espol\aserriosbd\AñadirProductoController.class
 ec\edu\espol\aserriosbd\modelo\Factura.class
+ec\edu\espol\aserriosbd\ModificarEspecificacionesController.class
 ec\edu\espol\aserriosbd\DetalleController.class
 ec\edu\espol\aserriosbd\LoteMaderaController.class
 ec\edu\espol\aserriosbd\modelo\Evaluacion.class
@@ -18,6 +19,7 @@ ec\edu\espol\aserriosbd\ProductoController.class
 ec\edu\espol\aserriosbd\EspecificaciónController.class
 ec\edu\espol\aserriosbd\MaquinariaController.class
 ec\edu\espol\aserriosbd\modelo\ReporteMensualMantenimiento.class
+ec\edu\espol\aserriosbd\AñadirEvaluacionController.class
 ec\edu\espol\aserriosbd\SeccionComprasController.class
 ec\edu\espol\aserriosbd\ReportesController.class
 ec\edu\espol\aserriosbd\ModificarEmpleadoController.class
@@ -53,11 +55,13 @@ ec\edu\espol\aserriosbd\ReporteMComprasController.class
 ec\edu\espol\aserriosbd\modelo\ObjetosDAO.class
 ec\edu\espol\aserriosbd\AñadirClienteController.class
 ec\edu\espol\aserriosbd\ModificarBase.class
+ec\edu\espol\aserriosbd\ModificarEvaluacionController.class
 ec\edu\espol\aserriosbd\modelo\ReporteVentasDia.class
 ec\edu\espol\aserriosbd\modelo\TipoMadera.class
 ec\edu\espol\aserriosbd\App.class
 ec\edu\espol\aserriosbd\MantenimientoController.class
 ec\edu\espol\aserriosbd\ModificarLoteMaderaController.class
+ec\edu\espol\aserriosbd\AñadirEspecificaciónController.class
 ec\edu\espol\aserriosbd\ReporteMensualMantenimientoController.class
 ec\edu\espol\aserriosbd\InicioPerfilesController.class
 ec\edu\espol\aserriosbd\AñadirBase.class

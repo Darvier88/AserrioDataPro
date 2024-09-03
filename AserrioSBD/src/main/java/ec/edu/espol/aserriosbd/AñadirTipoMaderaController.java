@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -40,18 +41,19 @@ public class AñadirTipoMaderaController implements Initializable {
     }
 
     private boolean insertarTipoMaderaEnBD(TipoMadera tipoMadera) {
-        String sql = "INSERT INTO tipo_de_madera (id, nombre, precio_unitario, condic_ambiental) VALUES (?, ?, ?, ?)";
+        String sql = "CALL InsertTipoDeMadera (?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             CallableStatement cstmt = conn.prepareCall(sql)) {
 
-            pstmt.setString(1, tipoMadera.getId());
-            pstmt.setString(2, tipoMadera.getNombre());
-            pstmt.setFloat(3, tipoMadera.getPrecioUnitario());
-            pstmt.setString(4, tipoMadera.getCondicionAmbiental());
+            cstmt.setString(1, tipoMadera.getId());
+            cstmt.setString(2, tipoMadera.getNombre());
+            cstmt.setFloat(3, tipoMadera.getPrecioUnitario());
+            cstmt.setString(4, tipoMadera.getCondicionAmbiental());
 
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0; // Verifica si se insertó al menos una fila
+            // Ejecutar el procedimiento almacenado
+            boolean hasResultSet = cstmt.execute();
+            return !hasResultSet; // El método execute() devuelve true si hay un ResultSet, false si es solo una actualización
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -77,8 +79,9 @@ public class AñadirTipoMaderaController implements Initializable {
         } catch (IllegalArgumentException e) {
             mostrarError(e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
             mostrarError("Ocurrió un error al intentar añadir el tipo de madera.");
+            e.printStackTrace();
+            
         }
     }
 

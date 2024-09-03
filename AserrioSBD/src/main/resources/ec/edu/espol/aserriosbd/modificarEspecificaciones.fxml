@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.aserriosbd.ModificarEspecificacionesController">
+    <!-- Definir márgenes alrededor del VBox -->
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20" />
+    </padding>
+
+    <!-- Contenedor para los campos generados dinámicamente -->
+    <GridPane fx:id="formGrid" alignment="CENTER" hgap="10" vgap="10" />
+    
+    <!-- Contenedor para los botones "Añadir" y "Cancelar" -->
+    <HBox alignment="CENTER" spacing="10">
+        <Button onAction="#modificar" text="Modificar" />
+        <Button onAction="#cancelar" text="Cancelar" />
+    </HBox>
+</VBox>
