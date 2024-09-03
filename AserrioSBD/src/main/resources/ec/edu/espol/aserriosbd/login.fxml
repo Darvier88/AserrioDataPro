@@ -97,7 +97,7 @@
             <Insets top="40.0" />
          </padding>
       </VBox>
-      <Button layoutX="1258.0" layoutY="691.0" mnemonicParsing="false" onMouseClicked="#regresar" prefHeight="50.0" prefWidth="57.0" style="-fx-background-color: rgb(34, 30, 38); -fx-background-radius: 20;" stylesheets="@../../../../styles/inicioperfiles.css">
+      <Button layoutX="1258.0" layoutY="691.0" mnemonicParsing="false" onMouseClicked="#mostrarDatos" prefHeight="50.0" prefWidth="57.0" style="-fx-background-color: rgb(34, 30, 38); -fx-background-radius: 20;" stylesheets="@../../../../styles/inicioperfiles.css">
          <graphic>
             <ImageView fitHeight="28.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
                <image>
