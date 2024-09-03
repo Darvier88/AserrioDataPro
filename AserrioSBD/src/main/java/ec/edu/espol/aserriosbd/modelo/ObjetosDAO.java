@@ -303,11 +303,11 @@ public static ObservableList<Empleado> getEmpleadoList() {
 
             while (resultSet.next()) {
                 Detalle detalle = new Detalle(
-                        resultSet.getInt("idFactura"),
-                        resultSet.getString("idProducto"),
-                        resultSet.getInt("cantidad"),
-                        resultSet.getFloat("totalProducto"),
-                        resultSet.getString("detalleAdic")
+                        resultSet.getInt("ID_factura"),
+                        resultSet.getString("ID_Producto"),
+                        resultSet.getInt("unidades"),
+                        resultSet.getFloat("totalProdu"),
+                        resultSet.getString("detalle_adic")
                 );
                 detalleList.add(detalle);
             }

@@ -27,6 +27,7 @@ C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirLoteMaderaController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\TipoMaderaController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\EmpleadoController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\EspecificaciónController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\ReporteMensualMantenimiento.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Cliente.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Producto.java
@@ -34,12 +35,15 @@ C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirReclamacionController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirProductoController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Limpieza.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Especificación.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\MantenimientoController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Evaluacion.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Proveedor.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\Empleado.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ReclamacionController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\LoginController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\LoginDueñoController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\EvaluacionController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirProveedorController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarLoteMaderaController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarEmpleadoController.java
@@ -62,4 +66,5 @@ C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\LimpiezaController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\modelo\ObjetosDAO.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\AñadirClienteController.java
+C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\SeccionComprasController.java
 C:\Users\ASUS VIVOBOOK PRO\AserrioDataPro\AserrioSBD\src\main\java\ec\edu\espol\aserriosbd\ModificarTipoMaderaController.java

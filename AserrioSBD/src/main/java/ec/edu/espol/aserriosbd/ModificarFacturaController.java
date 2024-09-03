@@ -113,7 +113,7 @@ public class ModificarFacturaController implements Initializable {
         }
 
         cstmt.setFloat(8, facturaModificado.getSubtotalSinImpuestos());
-        cstmt.setFloat(9, facturaModificado.getSubtotal0Porcent());
+        cstmt.setFloat(9, 0);
 
         // Ejecutar el procedimiento almacenado
         boolean hasResultSet = cstmt.execute();
