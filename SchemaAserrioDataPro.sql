@@ -1089,7 +1089,6 @@ begin if idProveedor <> all(select cedula from Proveedor) then
         commit;
 	end if; 
 end /
-
 -- eliminar evaluacion
 create procedure EliminarEvaluacion (in idEvaluacion int)
 begin if idEvaluacion <> all(select id from Evaluacion) then
@@ -1279,7 +1278,9 @@ begin
 		signal sqlstate '07780' set message_text='ID de la secretaria no existe';
         rollback;
 	else
-		update Mantenimiento set id_operario=idOperario,codigo_maquinaria=codMaquinaria,id_secretaria=idSecretaria,detalles=NuevosDetalles,fecha=fechaNueva;
+		update Mantenimiento 
+        set ID_operario=idOperario,codigo_maquinaria=codMaquinaria,ID_secretaria=idSecretaria,detalles=NuevosDetalles,fecha=fechaNueva
+        where ID=idNuevo;
         commit;
 	end if;
 end /
@@ -1347,7 +1348,7 @@ begin
 	else
 		UPDATE registro
 		SET fecha=fech
-		WHERE ID_asistente=idAsist and id_limpieza=idLimpieza and id_secretaria=idSecretaria;
+		WHERE ID_asistente=idAsist and ID_limpieza=idLimpieza and ID_secretaria=idSecretaria;
         commit;
 	end if;
 end/
@@ -1566,19 +1567,13 @@ BEGIN
 		SET nombre = name, precio_unitario = precUnit, condic_ambiental = condicAmb
 		WHERE id = idMadera;
 		commit;
-    end if;
+end if;
 END /
 
 create trigger trgActualizarTipoMadera before update on tipo_de_madera
 for each row begin
 	update Especificacion set ID_madera=new.ID where ID_madera=old.ID;
 end/
-CREATE TRIGGER ActualizarImporteEspecificacion
-AFTER UPDATE ON tipo_de_madera
-FOR EACH ROW
-BEGIN
-	update Especificacion set importe=new.precio_unitario*cantidad where id_madera=new.id;
-END/
 -- actualizar rol de pago
 create procedure ActualizarRolDePago(in idNuevo int,in idEmpleado char(10),in laborados int,in sueldoNuevo float,in horasExtras float,in totalIngresos float,in EgresosIEES float,NuevosAnticipos float,totalEgresos float)
 begin
